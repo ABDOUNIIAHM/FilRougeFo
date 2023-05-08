@@ -16,9 +16,6 @@ public class Month {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @ManyToMany
-    @JoinTable(name = "product_months",
-                joinColumns = @JoinColumn(name = "idProduct"),
-                inverseJoinColumns = @JoinColumn(name = "idMonth"))
+    @ManyToMany(mappedBy = "seasonalMonths")
     private List<Product> products;
 }

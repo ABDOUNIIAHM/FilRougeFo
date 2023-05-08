@@ -25,7 +25,10 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "idCategory")
     private Category category;
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany
+    @JoinTable(name = "product_months",
+            joinColumns = @JoinColumn(name = "idProduct"),
+            inverseJoinColumns = @JoinColumn(name = "idMonth"))
     private List<Month> seasonalMonths;
 
 }
