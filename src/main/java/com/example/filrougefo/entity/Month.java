@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,5 +18,5 @@ public class Month {
     private int id;
     private String name;
     @ManyToMany(mappedBy = "seasonalMonths")
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 }

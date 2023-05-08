@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Client {
     private String password;
     private String avatarUrl;
     @OneToMany(mappedBy = "client")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
     @OneToMany(mappedBy = "client")
-    private List<Address> addresses;
+    private List<Address> addresses = new ArrayList<>();
 }
