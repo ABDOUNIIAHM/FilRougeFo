@@ -1,15 +1,14 @@
 package com.example.filrougefo.entity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "categories")
-@Data @NoArgsConstructor @AllArgsConstructor
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
