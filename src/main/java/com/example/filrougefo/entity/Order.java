@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,10 +21,7 @@ public class Order {
     private String paymentMethod;
     @ManyToOne
     private Client client;
-    @ManyToMany
-    @JoinTable(name = "OrderLines",
-            joinColumns = @JoinColumn(name = "idOrder"),
-            inverseJoinColumns = @JoinColumn(name = "idProduct"))
-    private List<Product> products;
+    @OneToMany(mappedBy = "order")
+    private List<OrderLine> orderLines = new ArrayList<>();
 
 }
