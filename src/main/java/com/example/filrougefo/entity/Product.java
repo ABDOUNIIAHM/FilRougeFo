@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,8 @@ public class Product {
     @JoinTable(name = "product_months",
             joinColumns = @JoinColumn(name = "idProduct"),
             inverseJoinColumns = @JoinColumn(name = "idMonth"))
-    private List<Month> seasonalMonths;
+    private List<Month> seasonalMonths = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<OrderLine> orderLines = new ArrayList<>();
 
 }

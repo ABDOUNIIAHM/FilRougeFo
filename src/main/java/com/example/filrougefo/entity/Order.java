@@ -1,21 +1,27 @@
 package com.example.filrougefo.entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "orders")
 @Data @NoArgsConstructor @AllArgsConstructor
-public class Category {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    @OneToMany(mappedBy = "category")
-    private List<Product> products = new ArrayList<>();
+    private Long id;
+    private String status;
+    private Date date;
+    private String paymentMethod;
+    @ManyToOne
+    private Client client;
+    @OneToMany(mappedBy = "order")
+    private List<OrderLine> orderLines = new ArrayList<>();
 
 }
