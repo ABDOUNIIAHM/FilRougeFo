@@ -25,11 +25,11 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "idCategory")
     private Category category;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(name = "product_months",
             joinColumns = @JoinColumn(name = "idProduct"),
             inverseJoinColumns = @JoinColumn(name = "idMonth"))
-    private List<Month> seasonalMonths = new ArrayList<>();
+    private List<Months> seasonalMonths = new ArrayList<>();
     @OneToMany(mappedBy = "product")
     private List<OrderLine> orderLines = new ArrayList<>();
 
