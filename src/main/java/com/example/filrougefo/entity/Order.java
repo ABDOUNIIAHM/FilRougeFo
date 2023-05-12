@@ -3,6 +3,7 @@ package com.example.filrougefo.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,11 +17,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
-    private Date date;
+    private LocalDate date;
     private String paymentMethod;
     @ManyToOne
+    @JoinColumn(name = "id_client")
     private Client client;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderLine> orderLines = new ArrayList<>();
 
 }
