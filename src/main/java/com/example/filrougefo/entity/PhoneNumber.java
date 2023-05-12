@@ -7,7 +7,6 @@ import lombok.*;
 @Table(name = "PhoneNumbers")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-@Data
 public class PhoneNumber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

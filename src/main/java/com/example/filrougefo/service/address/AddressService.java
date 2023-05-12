@@ -11,8 +11,8 @@ public class AddressService implements IntAddressService{
     public AddressService(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }
-    @Override
-    public List<Address> findByClientId(Long id) {
-        return addressRepository.findAllByClientId(id);
-    }
+//    @Override
+//    public List<Address> findByClientId(Long id) {
+//        return addressRepository.findAllByClientId(id);
+//    }
 }
