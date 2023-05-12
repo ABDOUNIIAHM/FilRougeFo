@@ -1,9 +1,7 @@
 package com.example.filrougefo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,7 +9,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "Products")
-@Data @NoArgsConstructor @AllArgsConstructor
+@Table(name = "products")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +28,11 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "idCategory")
     private Category category;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(name = "product_months",
             joinColumns = @JoinColumn(name = "idProduct"),
             inverseJoinColumns = @JoinColumn(name = "idMonth"))
-    private List<Month> seasonalMonths = new ArrayList<>();
+    private List<Months> seasonalMonths = new ArrayList<>();
     @OneToMany(mappedBy = "product")
     private List<OrderLine> orderLines = new ArrayList<>();
 

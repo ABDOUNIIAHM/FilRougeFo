@@ -1,16 +1,14 @@
 package com.example.filrougefo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Clients")
-@Data @NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +29,4 @@ public class Client {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_client")
     private List<PhoneNumber> phoneNumberList;
-
 }
