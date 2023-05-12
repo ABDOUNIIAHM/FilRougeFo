@@ -20,4 +20,6 @@ public class OrderLine {
     private int quantity;
     private BigDecimal discount;
 
+    //@ManyToOne Client client;
+
 }

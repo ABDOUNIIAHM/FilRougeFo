@@ -22,4 +22,6 @@ public class Client {
     private List<Order> orders = new ArrayList<>();
     @OneToMany(mappedBy = "client")
     private List<Address> addresses = new ArrayList<>();
+
+    //(@OnetoMany) List<OrderLine> orderlines;
 }
