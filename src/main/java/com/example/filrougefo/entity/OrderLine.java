@@ -17,7 +17,7 @@ public class OrderLine {
     @ManyToOne
     @JoinColumn(name = "idProduct")
     private Product product;
-    private int quantity;
+    private BigDecimal quantity;
     private BigDecimal discount;
 
 }

@@ -14,6 +14,7 @@ public class Address {
     private String title;
     private String number;
     private String roadPrefix;
+    private String roadName;
     private String complement;
     private String zipCode;
     private String city;
