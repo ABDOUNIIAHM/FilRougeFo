@@ -15,9 +15,11 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String status;
+    @OneToOne
+    private OrderStatus status;
     private Date date;
-    private String paymentMethod;
+    @OneToOne
+    private PaymentMethod paymentMethod;
     @ManyToOne
     private Client client;
     @OneToMany(mappedBy = "order")
