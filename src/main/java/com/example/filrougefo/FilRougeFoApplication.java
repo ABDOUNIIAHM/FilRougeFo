@@ -1,9 +1,6 @@
 package com.example.filrougefo;
 import com.example.filrougefo.entity.*;
-import com.example.filrougefo.repository.ClientRepository;
-import com.example.filrougefo.repository.MonthRepository;
-import com.example.filrougefo.repository.OrderRepository;
-import com.example.filrougefo.repository.ProductRepository;
+import com.example.filrougefo.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +27,10 @@ public class FilRougeFoApplication implements CommandLineRunner {
 
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private OrderStatusRepository orderStatusRepository;
+    @Autowired
+    private PaymentMethodRepository paymentMethodRepository;
 
     @Override
     @Transactional
@@ -69,16 +70,11 @@ public class FilRougeFoApplication implements CommandLineRunner {
         client.setAddressList(Arrays.asList(address1, address2));
         client.setPhoneNumberList(Arrays.asList(phoneNumber1, phoneNumber2));
 
-//        clientRepository.save(client);
-
-        // Create Order, OrderLine associated to the client
-        // The Order Repo saves the orderLine ? -> added CASCADE.ALL on Order
-        // Is the order saved when client.save ???
-
         Order order = new Order();
         order.setClient(client);
         client.getOrderList().add(order);
-        order.setStatus("basket"); //TODO: use enum ?
+        order.setStatus(orderStatusRepository.getReferenceById(1L));
+        order.setPaymentMethod(paymentMethodRepository.getReferenceById(1L));
         order.setDate(LocalDate.now());
 
         OrderLine orderLine = new OrderLine();
@@ -87,7 +83,7 @@ public class FilRougeFoApplication implements CommandLineRunner {
         orderLine.setProduct(productRepository.getReferenceById(1));
         orderLine.setQuantity(BigDecimal.valueOf(0.250));
 
-        clientRepository.save(client);
+//        clientRepository.save(client);
 
         OrderLine orderLine2 = new OrderLine();
         orderLine2.setOrder(order);
@@ -95,7 +91,9 @@ public class FilRougeFoApplication implements CommandLineRunner {
         orderLine2.setProduct(productRepository.getReferenceById(2));
         orderLine2.setQuantity(BigDecimal.valueOf(1));
 
-        orderRepository.save(order);
+//        orderRepository.save(order);
+
+
 
     }
 }

@@ -16,10 +16,12 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "id_status")
     private OrderStatus status;
     private LocalDate date;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "id_paymentMethod")
     private PaymentMethod paymentMethod;
     @ManyToOne
     @JoinColumn(name = "id_client")
