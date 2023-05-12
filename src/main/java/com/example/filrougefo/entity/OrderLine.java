@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 @Entity
-@Table(name = "orderlines")
+@Table(name = "OrderLines")
 @Data @NoArgsConstructor @AllArgsConstructor
 public class OrderLine {
     @Id

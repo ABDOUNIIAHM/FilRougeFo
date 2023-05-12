@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table
+@Table(name = "Adresses")
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Address {
     @Id
@@ -18,8 +18,5 @@ public class Address {
     private String complement;
     private String zipCode;
     private String city;
-    @ManyToOne
-    @JoinColumn(name = "idClient")
-    private Client client;
 
 }
