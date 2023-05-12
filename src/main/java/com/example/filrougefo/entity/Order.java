@@ -16,13 +16,14 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String status;
+    @OneToOne
+    private OrderStatus status;
     private LocalDate date;
-    private String paymentMethod;
+    @OneToOne
+    private PaymentMethod paymentMethod;
     @ManyToOne
     @JoinColumn(name = "id_client")
     private Client client;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderLine> orderLines = new ArrayList<>();
-
 }
