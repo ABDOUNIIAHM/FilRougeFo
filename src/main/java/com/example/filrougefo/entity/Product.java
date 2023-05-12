@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "Products")
 @Table(name = "products")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
@@ -15,6 +16,8 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(unique = true)
     private String name;
     private String unit;
     private BigDecimal pricePerUnit;

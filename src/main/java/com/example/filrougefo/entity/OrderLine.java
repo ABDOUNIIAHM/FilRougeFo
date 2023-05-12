@@ -4,7 +4,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 @Entity
-@Table(name = "orderlines")
+@Table(name = "OrderLines")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class OrderLine {
@@ -19,7 +19,5 @@ public class OrderLine {
     private Product product;
     private int quantity;
     private BigDecimal discount;
-
-    //@ManyToOne Client client;
 
 }

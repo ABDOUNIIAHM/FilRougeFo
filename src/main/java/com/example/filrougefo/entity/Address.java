@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table
+@Table(name = "Adresses")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class Address {
@@ -17,8 +17,5 @@ public class Address {
     private String complement;
     private String zipCode;
     private String city;
-    @ManyToOne
-    @JoinColumn(name = "idClient")
-    private Client client;
 
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "clients")
+@Table(name = "Clients")
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter
 public class Client {
     @Id
@@ -15,13 +15,18 @@ public class Client {
     private Long id;
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String email;
     private String password;
     private String avatarUrl;
-    @OneToMany(mappedBy = "client")
-    private List<Order> orders = new ArrayList<>();
-    @OneToMany(mappedBy = "client")
-    private List<Address> addresses = new ArrayList<>();
-
-    //(@OnetoMany) List<OrderLine> orderlines;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_client")
+    private List<Order> orderList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_client")
+    private List<Address> addressList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_client")
+    private List<PhoneNumber> phoneNumberList;
 }

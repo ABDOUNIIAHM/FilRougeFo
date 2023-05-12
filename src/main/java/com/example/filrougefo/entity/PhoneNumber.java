@@ -4,15 +4,14 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "Admins")
+@Table(name = "PhoneNumbers")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class Admin {
+@Data
+public class PhoneNumber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(unique = true)
-    private String username;
-    private boolean isSuperAdmin=false;
-    private String password;
+    private Long id;
+    private String phoneNumber;
+
 }
