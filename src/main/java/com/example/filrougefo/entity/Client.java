@@ -8,7 +8,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "Clients")
-@NoArgsConstructor @AllArgsConstructor @Getter @Setter
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

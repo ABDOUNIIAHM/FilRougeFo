@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "Products")
-@Table(name = "products")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class Product {
