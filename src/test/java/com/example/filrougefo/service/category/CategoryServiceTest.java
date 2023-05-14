@@ -1,5 +1,6 @@
 package com.example.filrougefo.service.category;
 import com.example.filrougefo.entity.Category;
+import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,7 +22,7 @@ class CategoryServiceTest {
     @Mock
     private CategoryRepository categoryRepository;
     @InjectMocks
-    private CategoryService categoryService;
+    private CategoryService underTest;
 
 
     @Test
@@ -31,19 +33,20 @@ class CategoryServiceTest {
                 ,new Category(2,"categ2",null));
 
         when(categoryRepository.findAll()).thenReturn(expected);
-        List<Category> result = categoryService.findAll();
+        List<Category> result = underTest.findAll();
 
         assertEquals(expected,result);
     }
 
     @Test
-    void ShouldReturnACategory() {
+    void ShouldReturnACategoryById() {
 
         Optional<Category> expected = Optional.of(new Category(1, "categ1", null));
 
         when(categoryRepository.findById(any(int.class))).thenReturn(expected);
-        Category result = categoryService.findById(1);
+        Category result = underTest.findById(1);
 
+        assertTrue(result instanceof Category);
         assertEquals(expected.get(),result);
     }
     @Test
@@ -51,15 +54,56 @@ class CategoryServiceTest {
 
         when(categoryRepository.findById(any(int.class))).thenReturn(Optional.empty());
 
-        assertThrows(RuntimeException.class, () -> categoryService.findById(1));
-
+        assertThrows(RuntimeException.class, () -> underTest.findById(1));
     }
 
     @Test
-    void findBySearchedName() {
+    void ShouldReturnListOfCategoriesWhenSearchedByNamePattern() {
+
+        List<Category> expected = List.of(
+                new Category(1,"categ1",null)
+                ,new Category(2,"categ2",null));
+
+        when(categoryRepository.findCategoriesByNameContainingIgnoreCase(any(String.class)))
+                .thenReturn(Optional.of(expected));
+        List<Category> result = underTest.findBySearchedName("name");
+
+        assertEquals(expected,result);
+    }
+    @Test
+    void ShouldThrowExceptionWhenNoCategoryIsFoundByNamePattern() {
+
+        when(categoryRepository.findCategoriesByNameContainingIgnoreCase(any(String.class)))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class,() -> underTest.findBySearchedName("name") );
     }
 
     @Test
     void findAllCategoriesExceptProductCategory() {
+
+        Category cat1 = new Category(1,"categ1",null);
+        Category cat2 = new Category(2,"categ2",null);
+        Category cat3 = new Category(3,"categ3",null);
+
+        Product product = new Product();
+        product.setCategory(cat1);
+
+        List<Category> allCategories = List.of(cat1,cat2,cat3);
+        List<Category> expected = List.of(cat2,cat3);
+
+        when(categoryRepository.findAll()).thenReturn(allCategories);
+
+        List<Category> result = underTest.findAllCategoriesExceptProductCategory(product);
+
+        AtomicInteger index = new AtomicInteger();
+
+        assertTrue(result.size()==2);
+        result
+                .stream()
+                .forEach(c -> {
+                    assertEquals(expected.get(index.get()).getId(),c.getId());
+                    index.getAndIncrement();
+                });
     }
 }
