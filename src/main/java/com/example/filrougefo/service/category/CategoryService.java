@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CategoryService implements IntCategoryService{
     private final CategoryRepository categoryRepository;
+
     @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
@@ -19,12 +20,11 @@ public class CategoryService implements IntCategoryService{
     public Category findById(int id) {
 
         Category cat = categoryRepository
-                .findById(id)
-                .orElseThrow(()-> new RuntimeException("No category found for Id:"+id));
+                        .findById(id)
+                        .orElseThrow(()-> new RuntimeException("No category found for Id:"+id));
 
-        return cat;
+                return cat;
     }
-
     @Override
     public List<Category> findBySearchedName(String name) {
 
@@ -34,7 +34,6 @@ public class CategoryService implements IntCategoryService{
 
         return searchedCategories;
     }
-
     @Override
     public List<Category> findAllCategoriesExceptProductCategory(Product product) {
 

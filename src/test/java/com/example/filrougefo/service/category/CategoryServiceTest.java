@@ -41,13 +41,13 @@ class CategoryServiceTest {
     @Test
     void ShouldReturnACategoryById() {
 
-        Optional<Category> expected = Optional.of(new Category(1, "categ1", null));
+        Category expected = new Category(1, "categ1", null);
 
-        when(categoryRepository.findById(any(int.class))).thenReturn(expected);
+        when(categoryRepository.findById(any(int.class))).thenReturn(Optional.of(expected));
         Category result = underTest.findById(1);
 
         assertTrue(result instanceof Category);
-        assertEquals(expected.get(),result);
+        assertEquals(expected,result);
     }
     @Test
     void ShouldThrowExceptionWhenCategoryNotFoundById(){
