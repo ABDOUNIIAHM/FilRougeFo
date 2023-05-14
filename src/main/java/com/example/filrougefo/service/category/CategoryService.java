@@ -1,27 +1,50 @@
 package com.example.filrougefo.service.category;
-
 import com.example.filrougefo.entity.Category;
+import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
+@AllArgsConstructor
 public class CategoryService implements IntCategoryService{
-
     private final CategoryRepository categoryRepository;
-
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
     @Override
-    public Optional<Category> findById(int id) {
-        return categoryRepository.findById(id);
+    public Category findById(int id) {
+
+        Category cat = categoryRepository
+                        .findById(id)
+                        .orElseThrow(()-> new RuntimeException("No category found for Id:"+id));
+
+                return cat;
+    }
+    @Override
+    public List<Category> findBySearchedName(String name) {
+
+        List<Category> searchedCategories = categoryRepository
+                .findCategoriesByNameContainingIgnoreCase(name)
+                .orElseThrow(()->new RuntimeException("No category found for: "+name));
+
+        return searchedCategories;
+    }
+    @Override
+    public List<Category> findAllCategoriesExceptProductCategory(Product product) {
+
+        List<Category> categories =
+
+                categoryRepository
+                .findAll()
+                .stream()
+                .filter(category -> category.getId() != product.getCategory().getId())
+                .collect(Collectors.toList());
+
+        return categories;
     }
 }
