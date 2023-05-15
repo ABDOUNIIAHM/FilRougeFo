@@ -7,6 +7,6 @@ import java.util.List;
 
 @Service
 public interface IntAddressService {
-//    List<Address> findByClientId(Long id);
+//    List<Address> findByClientId(long id);
 
 }

@@ -12,7 +12,7 @@ public class AddressService implements IntAddressService{
         this.addressRepository = addressRepository;
     }
 //    @Override
-//    public List<Address> findByClientId(Long id) {
+//    public List<Address> findByClientId(long id) {
 //        return addressRepository.findAllByClientId(id);
 //    }
 }
