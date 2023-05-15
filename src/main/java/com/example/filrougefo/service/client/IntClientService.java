@@ -8,8 +8,8 @@ import java.util.Optional;
 
 @Service
 public interface IntClientService {
-    Optional<Client> findById(Long id);
+    Client findById(Long id);
     List<Client> findAll();
-
-
+    Client createClient(Client client);
+    void updateClient(Client client);
 }
