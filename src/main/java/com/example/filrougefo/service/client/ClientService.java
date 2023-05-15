@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ClientService implements IntClientService {
     private final ClientRepository clientRepository;
     @Override
-    public Client findById(Long id) {
+    public Client findById(long id) {
 
         Client client = clientRepository
                 .findById(id)

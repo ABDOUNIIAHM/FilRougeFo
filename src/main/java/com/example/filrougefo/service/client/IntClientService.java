@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Service
 public interface IntClientService {
-    Client findById(Long id);
+    Client findById(long id);
     List<Client> findAll();
     Client createClient(Client client);
     void updateClient(Client client);
