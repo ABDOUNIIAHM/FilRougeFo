@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class OrderLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @ManyToOne
     @JoinColumn(name = "idOrder")
     private Order order;
