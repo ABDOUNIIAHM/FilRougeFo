@@ -1,5 +1,4 @@
 package com.example.filrougefo.service.product;
-import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
@@ -58,6 +57,27 @@ class ProductServiceTest {
     }
 
     @Test
-    void searchProductByNamePattern() {
+    void ShouldReturnListOfCategoriesWhenSearchedByNamePattern() {
+
+        Product p1 = new Product();
+        Product p2 = new Product();
+        p1.setId(1);
+        p2.setId(2);
+
+        List<Product> expected = List.of(p1,p2);
+
+        when(productRepository.findAllByNameContainingIgnoreCase(any(String.class)))
+                .thenReturn(Optional.of(expected));
+        List<Product> result = underTest.searchProductByNamePattern("name");
+
+        assertEquals(expected,result);
+    }
+    @Test
+    void ShouldThrowExceptionWhenNoCategoryIsFoundByNamePattern() {
+
+        when(productRepository.findAllByNameContainingIgnoreCase(any(String.class)))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class,() -> underTest.searchProductByNamePattern("name") );
     }
 }
