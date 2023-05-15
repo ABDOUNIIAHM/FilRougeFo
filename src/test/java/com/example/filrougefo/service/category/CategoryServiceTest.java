@@ -24,7 +24,6 @@ class CategoryServiceTest {
     @InjectMocks
     private CategoryService underTest;
 
-
     @Test
     void ShouldReturnAllCategories() {
 
