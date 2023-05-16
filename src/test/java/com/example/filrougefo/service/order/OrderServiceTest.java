@@ -9,9 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +70,7 @@ class OrderServiceTest {
     @Test
     void ShouldReturnAllOrdersBeforeGivenDate() {
 
-        Date date = new Date();
+        LocalDate date = LocalDate.of(1996,5,18);
         Order o1 = new Order();
         Order o2 = new Order();
         o1.setId(1);
