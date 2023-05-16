@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +79,7 @@ class OrderServiceTest {
         o2.setId(2);
         List<Order> expected = List.of(o1,o2);
 
-        when(orderRepository.findAllByDateIsLessThanEqual(any(Date.class))).thenReturn(expected);
+        when(orderRepository.findAllByDateIsLessThanEqual(any(LocalDate.class))).thenReturn(expected);
         List<Order> result = underTest.findAllByOrdersBeforeChosenDate(date);
 
         assertEquals(expected,result);

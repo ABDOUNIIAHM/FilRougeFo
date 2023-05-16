@@ -4,6 +4,8 @@ import com.example.filrougefo.exception.OrderControllerException;
 import com.example.filrougefo.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class OrderService implements IntOrderService{
     }
 
     @Override
-    public List<Order> findAllByOrdersBeforeChosenDate(Date date) {
+    public List<Order> findAllByOrdersBeforeChosenDate(LocalDate date) {
         return orderRepository.findAllByDateIsLessThanEqual(date);
     }
 
