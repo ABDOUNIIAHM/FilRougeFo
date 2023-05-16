@@ -13,9 +13,9 @@ INSERT INTO Months(id, name) VALUES
                                  (11,'November'),
                                  (12,'December');
 
-INSERT INTO Admins(id, username, isSuperAdmin, password) VALUES
-                                                             (1,'superadmin', 1, 'superadmin'),
-                                                             (2,'admin', 0, 'admin');
+INSERT INTO Admins(id, username, isSuperAdmin, password, firstName, lastName, email) VALUES
+     (1,'superadmin', 1, 'superadmin', 'Super', 'Admin', 'superadmin@panierprimeur.m2i.com'),
+     (2,'admin', 0, 'admin', 'Simple', 'Admin', 'admin@panierprimeur.m2i.com');
 
 INSERT INTO Categories(id, name) VALUES
                                      (1, 'Légume-feuille'),
