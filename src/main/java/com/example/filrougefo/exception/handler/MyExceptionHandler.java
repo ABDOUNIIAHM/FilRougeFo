@@ -1,6 +1,5 @@
 package com.example.filrougefo.exception.handler;
 
-import com.example.filrougefo.RestController.CategoryController;
 import com.example.filrougefo.exception.CategoryControllerException;
 import com.example.filrougefo.exception.OrderControllerException;
 import com.example.filrougefo.exception.ProductControllerException;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 @ControllerAdvice
-public class CategoryExceptionHandler {
+public class MyExceptionHandler {
     @ExceptionHandler(value = {CategoryControllerException.class})
     public ResponseEntity<Object> handleCategoryRequestException(CategoryControllerException e){
 
