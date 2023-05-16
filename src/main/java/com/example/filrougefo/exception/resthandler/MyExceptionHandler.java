@@ -1,4 +1,4 @@
-package com.example.filrougefo.exception.handler;
+package com.example.filrougefo.exception.resthandler;
 
 import com.example.filrougefo.exception.CategoryControllerException;
 import com.example.filrougefo.exception.OrderControllerException;
