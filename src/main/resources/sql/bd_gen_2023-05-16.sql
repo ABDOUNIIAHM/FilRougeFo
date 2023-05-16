@@ -9,6 +9,9 @@ create table Admins
     isSuperAdmin bit          not null,
     password     varchar(255) null,
     username     varchar(255) null,
+    firstName     varchar(255) null,
+    lastName     varchar(255) null,
+    email        varchar(255) null,
     constraint UK_sr28qnsnytjjht54j6fa88uvn
         unique (username)
 );

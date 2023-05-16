@@ -1,7 +1,6 @@
 package com.example.filrougefo.service.orderline;
-import com.example.filrougefo.entity.Order;
+
 import com.example.filrougefo.entity.OrderLine;
-import com.example.filrougefo.exception.OrderControllerException;
 import com.example.filrougefo.exception.OrderLineControllerException;
 import com.example.filrougefo.repository.OrderLineRepository;
 import org.junit.jupiter.api.Test;
@@ -9,10 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
