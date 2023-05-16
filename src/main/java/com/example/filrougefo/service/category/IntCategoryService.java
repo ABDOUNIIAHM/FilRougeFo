@@ -9,8 +9,8 @@ import java.util.List;
 @Service
 public interface IntCategoryService {
     List<Category> findAll();
-    Category findById(int id) throws CategoryControllerException;
-    List<Category> findBySearchedName(String name) throws CategoryControllerException;
+    Category findById(int id);
+    List<Category> findBySearchedName(String name);
     List<Category> findAllCategoriesExceptProductCategory(Product product);
 
 }

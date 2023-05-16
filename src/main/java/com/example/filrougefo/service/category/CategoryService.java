@@ -18,20 +18,20 @@ public class CategoryService implements IntCategoryService{
         return categoryRepository.findAll();
     }
     @Override
-    public Category findById(int id) throws CategoryControllerException {
+    public Category findById(int id){
 
         Category cat = categoryRepository
                         .findById(id)
-                        .orElseThrow(()-> new CategoryControllerException("No category found for Id:"+id));
+                        .orElseThrow(()-> new CategoryControllerException("No such category found for Id:"+id));
 
                 return cat;
     }
     @Override
-    public List<Category> findBySearchedName(String name) throws CategoryControllerException {
+    public List<Category> findBySearchedName(String name){
 
         List<Category> searchedCategories = categoryRepository
                 .findCategoriesByNameContainingIgnoreCase(name)
-                .orElseThrow(()->new CategoryControllerException("No category found for: "+name));
+                .orElseThrow(()->new CategoryControllerException("No such category found for: "+name));
 
         return searchedCategories;
     }
