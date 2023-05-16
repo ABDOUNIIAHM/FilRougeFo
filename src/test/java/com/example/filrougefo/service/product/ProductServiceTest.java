@@ -23,7 +23,7 @@ class ProductServiceTest {
     private ProductService underTest;
 
     @Test
-    void findAll() {
+    void ShouldfindAllProducts() {
 
         Product p1 = new Product();
         Product p2 = new Product();
