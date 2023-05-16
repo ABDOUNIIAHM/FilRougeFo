@@ -11,4 +11,5 @@ public interface IntProductService {
     List<Product> findAll();
     Product findById(int id);
     List<Product> searchProductByNamePattern(String name);
+    List<Product> findAllProductByCategoryId(int id);
 }

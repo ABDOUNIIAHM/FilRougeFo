@@ -30,4 +30,11 @@ public class ProductService implements IntProductService{
                 .findAllByNameContainingIgnoreCase(name)
                 .orElseThrow(()-> new ProductControllerException("No such product with name="+name+" was found !"));
     }
+
+    @Override
+    public List<Product> findAllProductByCategoryId(int id) {
+        return productRepository
+                .findAllByCategory_Id(id)
+                .orElseThrow(()->new ProductControllerException("No product found for the chosen category !"));
+    }
 }
