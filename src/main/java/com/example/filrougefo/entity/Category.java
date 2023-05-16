@@ -1,4 +1,5 @@
 package com.example.filrougefo.entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,7 @@ public class Category {
     @Column(unique = true)
     private String name;
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Product> products = new ArrayList<>();
 
 }

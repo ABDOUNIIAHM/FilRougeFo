@@ -1,14 +1,11 @@
 package com.example.filrougefo.service.order;
-
 import com.example.filrougefo.entity.Order;
-import com.example.filrougefo.exception.OrderNotFoundException;
+import com.example.filrougefo.exception.OrderControllerException;
 import com.example.filrougefo.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -36,9 +33,9 @@ public class OrderService implements IntOrderService{
     }
 
     @Override
-    public Order findOrderById(long id) throws OrderNotFoundException {
+    public Order findOrderById(long id){
         return orderRepository
                 .findById(id)
-                .orElseThrow(()-> new OrderNotFoundException("No Order found for id:"+id));
+                .orElseThrow(()-> new OrderControllerException("No such Order found for id:"+id));
     }
 }
