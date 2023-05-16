@@ -5,4 +5,7 @@ public class CategoryControllerException extends RuntimeException{
         super(message);
     }
 
+    public CategoryControllerException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
