@@ -26,7 +26,7 @@ class OrderServiceTest {
     private OrderService underTest;
 
     @Test
-    void ShouldReturnAllOrdersGivenAnId() {
+    void ShouldReturnAllOrdersGivenClientId() {
 
         Order o1 = new Order();
         Order o2 = new Order();
