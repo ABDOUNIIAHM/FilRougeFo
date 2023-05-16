@@ -6,5 +6,36 @@
 </head>
 <body>
 
+<table class="table mb-3">
+    <thead>
+    <tr>
+        <th scope="col">first name</th>
+        <th scope="col">last name</th>
+        <th scope="col">email</th>
+        <th scope="col">enterprise</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c: ${products}">
+        <td th:text="${c.name}"></td>
+        <td th:text="${c.unit}"></td>
+        <td th:text="${c.pricePerUnit}"></td>
+        <td th:text="${c.vat}"></td>
+        <td th:text="${c.description}"></td>
+
+        <td>
+            <form method="post" action="/contacts/delete">
+                <button type="submit" class="btn btn-danger" th:name="id" th:value="${c.getId()}">delete</button>
+            </form>
+        </td>
+        <td>
+            <form method="get" action="/contacts/edit">
+                <button type="submit" class="btn btn-primary" th:name="id" th:value="${c.getId()}">edit</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

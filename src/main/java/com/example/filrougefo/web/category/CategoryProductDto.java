@@ -1,6 +1,7 @@
 package com.example.filrougefo.web.category;
 
 import com.example.filrougefo.entity.Product;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
