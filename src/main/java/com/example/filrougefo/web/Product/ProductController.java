@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     private IntProductService productService;
-
     private ProductMapper productMapper;
 
     @GetMapping

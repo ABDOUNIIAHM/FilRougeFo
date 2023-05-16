@@ -11,5 +11,4 @@ public interface ProductMapper {
     @Mapping(target = "stock", ignore = true)
     @Mapping(target = "orderLines", ignore = true)
     Product fromDTO(ProductDTO ProductDTO);
-
 }
