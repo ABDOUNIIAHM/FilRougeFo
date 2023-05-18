@@ -1,7 +1,7 @@
 package com.example.filrougefo.exception;
 
-public class ProductControllerException extends RuntimeException{
-    public ProductControllerException(String message) {
+public class ProductNotFoundException extends RuntimeException{
+    public ProductNotFoundException(String message) {
         super(message);
     }
 }

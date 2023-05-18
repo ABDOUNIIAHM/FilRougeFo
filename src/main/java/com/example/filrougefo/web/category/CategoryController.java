@@ -1,7 +1,7 @@
 package com.example.filrougefo.web.category;
 
 import com.example.filrougefo.entity.Category;
-import com.example.filrougefo.exception.CategoryControllerException;
+import com.example.filrougefo.exception.CategoryNotFoundException;
 import com.example.filrougefo.service.category.IntCategoryService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -11,32 +11,50 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping("/category")
 @AllArgsConstructor
 public class CategoryController {
     private IntCategoryService categoryService;
-    private CategoryProductMapper categoryProductMapper;
+    private CategoryMapper categoryMapper;
     @GetMapping("/{id}")
     public String getAllProducts(@PathVariable int id, Model model){
 
-        CategoryProductDto cat = categoryProductMapper
+        CategoryDto cat = categoryMapper
                 .toDTO(categoryService.findById(id));
 
         model.addAttribute("category", cat);
         model.addAttribute("products",cat.getProductList());
         return "list-category";
     }
+    @GetMapping
+    public String getAllCategories(Model model){
+
+        model.addAttribute("categories", mapCategoryListToDto());
+        return "list-category";
+    }
 
 
-    @ExceptionHandler(value = {CategoryControllerException.class})
-    public String handleError(HttpServletRequest req, CategoryControllerException ex) {
-        System.out.println("handle error activated");
+
+
+    private List<CategoryDto> mapCategoryListToDto(){
+
+        List<Category> categoryList = categoryService.findAll();
+        return categoryList
+                .stream()
+                .map(c -> categoryMapper.toDTO(c))
+                .collect(Collectors.toList());
+    }
+
+
+    @ExceptionHandler(value = {CategoryNotFoundException.class})
+    public String handleError(HttpServletRequest req, CategoryNotFoundException ex) {
+
 
         //logger.error("Request: " + req.getRequestURL() + " raised " + ex);
 

@@ -1,8 +1,8 @@
 package com.example.filrougefo.exception.resthandler;
 
-import com.example.filrougefo.exception.CategoryControllerException;
-import com.example.filrougefo.exception.OrderControllerException;
-import com.example.filrougefo.exception.ProductControllerException;
+import com.example.filrougefo.exception.CategoryNotFoundException;
+import com.example.filrougefo.exception.OrderNotFoundException;
+import com.example.filrougefo.exception.ProductNotFoundException;
 import com.example.filrougefo.exception.dto.DtoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +13,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 @ControllerAdvice
 public class MyExceptionHandler {
-    @ExceptionHandler(value = {CategoryControllerException.class})
-    public ResponseEntity<Object> handleCategoryRequestException(CategoryControllerException e){
+    @ExceptionHandler(value = {CategoryNotFoundException.class})
+    public ResponseEntity<Object> handleCategoryRequestException(CategoryNotFoundException e){
 
         HttpStatus badRequest = HttpStatus.NOT_FOUND;
         DtoException dtoException = new DtoException(
@@ -26,8 +26,8 @@ public class MyExceptionHandler {
         return new ResponseEntity<>(dtoException, badRequest);
 
     }
-    @ExceptionHandler(value = {ProductControllerException.class})
-    public ResponseEntity<Object> handleProductRequestException(ProductControllerException e){
+    @ExceptionHandler(value = {ProductNotFoundException.class})
+    public ResponseEntity<Object> handleProductRequestException(ProductNotFoundException e){
 
         HttpStatus badRequest = HttpStatus.NOT_FOUND;
         DtoException dtoException = new DtoException(
@@ -39,8 +39,8 @@ public class MyExceptionHandler {
         return new ResponseEntity<>(dtoException, badRequest);
 
     }
-    @ExceptionHandler(value = {OrderControllerException.class})
-    public ResponseEntity<Object> handleOrderRequestException(OrderControllerException e){
+    @ExceptionHandler(value = {OrderNotFoundException.class})
+    public ResponseEntity<Object> handleOrderRequestException(OrderNotFoundException e){
 
         HttpStatus badRequest = HttpStatus.NOT_FOUND;
         DtoException dtoException = new DtoException(

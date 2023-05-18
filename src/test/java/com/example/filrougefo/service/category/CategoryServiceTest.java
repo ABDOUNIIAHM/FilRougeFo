@@ -1,7 +1,7 @@
 package com.example.filrougefo.service.category;
 import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Product;
-import com.example.filrougefo.exception.CategoryControllerException;
+import com.example.filrougefo.exception.CategoryNotFoundException;
 import com.example.filrougefo.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,7 +39,7 @@ class CategoryServiceTest {
     }
 
     @Test
-    void ShouldReturnACategoryById() throws CategoryControllerException {
+    void ShouldReturnACategoryById() throws CategoryNotFoundException {
 
         Category expected = new Category(1, "categ1", null);
 
@@ -54,11 +54,11 @@ class CategoryServiceTest {
 
         when(categoryRepository.findById(any(int.class))).thenReturn(Optional.empty());
 
-        assertThrows(CategoryControllerException.class, () -> underTest.findById(1));
+        assertThrows(CategoryNotFoundException.class, () -> underTest.findById(1));
     }
 
     @Test
-    void ShouldReturnListOfCategoriesWhenSearchedByNamePattern() throws CategoryControllerException {
+    void ShouldReturnListOfCategoriesWhenSearchedByNamePattern() throws CategoryNotFoundException {
 
         List<Category> expected = List.of(
                 new Category(1,"categ1",null)
@@ -76,7 +76,7 @@ class CategoryServiceTest {
         when(categoryRepository.findCategoriesByNameContainingIgnoreCase(any(String.class)))
                 .thenReturn(Optional.empty());
 
-        assertThrows(CategoryControllerException.class,() -> underTest.findBySearchedName("name") );
+        assertThrows(CategoryNotFoundException.class,() -> underTest.findBySearchedName("name") );
     }
 
     @Test

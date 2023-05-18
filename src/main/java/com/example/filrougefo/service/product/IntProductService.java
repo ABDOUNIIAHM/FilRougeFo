@@ -1,7 +1,6 @@
 package com.example.filrougefo.service.product;
 
 import com.example.filrougefo.entity.Product;
-import com.example.filrougefo.exception.ProductControllerException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -16,8 +16,9 @@ public class Category {
     private int id;
     @Column(unique = true)
     private String name;
+
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Product> products = new ArrayList<>();
 
 }
