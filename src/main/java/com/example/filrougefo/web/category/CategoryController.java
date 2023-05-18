@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/categories")
 @AllArgsConstructor
 public class CategoryController {
     private IntCategoryService categoryService;
