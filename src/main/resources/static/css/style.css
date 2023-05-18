@@ -1,0 +1,10 @@
+.cross-alert{
+    position: absolute;
+    top:1px;
+    right: 9px;
+    font-size: 40px;
+}
+#my-element{
+   display: none;
+    position: relative;
+}

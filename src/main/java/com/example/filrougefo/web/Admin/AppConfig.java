@@ -1,4 +1,4 @@
-package com.example.filrougefo;
+package com.example.filrougefo.web.Admin;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

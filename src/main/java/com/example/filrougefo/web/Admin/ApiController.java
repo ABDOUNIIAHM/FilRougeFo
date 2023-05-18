@@ -1,4 +1,4 @@
-package com.example.filrougefo;
+package com.example.filrougefo.web.Admin;
 import com.example.filrougefo.admin.AdminDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
