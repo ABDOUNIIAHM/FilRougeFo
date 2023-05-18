@@ -26,12 +26,24 @@ public class ApiController {
 
     @GetMapping("/contact")
     public String fetchApiData(Model model) {
-        String apiUrl = "http://localhost:8080/webapi/admin"; // Remplacez par l'URL de votre API
+        String apiUrl = "http://localhost:8080/webapi/admin"; //  l'URL  API
        List<AdminDto> apiData = restTemplate.getForObject(apiUrl, List.class);
 
-        // Ajoutez les données récupérées à l'objet Model pour les transmettre à la vue
+        //  les données récupérées
         model.addAttribute("apiData", apiData);
 
-        return "contact-form"; // Le nom de la vue Thymeleaf
+        return "contact-form"; //  vue Thymeleaf
     }
+    @PostMapping("/contact")
+    public String sendMail(@RequestParam("email") String email, @RequestParam("admin") String adminEmail, @RequestParam("message") String message, Model model) {
+
+        // Exemple de traitement
+        System.out.println("E-mail envoyé à l'adresse : " + email);
+        System.out.println("Administrateur sélectionné : " + adminEmail);
+        System.out.println("Contenu du message : " + message);
+
+        model.addAttribute("adminEmail", adminEmail);
+        return "redirect:/contact";
+    }
+
 }
