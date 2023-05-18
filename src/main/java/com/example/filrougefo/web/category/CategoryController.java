@@ -3,6 +3,8 @@ package com.example.filrougefo.web.category;
 import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.exception.CategoryNotFoundException;
 import com.example.filrougefo.service.category.IntCategoryService;
+import com.example.filrougefo.web.Product.ProductDTO;
+import com.example.filrougefo.web.Product.ProductMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/categories")
@@ -22,25 +23,22 @@ import java.util.stream.Stream;
 public class CategoryController {
     private IntCategoryService categoryService;
     private CategoryMapper categoryMapper;
-    @GetMapping("/{id}")
-    public String getAllProducts(@PathVariable int id, Model model){
+    private ProductMapper productMapper;
 
-        CategoryDto cat = categoryMapper
-                .toDTO(categoryService.findById(id));
-
-        model.addAttribute("category", cat);
-        model.addAttribute("products",cat.getProductList());
-        return "list-category";
-    }
     @GetMapping
     public String getAllCategories(Model model){
 
         model.addAttribute("categories", mapCategoryListToDto());
-        return "list-category";
+        return "product-and-category";
     }
 
+    @GetMapping("/{id}")
+    public String getCategoryProducts(@PathVariable int id, Model model){
 
-
+        model.addAttribute("products",mapCategoryProductsToDto(id));
+        model.addAttribute("categories", mapCategoryListToDto());
+        return "product-and-category";
+    }
 
     private List<CategoryDto> mapCategoryListToDto(){
 
@@ -50,12 +48,21 @@ public class CategoryController {
                 .map(c -> categoryMapper.toDTO(c))
                 .collect(Collectors.toList());
     }
+    private List<ProductDTO> mapCategoryProductsToDto(int id){
 
+        return categoryService
+                .findById(id)
+                .getProducts()
+                .stream()
+                .map(p -> productMapper.toDTO(p))
+                .collect(Collectors.toList());
+    }
 
     @ExceptionHandler(value = {CategoryNotFoundException.class})
     public String handleError(HttpServletRequest req, CategoryNotFoundException ex) {
 
 
+        System.out.println("i was called");
         //logger.error("Request: " + req.getRequestURL() + " raised " + ex);
 
         //ModelAndView mav = new ModelAndView();
