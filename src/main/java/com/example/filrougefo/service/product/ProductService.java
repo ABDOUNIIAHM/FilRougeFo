@@ -1,6 +1,6 @@
 package com.example.filrougefo.service.product;
 import com.example.filrougefo.entity.Product;
-import com.example.filrougefo.exception.ProductControllerException;
+import com.example.filrougefo.exception.ProductNotFoundException;
 import com.example.filrougefo.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,20 +21,20 @@ public class ProductService implements IntProductService{
 
         return productRepository
                 .findById(id)
-                .orElseThrow(() -> new ProductControllerException("No such product with id="+id+" was found !"));
+                .orElseThrow(() -> new ProductNotFoundException("No such product with id="+id+" was found !"));
     }
     @Override
     public List<Product> searchProductByNamePattern(String name) {
 
         return productRepository
                 .findAllByNameContainingIgnoreCase(name)
-                .orElseThrow(()-> new ProductControllerException("No such product with name="+name+" was found !"));
+                .orElseThrow(()-> new ProductNotFoundException("No such product with name="+name+" was found !"));
     }
 
     @Override
     public List<Product> findAllProductByCategoryId(int id) {
         return productRepository
                 .findAllByCategory_Id(id)
-                .orElseThrow(()->new ProductControllerException("No product found for the chosen category !"));
+                .orElseThrow(()->new ProductNotFoundException("No product found for the chosen category !"));
     }
 }
