@@ -13,9 +13,13 @@
             <img src="/path/to/error-image.png" alt="Error 404" class="img-fluid">
             <h1 class="mt-4">Error 404</h1>
             <p>The page you requested could not be found.</p>
-            <a th:href="@{}" class="btn btn-primary">Go to Home</a>
+            <a th:href="@{/categories}" class="btn btn-primary">Go to Home</a>
         </div>
     </div>
+</div>
+<div class="container">
+    <p th:text="${url}"></p>
+    <p th:text="${exception}"></p>
 </div>
 </body>
 </html>

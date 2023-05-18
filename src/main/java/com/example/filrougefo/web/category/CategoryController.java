@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,16 +60,13 @@ public class CategoryController {
     }
 
     @ExceptionHandler(value = {CategoryNotFoundException.class})
-    public String handleError(HttpServletRequest req, CategoryNotFoundException ex) {
+    public ModelAndView handleError(HttpServletRequest req, CategoryNotFoundException ex) {
 
-
-        System.out.println("i was called");
         //logger.error("Request: " + req.getRequestURL() + " raised " + ex);
-
-        //ModelAndView mav = new ModelAndView();
-        //mav.addObject("exception", ex);
-        //mav.addObject("url", req.getRequestURL());
-        //mav.setViewName("error");
-        return "error";
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("error");
+        mav.addObject("exception", ex);
+        mav.addObject("url", req.getRequestURL());
+        return mav;
     }
 }
