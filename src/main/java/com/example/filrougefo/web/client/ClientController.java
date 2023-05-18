@@ -4,6 +4,7 @@ import com.example.filrougefo.entity.Address;
 import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.PhoneNumber;
 import com.example.filrougefo.service.client.IntClientService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,21 +27,21 @@ public class ClientController {
         ModelAndView mav = new ModelAndView();
 
         mav.addObject("client",client);
-        mav.addObject("address",new Address());
-        mav.addObject("phone",new PhoneNumber());
+        mav.addObject("address",new AddressDto());
+        mav.addObject("phone",new PhoneNumberDto());
         mav.setViewName("signup-form");
 
         return mav;
     }
     @PostMapping("client/register")
-    public String addNewClient(@ModelAttribute("client") ClientDto clientDto,
-                                     @ModelAttribute("address") Address address
-                                    ,@ModelAttribute("phone") PhoneNumber phone){
+    public String addNewClient(@ModelAttribute("client") @Valid ClientDto clientDto,
+                                     @ModelAttribute("address") @Valid Address addressDto
+                                    ,@ModelAttribute("phone") @Valid PhoneNumber phoneDto){
 
 
         //ModelAndView mav = new ModelAndView();
-        clientDto.getAddressList().add(address);
-        clientDto.getPhoneNumberList().add(phone);
+        clientDto.getAddressList().add(addressDto);
+        clientDto.getPhoneNumberList().add(phoneDto);
 
         Client client = clientMapper.fromDTO(clientDto);
         clientService.createClient(client);
