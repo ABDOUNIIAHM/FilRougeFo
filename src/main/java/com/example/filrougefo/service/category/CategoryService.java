@@ -1,7 +1,7 @@
 package com.example.filrougefo.service.category;
 import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Product;
-import com.example.filrougefo.exception.CategoryControllerException;
+import com.example.filrougefo.exception.CategoryNotFoundException;
 import com.example.filrougefo.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class CategoryService implements IntCategoryService{
 
         Category cat = categoryRepository
                         .findById(id)
-                        .orElseThrow(()-> new CategoryControllerException("No such category found for Id:"+id));
+                        .orElseThrow(()-> new CategoryNotFoundException("No such category found for Id:"+id));
 
                 return cat;
     }
@@ -31,7 +31,7 @@ public class CategoryService implements IntCategoryService{
 
         List<Category> searchedCategories = categoryRepository
                 .findCategoriesByNameContainingIgnoreCase(name)
-                .orElseThrow(()->new CategoryControllerException("No such category found for: "+name));
+                .orElseThrow(()->new CategoryNotFoundException("No such category found for: "+name));
 
         return searchedCategories;
     }

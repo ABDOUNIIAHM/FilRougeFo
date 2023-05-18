@@ -2,7 +2,7 @@ package com.example.filrougefo.service.order;
 
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderStatus;
-import com.example.filrougefo.exception.OrderControllerException;
+import com.example.filrougefo.exception.OrderNotFoundException;
 import com.example.filrougefo.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -99,7 +99,7 @@ class OrderServiceTest {
         when(orderRepository.findById(any(long.class)))
                 .thenReturn(Optional.empty());
 
-        assertThrows(OrderControllerException.class, () -> underTest.findOrderById(1));
+        assertThrows(OrderNotFoundException.class, () -> underTest.findOrderById(1));
     }
 
 }
