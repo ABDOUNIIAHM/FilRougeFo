@@ -31,6 +31,7 @@ public class ClientDto {
     @NotNull
     @NotEmpty
     private String password;
+    private String matchingPassword;
     private String avatarUrl;
     private List<Order> orderList = new ArrayList<>();
     @Valid
