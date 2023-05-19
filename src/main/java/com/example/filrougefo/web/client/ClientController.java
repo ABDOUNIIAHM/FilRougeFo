@@ -23,25 +23,23 @@ public class ClientController {
     @GetMapping("client/register")
     public ModelAndView getRegisterForm(){
 
-        ClientDto client = new ClientDto();
+        ClientDto clientDto = new ClientDto();
         ModelAndView mav = new ModelAndView();
 
-        mav.addObject("client",client);
-        mav.addObject("address",new AddressDto());
-        mav.addObject("phone",new PhoneNumberDto());
+        mav.addObject("client",clientDto);
+        //mav.addObject("address",new AddressDto());
+        //mav.addObject("phone",new PhoneNumberDto());
         mav.setViewName("signup-form");
 
         return mav;
     }
     @PostMapping("client/register")
-    public String addNewClient(@ModelAttribute("client") @Valid ClientDto clientDto,
-                                     @ModelAttribute("address") @Valid Address addressDto
-                                    ,@ModelAttribute("phone") @Valid PhoneNumber phoneDto){
+    public String addNewClient(@ModelAttribute("client") @Valid ClientDto clientDto){
 
 
         //ModelAndView mav = new ModelAndView();
-        clientDto.getAddressList().add(addressDto);
-        clientDto.getPhoneNumberList().add(phoneDto);
+        //clientDto.getAddressList().add(addressDto);
+        //clientDto.getPhoneNumberList().add(phoneDto);
 
         Client client = clientMapper.fromDTO(clientDto);
         clientService.createClient(client);

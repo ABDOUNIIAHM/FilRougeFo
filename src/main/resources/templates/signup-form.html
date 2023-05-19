@@ -16,7 +16,7 @@
           <h3 class="text-center">Registration Form</h3>
         </div>
         <div class="card-body">
-          <form th:action="@{/client/register}" method="post">
+          <form th:action="@{/client/register}" th:object="${client}" method="post">
 
             <!-- Champ pour le client -->
             <fieldset>
@@ -25,13 +25,13 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:name="${client.firstName}" placeholder="First name" class="form-control">
+                    <input type="text" th:field="*{firstName}" placeholder="First name" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" placeholder="Last name" th:name="${client.lastName}" class="form-control">
+                    <input type="text" placeholder="Last name" th:field="*{lastName}" class="form-control">
                   </div>
                 </div>
               </div>
@@ -43,13 +43,13 @@
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label class="form-label"></label>
-                      <input type="email" placeholder="Email" th:name="${client.email}" class="form-control">
+                      <input type="email" placeholder="Email" th:field="*{email}" class="form-control">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label class="form-label"></label>
-                      <input type="password" placeholder="Password" th:name="${client.password}" class="form-control">
+                      <input type="password" placeholder="Password" th:field="*{password}" class="form-control">
                     </div>
                   </div>
                 </div>
@@ -61,21 +61,21 @@
                 <div class="col-md-4">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:name="${address.title}" placeholder="Title..."  class="form-control">
+                    <input type="text" th:field="*{addressList[0].title}" placeholder="Title..."  class="form-control">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:name="${address.number}" placeholder="Road number..."  class="form-control">
+                    <input type="text" th:field="*{addressList[0].number}" placeholder="Road number..."  class="form-control">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:name="${address.roadPrefix}" placeholder="Road prefix..." class="form-control">
+                    <input type="text" th:field="*{addressList[0].roadPrefix}" placeholder="Road prefix..." class="form-control">
                   </div>
                 </div>
               </div>
@@ -84,28 +84,28 @@
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:name="${address.roadName}" placeholder="Road name..." class="form-control">
+                    <input type="text" th:field="*{addressList[0].roadName}" placeholder="Road name..." class="form-control">
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:name="${address.complement}" placeholder="Complement..." class="form-control">
+                    <input type="text" th:field="*{addressList[0].complement}" placeholder="Complement..." class="form-control">
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:name="${address.zipCode}" placeholder="Zip code..." class="form-control">
+                    <input type="text" th:field="*{addressList[0].zipCode}" placeholder="Zip code..." class="form-control">
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:name="${address.city}" placeholder="City..."  class="form-control">
+                    <input type="text" th:field="*{addressList[0].city}" placeholder="City..."  class="form-control">
                   </div>
                 </div>
               </div>
@@ -117,7 +117,7 @@
             <div class="col-md-3">
               <div class="mb-3">
                 <label class="form-label"></label>
-                <input type="text" th:name="${phone.phoneNumber}" placeholder="Phone number..." class="form-control">
+                <input type="text" th:field="*{phoneNumberList[0].phoneNumber}" placeholder="Phone number..." class="form-control">
               </div>
             </div>
 

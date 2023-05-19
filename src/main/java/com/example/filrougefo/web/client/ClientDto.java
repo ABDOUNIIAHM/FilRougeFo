@@ -3,6 +3,7 @@ package com.example.filrougefo.web.client;
 import com.example.filrougefo.entity.Address;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.PhoneNumber;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,8 @@ public class ClientDto {
     private String password;
     private String avatarUrl;
     private List<Order> orderList = new ArrayList<>();
+    @Valid
     private List<Address> addressList = new ArrayList<>();
+    @Valid
     private List<PhoneNumber> phoneNumberList;
 }
