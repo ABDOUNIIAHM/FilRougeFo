@@ -6,6 +6,7 @@ import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.PhoneNumber;
 import com.example.filrougefo.exception.ClientAlreadyExistException;
 import com.example.filrougefo.service.client.IntClientService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class ClientController {
         String error = "";
         ModelAndView mav = new ModelAndView();
         mav.addObject("client",clientDto);
-        mav.addObject("error", error);
+        mav.addObject("exception", error);
         mav.setViewName("signup-form");
         return mav;
     }
@@ -50,16 +51,28 @@ public class ClientController {
 
         if(bindingResult.hasErrors()){
 
-            bindingResult.getFieldErrors().stream().forEach(x -> System.out.println(x.getDefaultMessage()));
             return "signup-form";
         }
 
-        if(clientService.isValidEmail(clientDto.getEmail())){
-            Client client = getClientFromClientDto(clientDto);
-            clientService.createClient(client);
-        }
+        model.addAttribute("client", clientDto);
+
+        clientService.isValidEmail(clientDto.getEmail());
+
+        Client client = getClientFromClientDto(clientDto);
+        clientService.createClient(client);
         return "success-signup";
     }
+
+    @ExceptionHandler(value = {ClientAlreadyExistException.class})
+    public String handleClientRegistration(ClientAlreadyExistException ex, Model model){
+
+        String error = ex.getMessage();
+        //model.addAttribute("client",client);
+        model.addAttribute("exception",error);
+        return "signup-form";
+
+    }
+
 
     private Client getClientFromClientDto(ClientDto clientDto){
 
@@ -81,20 +94,5 @@ public class ClientController {
 
         return client;
     }
-
-
-    @ExceptionHandler(value = {ClientAlreadyExistException.class})
-    public ModelAndView handleRegistration(@ModelAttribute("client") ClientDto client, @ModelAttribute("error") String error,ClientAlreadyExistException ex){
-
-        ModelAndView mav = new ModelAndView();
-        error = ex.getMessage();
-
-        mav.addObject("error",error);
-        mav.addObject("client",client);
-        mav.setViewName("signup-form");
-        return mav;
-    }
-
-
 
 }

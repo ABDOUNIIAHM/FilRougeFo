@@ -34,7 +34,7 @@ public class ClientService implements IntClientService {
 
         Optional<Client> optClient = clientRepository.findByEmail(email);
         if(optClient.isPresent()){
-            return false;
+            throw new ClientAlreadyExistException("Email has already been used !");
         }
         return true;
     }
