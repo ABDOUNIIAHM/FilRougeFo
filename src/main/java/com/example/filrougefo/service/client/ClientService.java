@@ -30,14 +30,13 @@ public class ClientService implements IntClientService {
     }
 
     @Override
-    public Client registerNewAccount(String email) {
+    public boolean isValidEmail(String email) {
 
         Optional<Client> optClient = clientRepository.findByEmail(email);
         if(optClient.isPresent()){
-            throw new ClientAlreadyExistException("An account already exist with the address email:"+email);
+            return false;
         }
-        clientRepository.save(optClient.get());
-        return null;
+        return true;
     }
 
     @Override

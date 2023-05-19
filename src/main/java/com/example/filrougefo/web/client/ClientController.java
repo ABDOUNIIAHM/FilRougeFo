@@ -11,11 +11,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Controller
@@ -23,13 +28,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class ClientController {
     private IntClientService clientService;
     private ClientMapper clientMapper;
+    private AddressMapper addressMapper;
+    private PhoneNumberMapper phoneNumberMapper;
 
     @GetMapping("client/register")
     public ModelAndView getRegisterForm(){
 
         ClientDto clientDto = new ClientDto();
-        clientDto.getAddressList().add(new Address());
-        clientDto.getPhoneNumberList().add(new PhoneNumber());
+        clientDto.getAddressList().add(new AddressDto());
+        clientDto.getPhoneNumberList().add(new PhoneNumberDto());
         String error = "";
         ModelAndView mav = new ModelAndView();
         mav.addObject("client",clientDto);
@@ -42,14 +49,37 @@ public class ClientController {
                                BindingResult bindingResult, Model model){
 
         if(bindingResult.hasErrors()){
-            model.addAttribute("errors",bindingResult.getAllErrors());
+
+            bindingResult.getFieldErrors().stream().forEach(x -> System.out.println(x.getDefaultMessage()));
             return "signup-form";
         }
 
-        Client client = clientMapper.fromDTO(clientDto);
-        Client newClient = clientService.registerNewAccount(client.getEmail());
-        clientService.createClient(newClient);
+        if(clientService.isValidEmail(clientDto.getEmail())){
+            Client client = getClientFromClientDto(clientDto);
+            clientService.createClient(client);
+        }
         return "success-signup";
+    }
+
+    private Client getClientFromClientDto(ClientDto clientDto){
+
+        List<AddressDto> add = clientDto.getAddressList();
+        List<PhoneNumberDto> phones = clientDto.getPhoneNumberList();
+
+        List<Address> addressList = add.stream().map(x -> addressMapper.fromDTO(x)).collect(Collectors.toList());
+        List<PhoneNumber> phoneList = phones.stream().map(x -> phoneNumberMapper.fromDTO(x)).collect(Collectors.toList());
+
+        Client client = clientMapper.fromDTO(clientDto);
+
+        addressList
+                .stream()
+                .map(x->client.getAddressList().add(x));
+
+        phoneList
+                .stream()
+                .map(x->client.getPhoneNumberList().add(x));
+
+        return client;
     }
 
 

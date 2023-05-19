@@ -20,28 +20,32 @@ import java.util.List;
 @MatchingPassword
 public class ClientDto {
     private long id;
-    @NotNull
+
     @NotEmpty
+    @NotNull
     private String firstName;
-    @NotNull
+
     @NotEmpty
+    @NotNull
     private String lastName;
-    @NotNull
-    @NotEmpty
+
     @ValidEmail
-    private String email;
-    @NotNull
     @NotEmpty
+    @NotNull
+    private String email;
+
+    @NotEmpty
+    @NotNull
     private String password;
     private String matchingPassword;
     private String avatarUrl;
     private List<Order> orderList = new ArrayList<>();
     @Valid
-    private List<Address> addressList = new ArrayList<>();
+    private List<AddressDto> addressList = new ArrayList<>();
     @Valid
-    private List<PhoneNumber> phoneNumberList = new ArrayList<>();
+    private List<PhoneNumberDto> phoneNumberList = new ArrayList<>();
 
-    public ClientDto(long id, String firstName, String lastName, String email, String password, String avatarUrl, List<Order> orderList, List<Address> addressList, List<PhoneNumber> phoneNumberList) {
+    public ClientDto(long id, String firstName, String lastName, String email, String password, String avatarUrl, List<Order> orderList, List<AddressDto> addressList, List<PhoneNumberDto> phoneNumberList) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

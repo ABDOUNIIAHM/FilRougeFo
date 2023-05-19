@@ -15,6 +15,4 @@ public class PasswordMatchingValidator implements ConstraintValidator<MatchingPa
         ClientDto client = (ClientDto) o;
         return client.getPassword().equals(client.getMatchingPassword());
     }
-
-
 }
