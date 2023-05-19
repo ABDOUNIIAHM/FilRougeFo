@@ -3,6 +3,7 @@ package com.example.filrougefo.service.client;
 import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.exception.ClientAlreadyExistException;
+import com.example.filrougefo.exception.ClientNotFoundException;
 import com.example.filrougefo.repository.ClientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class ClientService implements IntClientService {
 
         Client client = clientRepository
                 .findById(id)
-                .orElseThrow(()-> new RuntimeException("No client found for Id:"+id));
+                .orElseThrow(()-> new ClientNotFoundException("No client found for Id:"+id));
 
         return client;
     }
@@ -29,16 +30,18 @@ public class ClientService implements IntClientService {
     }
 
     @Override
-    public Client findByEmail(String email) {
+    public Client registerNewAccount(String email) {
+
         Optional<Client> optClient = clientRepository.findByEmail(email);
         if(optClient.isPresent()){
             throw new ClientAlreadyExistException("An account already exist with the address email:"+email);
         }
+        clientRepository.save(optClient.get());
+        return null;
     }
 
     @Override
     public Client createClient(Client client) {
-
         return clientRepository.save(client);
     }
 
@@ -46,7 +49,7 @@ public class ClientService implements IntClientService {
     public void updateClient(Client client) {
 
         if(client.getId()==0){
-            throw new RuntimeException("Cannot update a nonexistent client. The client object passed as argument has an id="+client.getId());
+            throw new ClientNotFoundException("Cannot update a nonexistent client. The client object passed as argument has an id="+client.getId());
         }
         clientRepository.save(client);
     }

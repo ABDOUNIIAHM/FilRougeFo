@@ -7,8 +7,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
-
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 

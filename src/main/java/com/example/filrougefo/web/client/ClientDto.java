@@ -39,5 +39,17 @@ public class ClientDto {
     @Valid
     private List<Address> addressList = new ArrayList<>();
     @Valid
-    private List<PhoneNumber> phoneNumberList;
+    private List<PhoneNumber> phoneNumberList = new ArrayList<>();
+
+    public ClientDto(long id, String firstName, String lastName, String email, String password, String avatarUrl, List<Order> orderList, List<Address> addressList, List<PhoneNumber> phoneNumberList) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.avatarUrl = avatarUrl;
+        this.orderList = orderList;
+        this.addressList = addressList;
+        this.phoneNumberList = phoneNumberList;
+    }
 }
