@@ -3,6 +3,7 @@ package com.example.filrougefo.web.client;
 import com.example.filrougefo.entity.Address;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.PhoneNumber;
+import com.example.filrougefo.web.client.validation.ValidEmail;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -25,6 +26,7 @@ public class ClientDto {
     private String lastName;
     @NotNull
     @NotEmpty
+    @ValidEmail
     private String email;
     @NotNull
     @NotEmpty
