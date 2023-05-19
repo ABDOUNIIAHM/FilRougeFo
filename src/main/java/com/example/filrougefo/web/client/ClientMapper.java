@@ -7,5 +7,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ClientMapper {
     ClientDto toDTO(Client client);
+    @Mapping(target = "matchingPassword", ignore = true)
     Client fromDTO(ClientDto clientDto);
 }

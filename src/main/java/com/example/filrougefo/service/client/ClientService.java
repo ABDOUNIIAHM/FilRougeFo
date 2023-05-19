@@ -2,6 +2,7 @@ package com.example.filrougefo.service.client;
 
 import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Client;
+import com.example.filrougefo.exception.ClientAlreadyExistException;
 import com.example.filrougefo.repository.ClientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,14 @@ public class ClientService implements IntClientService {
     @Override
     public List<Client> findAll() {
         return clientRepository.findAll();
+    }
+
+    @Override
+    public Client findByEmail(String email) {
+        Optional<Client> optClient = clientRepository.findByEmail(email);
+        if(optClient.isPresent()){
+            throw new ClientAlreadyExistException("An account already exist with the address email:"+email);
+        }
     }
 
     @Override

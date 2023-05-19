@@ -3,6 +3,7 @@ package com.example.filrougefo.web.client;
 import com.example.filrougefo.entity.Address;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.PhoneNumber;
+import com.example.filrougefo.web.client.validation.MatchingPassword;
 import com.example.filrougefo.web.client.validation.ValidEmail;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
+@MatchingPassword
 public class ClientDto {
     private long id;
     @NotNull
