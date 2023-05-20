@@ -40,7 +40,6 @@ public class CategoryController {
         model.addAttribute("categories", mapCategoryListToDto());
         return "product-and-category";
     }
-
     private List<CategoryDto> mapCategoryListToDto(){
 
         List<Category> categoryList = categoryService.findAll();
