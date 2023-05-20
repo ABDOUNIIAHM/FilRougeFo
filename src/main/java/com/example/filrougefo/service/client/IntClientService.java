@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface IntClientService {
     Client findById(long id);
     List<Client> findAll();
+    boolean isValidEmail(String email);
     Client createClient(Client client);
     void updateClient(Client client);
 }

@@ -28,5 +28,5 @@ public class Client {
     private List<Address> addressList = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_client")
-    private List<PhoneNumber> phoneNumberList;
+    private List<PhoneNumber> phoneNumberList = new ArrayList<>();
 }
