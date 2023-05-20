@@ -124,6 +124,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- ### hamcrest for test ### -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -150,8 +157,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>9</source>
+                    <target>9</target>
 
                     <annotationProcessorPaths>
                         <path>
