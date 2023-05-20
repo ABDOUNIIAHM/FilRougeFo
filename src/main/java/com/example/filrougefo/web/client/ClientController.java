@@ -31,7 +31,6 @@ public class ClientController {
     public String getRegisterForm(Model model){
 
         ClientDto clientDto = new ClientDto();
-        System.out.println(clientDto.getFirstName());
         clientDto.getAddressList().add(new AddressDto());
         clientDto.getPhoneNumberList().add(new PhoneNumberDto());
 
