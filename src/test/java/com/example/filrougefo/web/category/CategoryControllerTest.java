@@ -59,7 +59,7 @@ class CategoryControllerTest {
         Product p1 = new Product();
         Product p2 = new Product();
         p1.setId(1);
-        p2.setId(1);
+        p2.setId(2);
         Category c1 = new Category();
         Category c2 = new Category();
         c1.setId(1);c1.getProducts().add(p1);c1.getProducts().add(p2);
@@ -67,20 +67,19 @@ class CategoryControllerTest {
         c1.setName("category1");
         c2.setName("category2");
         List<Category> categories = List.of(c1,c2);
-
         //when
         when(categoryService.findAll()).thenReturn(categories);
         when(categoryService.findById(ArgumentMatchers.any(int.class))).thenReturn(c1);
-
         //then
-        List<CategoryDto> expected = mapCategoryListToDto();
-        List<ProductDTO>
-        mockMvc.perform(MockMvcRequestBuilders.get("/categories"))
+        List<CategoryDto> expected1 = mapCategoryListToDto();
+        List<ProductDTO> expected2 = mapCategoryProductsToDto(1);
+        mockMvc.perform(MockMvcRequestBuilders.get("/categories/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("product-and-category"))
-                .andExpect(MockMvcResultMatchers.model().attribute("categories",hasSize(expected.size())))
-                .andExpect(MockMvcResultMatchers.model().attribute("categories",contains(expected.toArray())));
+                .andExpect(MockMvcResultMatchers.model().attribute("categories",contains(expected1.toArray())))
+                .andExpect(MockMvcResultMatchers.model().attribute("products",contains(expected2.toArray())));
     }
+
     private List<CategoryDto> mapCategoryListToDto(){
 
         List<Category> categoryList = categoryService.findAll();
