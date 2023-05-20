@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-
 @Controller
 @AllArgsConstructor
 public class ClientController {

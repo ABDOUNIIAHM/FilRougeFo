@@ -13,6 +13,9 @@ public class PasswordMatchingValidator implements ConstraintValidator<MatchingPa
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
         ClientDto client = (ClientDto) o;
+        if(client.getPassword()==null){
+            return false;
+        }
         return client.getPassword().equals(client.getMatchingPassword());
     }
 }
