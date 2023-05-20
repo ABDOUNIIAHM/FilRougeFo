@@ -6,22 +6,17 @@ import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.PhoneNumber;
 import com.example.filrougefo.exception.ClientAlreadyExistException;
 import com.example.filrougefo.service.client.IntClientService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 
 @Controller
@@ -33,46 +28,42 @@ public class ClientController {
     private PhoneNumberMapper phoneNumberMapper;
 
     @GetMapping("client/register")
-    public ModelAndView getRegisterForm(){
+    public String getRegisterForm(Model model){
 
         ClientDto clientDto = new ClientDto();
+        System.out.println(clientDto.getFirstName());
         clientDto.getAddressList().add(new AddressDto());
         clientDto.getPhoneNumberList().add(new PhoneNumberDto());
-        String error = "";
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("client",clientDto);
-        mav.addObject("exception", error);
-        mav.setViewName("signup-form");
-        return mav;
+
+        model.addAttribute("clientDto",clientDto);
+        return "signup-form";
     }
     @PostMapping("client/register")
-    public String addNewClient(@ModelAttribute("client") @Valid ClientDto clientDto,
-                               BindingResult bindingResult, Model model){
+    public String addNewClient(@ModelAttribute("clientDto") @Valid ClientDto clientDto,
+                               BindingResult bindingResult,
+                               Model model){
 
         if(bindingResult.hasErrors()){
-
             return "signup-form";
         }
 
-        model.addAttribute("client", clientDto);
+        try {
+            Client client = getClientFromClientDto(clientDto);
+            clientService.isValidEmail(clientDto.getEmail());
+            clientService.createClient(client);
+            return "success-signup";
 
-        clientService.isValidEmail(clientDto.getEmail());
-
-        Client client = getClientFromClientDto(clientDto);
-        clientService.createClient(client);
-        return "success-signup";
+        } catch (ClientAlreadyExistException ex){
+            return handleClientRegistrationError(ex, clientDto, model);
+        }
     }
 
-    @ExceptionHandler(value = {ClientAlreadyExistException.class})
-    public String handleClientRegistration(ClientAlreadyExistException ex, Model model){
-
+    private String handleClientRegistrationError(ClientAlreadyExistException ex, ClientDto clientDto, Model model) {
         String error = ex.getMessage();
-        //model.addAttribute("client",client);
-        model.addAttribute("exception",error);
+        model.addAttribute("exception", error);
+        model.addAttribute("clientDto", clientDto);
         return "signup-form";
-
     }
-
 
     private Client getClientFromClientDto(ClientDto clientDto){
 
@@ -84,15 +75,10 @@ public class ClientController {
 
         Client client = clientMapper.fromDTO(clientDto);
 
-        addressList
-                .stream()
-                .map(x->client.getAddressList().add(x));
+        client.getAddressList().add(addressList.get(0));
 
-        phoneList
-                .stream()
-                .map(x->client.getPhoneNumberList().add(x));
+        client.getPhoneNumberList().add(phoneList.get(0));
 
         return client;
     }
-
 }

@@ -10,16 +10,16 @@
 </head>
 <body>
 <div th:replace="header :: header"></div>
-<div class="alert alert-success" role="alert" th:text="${exception}">
-
-</div>
-    <div class="container mt-4 w-50">
+    <div class="mt-4 container w-25 text-center" th:if="${exception!=null}">
+      <div class="alert alert-danger p-0 d-inline-block" role="alert" th:text="${exception}"></div>
+    </div>
+    <div class="container mt-2 w-50">
       <div class="card mb-4">
         <div class="card-header">
           <h3 class="text-center">Registration Form</h3>
         </div>
         <div class="card-body">
-          <form th:action="@{/client/register}" th:object="${client}" method="post">
+          <form th:action="@{/client/register}" th:object="${clientDto}" method="post">
             <!-- Champ pour le client -->
             <fieldset>
               <legend>Full name</legend>
@@ -27,7 +27,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    *<input type="text" th:field="*{firstName}" th:value="*{firstName}" placeholder="First name" class="form-control">
+                    *<input type="text" th:field="*{firstName}"  placeholder="First name" class="form-control">
                     <p style="color: red" th:each="error:${#fields.errors('firstName')}" th:text="${error}"></p>
 
                   </div>
@@ -48,21 +48,21 @@
                   <div class="col-md-4">
                     <div class="mb-3">
                       <label class="form-label"></label>
-                      *<input type="email" placeholder="Email" th:field="*{email}" th:value="*{email}" class="form-control">
+                      *<input type="email" placeholder="Email" th:field="*{email}" th:value="*{email}" th:classappend="${exception} ? 'is-invalid' : ''" class="form-control">
                       <p style="color: red" th:each="error:${#fields.errors('email')}" th:text="${error}"></p>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="mb-3">
                       <label class="form-label"></label>
-                      <input type="password" placeholder="Password" th:field="*{password}" th:value="*{password}" class="form-control">
+                      <input type="password" placeholder="Password" th:field="*{password}" value="toto" class="form-control">
 
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="mb-3">
                       <label class="form-label"></label>
-                      <input type="password" placeholder="Confirm password" th:field="*{matchingPassword}" th:value="*{matchingPassword}" class="form-control">
+                      <input type="password" placeholder="Confirm password" th:field="*{matchingPassword}" value="toto" class="form-control">
                       <p style="color: red" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
                     </div>
                   </div>
@@ -139,7 +139,7 @@
             <div class="col-md-3">
               <div class="mb-3">
                 <label class="form-label"></label>
-                <input type="text" th:field="*{phoneNumberList[0].phoneNumber}" th:value="*{phoneNumberList[0].phoneNumber}" placeholder="Phone number..." class="form-control">
+                <input type="text" th:field="*{phoneNumberList[0].phoneNumber}" value="0606060606" placeholder="Phone number..." class="form-control">
                 <p style="color: red" th:each="error:${#fields.errors('phoneNumberList[0].phoneNumber')}" th:text="${error}"></p>
               </div>
             </div>
