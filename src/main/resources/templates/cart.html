@@ -34,8 +34,8 @@
 
                 </div>
                 <div class="col-6">
-                  <form  th:action="@{/auth/cart/delete{id}(id=*{id})}" method="post">
-                    <button type="submit" name="detail" th:value="*{id}" class="btn btn-danger">Delete</button>
+                  <form  th:action="@{/auth/cart/delete{id}(id=${c.id})}" method="post">
+                    <button type="submit" name="detail" th:value="${c.id}" class="btn btn-danger">Delete</button>
                   </form>
                 </div>
               </div>

@@ -56,6 +56,16 @@ public class OrderController {
 
         return "error";
     }
+    @PostMapping("/cart/delete/{idOrderLine}")
+    public String validateOrder(@PathVariable int idOrder, Model model){
+
+        if(orderService.validateOrder(idOrder)==true){
+
+            return "success-order";
+        }
+
+        return "error";
+    }
 
     private List<OrderDto> getDtosFromListOrder(List<Order> orders){
 
