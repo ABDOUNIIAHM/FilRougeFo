@@ -4,9 +4,11 @@ import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,16 +48,6 @@ public class OrderController {
         model.addAttribute("pendingOrderDto", pendingOrderDto);
         return "cart";
     }
-    @PostMapping("/cart/validate/{idOrder}")
-    public String validateOrder(@PathVariable int idOrder, Model model){
-
-        if(orderService.validateOrder(idOrder)==true){
-
-            return "payment";
-        }
-
-        return "error";
-    }
     @PostMapping("/cart/delete/{idOrderLine}")
     public String deleteOrderLine(@PathVariable int idOrderLine, Model model){
 
@@ -65,6 +57,28 @@ public class OrderController {
         }
 
         return "error";
+    }
+    @GetMapping("/payment")
+    public String getPaymentForm(Model model, @RequestParam("idOrder") long idOrder){
+        PaymentDto paymentDto = new PaymentDto();
+        System.out.println(idOrder);
+        model.addAttribute("paymentDto",paymentDto);
+        model.addAttribute("idOrder",idOrder);
+        return "payment";
+    }
+
+    @PostMapping("/payment")
+    public String confirmPayment(@ModelAttribute("paymentDto") @Valid PaymentDto paymentDto,BindingResult bindingResult, @RequestParam("id") long id){
+
+        System.out.println("i was calleeeeed");
+
+
+        if(bindingResult.hasErrors()){
+            return "payment";
+        }
+
+        orderService.validateOrder(id);
+        return "success-order";
     }
 
     private List<OrderDto> getDtosFromListOrder(List<Order> orders){
