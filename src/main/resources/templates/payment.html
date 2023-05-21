@@ -10,9 +10,9 @@
 </head>
 <body>
 <div th:replace="header :: header"></div>
-<div class="container">
+<div class="container" th:object="${paymentDto}">
   <h2 class="mt-4">Payment</h2>
-  <form th:action="@{/auth/payment}" th:object="${paymentDto}" method="post">
+  <form th:action="@{/auth/payment/{id}(id=*{id})}"  method="post">
     <div class="mb-3">
       <label for="card-number" class="form-label">Card number :</label>
       <input type="text" th:field="*{cardNumber}" th:value="*{cardNumber}"  class="form-control" id="card-number" name="cardNumber">
@@ -33,7 +33,7 @@
       <input type="text" th:field="*{cvv}" th:value="*{cvv}" class="form-control" id="cvv" name="cvv">
       <p style="color: red" th:each="error:${#fields.errors('cvv')}" th:text="${error}"></p>
     </div>
-    <button type="submit" name="id" th:value="${idOrder}" class="btn btn-primary">Confirm</button>
+    <button type="submit" name="id" th:value="*{id}" class="btn btn-primary">Confirm</button>
   </form>
 </div>
 

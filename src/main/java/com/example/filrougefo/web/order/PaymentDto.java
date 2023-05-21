@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode
 public class PaymentDto {
+    private long id;
     @Pattern(regexp = "^[0-9]{16}$", message = "invalid card number")
     private String cardNumber;
     @Pattern(regexp = "^[A-Za-z]{3,20}$", message = "invalid name")

@@ -60,7 +60,7 @@
           </div>
           <div class="card-footer">
             <form th:action="@{/auth/payment}" method="get">
-              <button type="submit" name="idOrder" th:value="*{id}" class="btn btn-success">Validate</button>
+              <button type="submit" th:name="idOrder" th:value="*{id}" class="btn btn-success">Validate</button>
             </form>
             <form th:action="@{/categories}" method="get" class="text-center">
               <button type="submit" class="btn btn-outline-success">Add Product</button>

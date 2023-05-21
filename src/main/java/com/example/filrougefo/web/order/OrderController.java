@@ -61,19 +61,21 @@ public class OrderController {
     @GetMapping("/payment")
     public String getPaymentForm(Model model, @RequestParam("idOrder") long idOrder){
         PaymentDto paymentDto = new PaymentDto();
-        System.out.println(idOrder);
+        paymentDto.setId(idOrder);
         model.addAttribute("paymentDto",paymentDto);
-        model.addAttribute("idOrder",idOrder);
         return "payment";
     }
 
-    @PostMapping("/payment")
-    public String confirmPayment(@ModelAttribute("paymentDto") @Valid PaymentDto paymentDto,BindingResult bindingResult, @RequestParam("id") long id){
+    @PostMapping("/payment/{id}")
+    public String confirmPayment(@ModelAttribute("paymentDto") @Valid PaymentDto paymentDto,BindingResult bindingResult,@PathVariable long id,Model model){
 
         System.out.println("i was calleeeeed");
 
+        System.out.println(paymentDto.getId());
+        // gerer l exception si id inexxistant
 
         if(bindingResult.hasErrors()){
+            model.addAttribute("paymentDto", paymentDto);
             return "payment";
         }
 
