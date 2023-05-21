@@ -1,18 +1,16 @@
 package com.example.filrougefo.web.Product;
 
+import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
-import com.example.filrougefo.exception.CategoryNotFoundException;
 import com.example.filrougefo.exception.ProductNotFoundException;
+import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.product.IntProductService;
+import com.example.filrougefo.web.order.OrderMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -24,6 +22,8 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     private IntProductService productService;
+    private IntOrderService orderService;
+    private OrderMapper orderMapper;
     private ProductMapper productMapper;
 
     @GetMapping
@@ -40,7 +40,7 @@ public class ProductController {
         return "product-list";
     }
 
-    //pour tester la partie commande !
+    //partie commande !
     @GetMapping("/{id}")
     public String detailProduct(Model model, @PathVariable int id){
 
@@ -50,7 +50,16 @@ public class ProductController {
         return "detail-product";
 
     }
-    //pour tester la partie commande !
+
+    @PostMapping("/add-to-cart/{id}")
+    public String addProductToCart(@RequestParam("quantity") int quantity, Model model,@PathVariable int id){
+
+        OrderLine orderLine = orderService.addProductToOrder(id, quantity);
+        model.addAttribute("orderLine",orderLine);
+
+        return "redirect:/products/"+id;
+    }
+    //partie commande !
 
 
 

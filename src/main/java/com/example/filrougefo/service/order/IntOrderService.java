@@ -16,7 +16,11 @@ public interface IntOrderService {
     List<Order> findAllOrdersByStatus_Name(String name);
     List<Order> findAllByOrdersBeforeChosenDate(LocalDate date);
     Order findOrderById(long id);
-    OrderLine addProductToOrder(Product product, int quantity);
+    OrderLine addProductToOrder(int productId, int quantity);
+    List<Order> findAllOrders();
+    Order hasPendingOrder();
+
+    boolean validateOrder(long orderId);
 
 
 }

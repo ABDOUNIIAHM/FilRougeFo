@@ -13,36 +13,37 @@
 
 <div class="container mt-2">
   <div class="card">
-    <div class="card-header"><h2>My cart</h2></div>
+    <div class="card-header"><h2>My Orders</h2></div>
     <div class="card-body">
       <table class="table">
         <thead>
         <tr>
-          <th>Order id</th><th>Product</th><th>Quantity</th><th>Discount</th><th>Price</th>
+          <th>Order id</th><th>Date</th><th>Status</th><th>Price</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="c:${invoices}">
+        <tr th:each="c:${orders}">
           <td th:text="${c.id}"></td>
-          <td th:text="${c.invoiceDate}"></td>
-          <td th:text="${c.deadLine}"></td>
-          <td th:text="${c.client.enterprise}"></td>
-          <td th:text="${c.paymentMethod.name}"></td>
+          <td th:text="${c.date}"></td>
+          <td th:text="${c.status.name}"></td>
+          <td>total price</td>
           <td>
             <div class="container">
-              <form th:action="@{/invoice-detail}" method="get">
-                <button type="submit" name="detail" th:value="${c.id}" class="btn btn-primary">Detail</button>
+              <form th:action="@{/auth/orders/{id}(id=${c.id})}" method="get">
+                <button type="submit" name="detail" class="btn btn-primary">items</button>
+              </form>
+              <form th:if="${c.status.name==status}" th:action="@{/auth/cart/}" method="post">
+                <button type="submit" name="detail" th:value="${c.id}" class="btn btn-success">Validate</button>
               </form>
             </div>
-
           </td>
         </tr>
         </tbody>
       </table>
     </div>
     <div class="card-footer">
-      <form th:action="@{/invoice/add-invoice}" method="get">
-        <button type="submit" class="btn btn-outline-success">Create Invoice</button>
+      <form th:action="@{/categories}" method="get" class="text-center">
+        <button type="submit" class="btn btn-outline-success">Home</button>
       </form>
     </div>
   </div>

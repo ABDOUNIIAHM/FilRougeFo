@@ -16,56 +16,36 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle"
-             href="${pageContext.request.contextPath}/secured/list-category"
-             role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categories
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item"
-                 href="${pageContext.request.contextPath}/secured/list-category">
-                Categories List
-              </a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item"
-                 href="${pageContext.request.contextPath}/secured/add-category">
-                Add Category
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle"
-             href="${pageContext.request.contextPath}/secured/list-product"
+             href="/categories"
              role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Products
           </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item"
-                 href="${pageContext.request.contextPath}/secured/list-product">
-                Products list
-              </a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item"
-                 href="${pageContext.request.contextPath}/secured/add-product">
-                Add Product
-              </a>
-            </li>
-          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link"
-             href="${pageContext.request.contextPath}/SuperAdmin/ListAdmin"
-             role="button"  aria-expanded="false">
-            Admins
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             href="/auth/orders"
+             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Orders
+          </a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             href="/auth/cart"
+             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            My cart
+          </a>
+          <div class="dropdown-menu" aria-labelledby="ordersDropdown">
+            <a class="dropdown-item" href="/auth/cart">Cart</a>
+            <a class="dropdown-item" href="#">Pending Order</a>
+            <a class="dropdown-item" href="#">All Orders</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             href="/logout"
+             role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Logout
           </a>
         </li>
       </ul>

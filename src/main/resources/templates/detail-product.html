@@ -26,6 +26,7 @@
           </div>
           <div class="col-md-8">
             <article>
+              id:<p th:text="*{id}"></p>
               Name:<p th:text="*{name}"></p>
               Description:<p th:text="*{description}"></p>
               Unit:<p th:text="*{unit}"></p>
@@ -36,10 +37,10 @@
         </div>
 
       <div class="card-footer">
-        <form th:action="@{/products/{id}}" method="post">
+        <form th:action="@{/products/add-to-cart/{id}(id=*{id})}" method="post">
           <div class="text-center">
             <input type="number" name="quantity" placeholder="quantity" required>
-            <button type="submit" class="btn btn-outline-success">Add to basktet</button>
+            <button type="submit" name="idProduct" th:value="*{id}" class="btn btn-outline-success">Add to basktet</button>
           </div>
         </form>
       </div>

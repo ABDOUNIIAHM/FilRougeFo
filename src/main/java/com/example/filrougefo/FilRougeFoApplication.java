@@ -14,25 +14,13 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @SpringBootApplication
-public class FilRougeFoApplication implements CommandLineRunner {
+public class FilRougeFoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FilRougeFoApplication.class, args);
     }
-    @Autowired
-    private OrderService orderService;
 
-    @Override
-    @Transactional
-    public void run(String... args) throws Exception {
-        Category c = new Category();
-        c.setId(5);
 
-        Product p = new Product();
-        p.setId(1);
 
-        int quantity = 5;
-        orderService.addProductToOrder(p,quantity);
-    }
 }
 
