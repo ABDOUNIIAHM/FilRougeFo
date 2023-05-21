@@ -4,13 +4,10 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
+@Getter @Setter @EqualsAndHashCode
 public class PhoneNumberDto {
     private long id;
     @NotNull(message = "")

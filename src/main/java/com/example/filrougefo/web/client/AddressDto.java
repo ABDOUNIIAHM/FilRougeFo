@@ -3,13 +3,10 @@ package com.example.filrougefo.web.client;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
+@Getter @Setter @EqualsAndHashCode
 public class AddressDto {
     private long id;
 
@@ -19,7 +16,7 @@ public class AddressDto {
     @NotEmpty(message = "")
     @Pattern(regexp = "\\d{1,3}", message = "invalid input")
     private String number;
-    @Pattern(regexp = "[a-zA-Z]{1,3}", message ="3 characters max")
+    @Pattern(regexp = "[a-zA-Z]{0,3}", message ="3 characters max")
     private String roadPrefix;
     @NotNull(message = "")
     @NotEmpty(message = "")

@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-
 @Controller
 @AllArgsConstructor
 public class ClientController {
@@ -31,7 +29,6 @@ public class ClientController {
     public String getRegisterForm(Model model){
 
         ClientDto clientDto = new ClientDto();
-        System.out.println(clientDto.getFirstName());
         clientDto.getAddressList().add(new AddressDto());
         clientDto.getPhoneNumberList().add(new PhoneNumberDto());
 

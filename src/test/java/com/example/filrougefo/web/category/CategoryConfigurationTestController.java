@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 @TestConfiguration
 public class CategoryConfigurationTestController {
-
     @Bean
     CategoryMapper categoryMapper(){
         return new CategoryMapperImpl();
