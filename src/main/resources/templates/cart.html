@@ -59,7 +59,7 @@
             </table>
           </div>
           <div class="card-footer">
-            <form th:action="@{/auth/cart/validate/{id}(id=*{id})}" method="post">
+            <form th:action="@{/auth/payment}" method="post">
               <button type="submit" name="detail" th:value="*{id}" class="btn btn-success">Validate</button>
             </form>
             <form th:action="@{/categories}" method="get" class="text-center">

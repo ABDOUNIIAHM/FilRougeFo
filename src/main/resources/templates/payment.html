@@ -10,24 +10,24 @@
 </head>
 <body>
 <div th:replace="header :: header"></div>
-<div class="container">
+<div class="container" th:object="${paymentDto}">
   <h2 class="mt-4">Payment</h2>
   <form th:action="@{/auth/payment}" method="post">
     <div class="mb-3">
       <label for="card-number" class="form-label">Card number :</label>
-      <input type="text" class="form-control" id="card-number" name="cardNumber" required>
+      <input type="text" th:field="*{cardNumber}"  class="form-control" id="card-number" name="cardNumber" required>
     </div>
     <div class="mb-3">
       <label for="card-holder" class="form-label">Card holder :</label>
-      <input type="text" class="form-control" id="card-holder" name="cardHolder" required>
+      <input type="text" th:field="*{cardHolder}" th:value="*{cardHolder}" class="form-control" id="card-holder" name="cardHolder" required>
     </div>
     <div class="mb-3">
       <label for="expiration-date" class="form-label">Expiration date :</label>
-      <input type="date" class="form-control" id="expiration-date" name="expirationDate" required>
+      <input type="date" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate" required>
     </div>
     <div class="mb-3">
       <label for="cvv" class="form-label">CVV :</label>
-      <input type="text" class="form-control" id="cvv" name="cvv" required>
+      <input type="text" th:field="*{cvv}" th:value="*{cvv}" class="form-control" id="cvv" name="cvv" required>
     </div>
     <button type="submit" class="btn btn-primary">Confirm</button>
   </form>

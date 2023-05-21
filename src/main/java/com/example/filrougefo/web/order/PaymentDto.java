@@ -16,7 +16,7 @@ public class PaymentDto {
     @Pattern(regexp = "^[A-Za-z]{3,20}$", message = "invalid name")
     private String cardHolder;
     @Future(message = "Your card has expired")
-    private LocalDate localDate;
+    private LocalDate expirationDate;
     @Pattern(regexp = "^[0-9]{3}$", message = "invalid cvv")
     private String cvv;
 }
