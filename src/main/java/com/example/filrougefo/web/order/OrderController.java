@@ -51,7 +51,7 @@ public class OrderController {
 
         if(orderService.validateOrder(idOrder)==true){
 
-            return "success-order";
+            return "payment";
         }
 
         return "error";
