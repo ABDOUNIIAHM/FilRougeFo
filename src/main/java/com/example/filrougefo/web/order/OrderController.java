@@ -22,7 +22,7 @@ public class OrderController {
     @GetMapping("/orders")
     public String getAllOrders(Model model){
 
-        List<OrderDto> allOrders = getDtosFromListOrder(orderService.findAllOrders());
+        List<OrderDto> allOrders = getDtosFromListOrder(orderService.getNonPendingOrders());
 
         model.addAttribute("status","PENDING");
         model.addAttribute("orders",allOrders);
@@ -57,11 +57,11 @@ public class OrderController {
         return "error";
     }
     @PostMapping("/cart/delete/{idOrderLine}")
-    public String validateOrder(@PathVariable int idOrder, Model model){
+    public String deleteOrderLine(@PathVariable int idOrderLine, Model model){
 
-        if(orderService.validateOrder(idOrder)==true){
+        if(orderLineService.deleteOrderLine(idOrderLine)==true){
 
-            return "success-order";
+            return "redirect:/auth/cart";
         }
 
         return "error";

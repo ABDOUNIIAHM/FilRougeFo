@@ -6,6 +6,7 @@ import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.exception.OrderNotFoundException;
 import com.example.filrougefo.repository.OrderLineRepository;
 import com.example.filrougefo.repository.OrderRepository;
+import com.example.filrougefo.repository.OrderStatusRepository;
 import com.example.filrougefo.repository.ProductRepository;
 import com.example.filrougefo.service.product.IntProductService;
 import lombok.AllArgsConstructor;
@@ -15,11 +16,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class OrderService implements IntOrderService{
     private final OrderRepository orderRepository;
+    private final OrderStatusRepository orderStatusRepository;
     private final OrderLineRepository orderLineRepository;
     private IntProductService productService;
 
@@ -84,18 +87,31 @@ public class OrderService implements IntOrderService{
         Order order = new Order();
         return orderRepository.save(order);
     }
+
+    @Override
+    public List<Order> getNonPendingOrders() {
+        List<OrderStatus> status = orderStatusRepository.findAllByNameIsNotContaining("PENDING");
+
+        return status
+                .stream()
+                .flatMap(x-> orderRepository.findAllByStatus_Name(x.getName()).stream())
+                .collect(Collectors.toList());
+    }
+
     @Override
     public boolean validateOrder(long id) {
 
         Optional<Order> toValidate = orderRepository.findById(id);
 
-        if(toValidate.isPresent()){
-            OrderStatus os = new OrderStatus();
-            os.setId(2);
-            Order order = toValidate.get();
-            order.setStatus(os);
-            orderRepository.save(order);
+        if(toValidate.isEmpty()){
+            throw new OrderNotFoundException("No such order for id:"+id);
         }
-        throw new OrderNotFoundException("No such order for id:"+id);
+
+        OrderStatus os = new OrderStatus();
+        os.setId(2);
+        Order order = toValidate.get();
+        order.setStatus(os);
+        orderRepository.save(order);
+        return true;
     }
 }

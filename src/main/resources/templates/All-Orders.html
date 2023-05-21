@@ -32,7 +32,7 @@
               <form th:action="@{/auth/orders/{id}(id=${c.id})}" method="get">
                 <button type="submit" name="detail" class="btn btn-primary">items</button>
               </form>
-              <form th:if="${c.status.name==status}" th:action="@{/auth/cart/}" method="post">
+              <form th:if="${c.status.name==status}" th:action="@{/auth/cart/validate/{id}(id=${c.id})}" method="post">
                 <button type="submit" name="detail" th:value="${c.id}" class="btn btn-success">Validate</button>
               </form>
             </div>

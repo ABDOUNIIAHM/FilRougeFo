@@ -20,6 +20,8 @@ public interface IntOrderService {
     List<Order> findAllOrders();
     Order hasPendingOrder();
 
+    List<Order> getNonPendingOrders();
+
     boolean validateOrder(long orderId);
 
 

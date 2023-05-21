@@ -14,4 +14,5 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     List<Order> findAllByStatus_Id(long id);
     List<Order> findAllByStatus_Name(String name);
     List<Order> findAllByDateIsLessThanEqual(LocalDate date);
+
 }
