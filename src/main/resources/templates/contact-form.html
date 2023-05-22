@@ -7,7 +7,7 @@
     <title>contact Admin</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
-<body>
+<body class="body-full">
 <div class="container">
 <h2>Contacter un Administrateur</h2>
     <form id="my-form" th:action="@{/contact}" method="post" onsubmit="toggleElementVisibility('my-element') " >
@@ -47,9 +47,7 @@
 
 
 </div>
-
-
 <script src="/js/script.js" th:src="@{/js/script.js}"></script>
-
+<div th:include="footer"></div>
 </body>
 </html>

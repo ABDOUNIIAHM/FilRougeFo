@@ -2,10 +2,7 @@ package com.example.filrougefo.web.product;
 
 import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Month;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -15,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor @EqualsAndHashCode
 public class ProductDTO {
 
     private int id;
