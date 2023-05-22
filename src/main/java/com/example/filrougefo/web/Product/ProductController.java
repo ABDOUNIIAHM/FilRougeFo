@@ -1,5 +1,6 @@
 package com.example.filrougefo.web.Product;
 
+import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.exception.ProductNotFoundException;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/products")
 @AllArgsConstructor
 public class ProductController {
-
     private IntProductService productService;
     private IntOrderService orderService;
     private OrderMapper orderMapper;
@@ -48,20 +48,8 @@ public class ProductController {
         model.addAttribute("productDto",productDto);
 
         return "detail-product";
-
-    }
-
-    @PostMapping("/add-to-cart/{id}")
-    public String addProductToCart(@RequestParam("quantity") int quantity, Model model,@PathVariable int id){
-
-        OrderLine orderLine = orderService.addProductToOrder(id, quantity);
-        model.addAttribute("orderLine",orderLine);
-
-        return "redirect:/products/"+id;
     }
     //partie commande !
-
-
 
     @ExceptionHandler(value = {ProductNotFoundException.class})
     public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException ex) {

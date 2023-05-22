@@ -1,11 +1,12 @@
 package com.example.filrougefo.web.order;
 
+import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
+import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
 import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
-import com.example.filrougefo.web.order.paymentDto.PaymentDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,12 +22,13 @@ import java.util.stream.Collectors;
 public class OrderController {
     private final IntOrderService orderService;
     private final OrderMapper orderMapper;
+    private ClientAuthDetail authenticatedClient;
     private final OrderLineMapper orderLineMapper;
     private final IntOrderLineService orderLineService;
     @GetMapping("/orders")
     public String getAllOrders(Model model){
 
-        List<OrderDto> allOrders = getDtosFromListOrder(orderService.getNonPendingOrders());
+        List<OrderDto> allOrders = getDtosFromListOrder(orderService.getNonPendingOrders(authenticatedClient.getClient()));
 
         model.addAttribute("status","PENDING");
         model.addAttribute("orders",allOrders);
@@ -46,9 +48,22 @@ public class OrderController {
     @GetMapping("/cart")
     public String getMyCart(Model model){
 
-        OrderDto pendingOrderDto = orderMapper.toDTO(orderService.hasPendingOrder());
+        OrderDto pendingOrderDto = orderMapper.toDTO(orderService.hasPendingOrder(authenticatedClient.getClient()));
         model.addAttribute("pendingOrderDto", pendingOrderDto);
+
+        List<Order> orderList = authenticatedClient.getClient().getOrderList();
         return "cart";
+    }
+
+    @PostMapping("/add-to-cart/{id}")
+    public String addProductToCart(@RequestParam("quantity") int quantity, Model model,@PathVariable int id){
+
+        OrderLine orderLine = orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
+        model.addAttribute("orderLine",orderLine);
+
+        List<Order> orderList = authenticatedClient.getClient().getOrderList();
+
+        return "redirect:/products/"+id;
     }
     @PostMapping("/cart/delete/{idOrderLine}")
     public String deleteOrderLine(@PathVariable int idOrderLine, Model model){
@@ -94,7 +109,6 @@ public class OrderController {
 
         return dtos;
     }
-
     private List<OrderLineDto> getDtosFromListOrderLine(List<OrderLine> orderLines){
 
         return orderLines

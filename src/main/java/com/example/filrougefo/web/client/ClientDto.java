@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,6 @@ import java.util.List;
 @MatchingPassword
 public class ClientDto {
     private long id;
-
     @NotEmpty(message = "")
     @NotNull(message = "")
     @Pattern(regexp = "^[A-Za-z ]{3,15}+$", message = "invalid input")

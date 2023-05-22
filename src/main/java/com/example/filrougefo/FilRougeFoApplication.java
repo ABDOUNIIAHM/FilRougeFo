@@ -14,19 +14,11 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @SpringBootApplication
-public class FilRougeFoApplication implements CommandLineRunner {
+public class FilRougeFoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FilRougeFoApplication.class, args);
     }
-@Autowired OrderService orderService;
 
-    @Override
-    @Transactional
-    public void run(String... args) throws Exception {
-
-        orderService.getNonPendingOrders().stream().forEach(x-> System.out.println(x.getStatus().getName()));
-
-    }
 }
 

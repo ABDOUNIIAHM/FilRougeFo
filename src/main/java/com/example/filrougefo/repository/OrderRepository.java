@@ -13,6 +13,7 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     List<Order> findAllByClientId(long id);
     List<Order> findAllByStatus_Id(long id);
     List<Order> findAllByStatus_Name(String name);
+    List<Order> findAllByStatus_NameAndAndClient_Id(String name, long id);
     List<Order> findAllByDateIsLessThanEqual(LocalDate date);
 
 }

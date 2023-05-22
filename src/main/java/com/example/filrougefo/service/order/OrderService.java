@@ -1,14 +1,12 @@
 package com.example.filrougefo.service.order;
-import com.example.filrougefo.entity.Order;
-import com.example.filrougefo.entity.OrderLine;
-import com.example.filrougefo.entity.OrderStatus;
-import com.example.filrougefo.entity.Product;
+import com.example.filrougefo.entity.*;
 import com.example.filrougefo.exception.OrderNotFoundException;
+import com.example.filrougefo.repository.ClientRepository;
 import com.example.filrougefo.repository.OrderLineRepository;
 import com.example.filrougefo.repository.OrderRepository;
 import com.example.filrougefo.repository.OrderStatusRepository;
-import com.example.filrougefo.repository.ProductRepository;
 import com.example.filrougefo.service.product.IntProductService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +17,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class OrderService implements IntOrderService{
     private final OrderRepository orderRepository;
+    private final ClientRepository clientRepository;
     private final OrderStatusRepository orderStatusRepository;
     private final OrderLineRepository orderLineRepository;
     private IntProductService productService;
@@ -54,47 +54,52 @@ public class OrderService implements IntOrderService{
     }
 
     @Override
-    public OrderLine addProductToOrder(int productId, int quantity) {
+    public OrderLine addProductToOrder(int productId, int quantity,Client client) {
 
         Product p = productService.findById(productId);
 
-        Order pendingOrder = hasPendingOrder();
+        Order pendingOrder = hasPendingOrder(client);
 
         OrderLine orderLine = new OrderLine();
         orderLine.setOrder(pendingOrder);
         orderLine.setProduct(p);
         orderLine.setQuantity(BigDecimal.valueOf(quantity));
 
-        OrderLine newOrderLine = orderLineRepository.save(orderLine);
-
         pendingOrder.getOrderLines().add(orderLine);
         orderRepository.save(pendingOrder);
 
-        return newOrderLine;
+        return orderLine;
     }
 
     @Override
-    public List<Order> findAllOrders() {
-        return orderRepository.findAll();
+    public List<Order> findAllOrders(Client client) {
+        return orderRepository.findAllByClientId(client.getId());
     }
 
     @Override
-    public Order hasPendingOrder() {
-        List<Order> orders = orderRepository.findAllByStatus_Name("PENDING");
+    public Order hasPendingOrder(Client client) {
+
+        List<Order> orders = orderRepository.findAllByStatus_NameAndAndClient_Id("PENDING",client.getId());
+
         if(orders.size()==1){
             return orders.get(0);
         }
         Order order = new Order();
+        OrderStatus os = orderStatusRepository.findById(1L).get();
+        order.setStatus(os);
+        order.setClient(client);
         return orderRepository.save(order);
+
     }
 
     @Override
-    public List<Order> getNonPendingOrders() {
-        List<OrderStatus> status = orderStatusRepository.findAllByNameIsNotContaining("PENDING");
+    public List<Order> getNonPendingOrders(Client client) {
 
-        return status
+        List<Order> allByClientId = orderRepository.findAllByClientId(client.getId());
+
+        return allByClientId
                 .stream()
-                .flatMap(x-> orderRepository.findAllByStatus_Name(x.getName()).stream())
+                .filter(x-> x.getStatus().getId() != 1)
                 .collect(Collectors.toList());
     }
 
@@ -107,10 +112,10 @@ public class OrderService implements IntOrderService{
             throw new OrderNotFoundException("No such order for id:"+id);
         }
 
-        OrderStatus os = new OrderStatus();
-        os.setId(2);
+        OrderStatus os = orderStatusRepository.findById(2L).get();
         Order order = toValidate.get();
         order.setStatus(os);
+
         orderRepository.save(order);
         return true;
     }
