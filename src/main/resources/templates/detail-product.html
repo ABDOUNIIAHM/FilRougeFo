@@ -37,7 +37,7 @@
         </div>
 
       <div class="card-footer">
-        <form th:action="@{/products/add-to-cart/{id}(id=*{id})}" method="post">
+        <form th:action="@{/auth/add-to-cart/{id}(id=*{id})}" method="post">
           <div class="text-center">
             <input type="number" name="quantity" placeholder="quantity" required>
             <button type="submit" name="idProduct" th:value="*{id}" class="btn btn-outline-success">Add to basktet</button>

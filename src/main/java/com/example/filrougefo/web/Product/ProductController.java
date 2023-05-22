@@ -1,5 +1,6 @@
 package com.example.filrougefo.web.Product;
 
+import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.exception.ProductNotFoundException;
@@ -23,6 +24,7 @@ public class ProductController {
 
     private IntProductService productService;
     private IntOrderService orderService;
+    private Client client = new Client();
     private OrderMapper orderMapper;
     private ProductMapper productMapper;
 
@@ -54,7 +56,7 @@ public class ProductController {
     @PostMapping("/add-to-cart/{id}")
     public String addProductToCart(@RequestParam("quantity") int quantity, Model model,@PathVariable int id){
 
-        OrderLine orderLine = orderService.addProductToOrder(id, quantity);
+        OrderLine orderLine = orderService.addProductToOrder(id, quantity,client);
         model.addAttribute("orderLine",orderLine);
 
         return "redirect:/products/"+id;

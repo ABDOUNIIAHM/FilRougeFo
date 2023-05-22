@@ -1,5 +1,6 @@
 package com.example.filrougefo.web.order;
 
+import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.service.order.IntOrderService;
@@ -21,12 +22,13 @@ import java.util.stream.Collectors;
 public class OrderController {
     private final IntOrderService orderService;
     private final OrderMapper orderMapper;
+    private Client sessionClient;
     private final OrderLineMapper orderLineMapper;
     private final IntOrderLineService orderLineService;
     @GetMapping("/orders")
     public String getAllOrders(Model model){
-
-        List<OrderDto> allOrders = getDtosFromListOrder(orderService.getNonPendingOrders());
+        Client sessionClient = new Client();
+        List<OrderDto> allOrders = getDtosFromListOrder(orderService.getNonPendingOrders(sessionClient));
 
         model.addAttribute("status","PENDING");
         model.addAttribute("orders",allOrders);
@@ -45,10 +47,20 @@ public class OrderController {
     }
     @GetMapping("/cart")
     public String getMyCart(Model model){
+        Client sessionClient = new Client();
 
-        OrderDto pendingOrderDto = orderMapper.toDTO(orderService.hasPendingOrder());
+        OrderDto pendingOrderDto = orderMapper.toDTO(orderService.hasPendingOrder(sessionClient));
         model.addAttribute("pendingOrderDto", pendingOrderDto);
         return "cart";
+    }
+
+    @PostMapping("/add-to-cart/{id}")
+    public String addProductToCart(@RequestParam("quantity") int quantity, Model model,@PathVariable int id){
+
+        OrderLine orderLine = orderService.addProductToOrder(id, quantity,sessionClient);
+        model.addAttribute("orderLine",orderLine);
+
+        return "redirect:/products/"+id;
     }
     @PostMapping("/cart/delete/{idOrderLine}")
     public String deleteOrderLine(@PathVariable int idOrderLine, Model model){

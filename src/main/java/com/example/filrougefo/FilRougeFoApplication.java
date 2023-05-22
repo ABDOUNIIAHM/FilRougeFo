@@ -25,7 +25,10 @@ public class FilRougeFoApplication implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
 
-        orderService.getNonPendingOrders().stream().forEach(x-> System.out.println(x.getStatus().getName()));
+        Client client = new Client();
+        client.setId(3);
+
+        orderService.getNonPendingOrders(client).stream().forEach(x-> System.out.println(x.getStatus().getName()));
 
     }
 }

@@ -1,4 +1,5 @@
 package com.example.filrougefo.service.order;
+import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
@@ -16,12 +17,12 @@ public interface IntOrderService {
     List<Order> findAllOrdersByStatus_Name(String name);
     List<Order> findAllByOrdersBeforeChosenDate(LocalDate date);
     Order findOrderById(long id);
-    OrderLine addProductToOrder(int productId, int quantity);
-    List<Order> findAllOrders();
-    Order hasPendingOrder();
+    OrderLine addProductToOrder(int productId, int quantity, Client client);
 
-    List<Order> getNonPendingOrders();
+    List<Order> findAllOrders(Client client);
 
+    Order hasPendingOrder(Client client);
+    List<Order> getNonPendingOrders(Client client);
     boolean validateOrder(long orderId);
 
 
