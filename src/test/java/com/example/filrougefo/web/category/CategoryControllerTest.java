@@ -17,10 +17,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
-@Import(CategoryConfigurationTestController.class)
+@Import(CategoryConfig.class)
 @WebMvcTest(CategoryController.class)
 class CategoryControllerTest {
     @Autowired
