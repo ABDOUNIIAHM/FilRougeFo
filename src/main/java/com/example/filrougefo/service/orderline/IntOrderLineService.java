@@ -10,4 +10,5 @@ public interface IntOrderLineService {
     OrderLine findById(long id);
     List<OrderLine> findAllOrderLinesByOrderId(long idOrder);
     OrderLine findOrderLineByOrderIdAndProductId(long idOrder, long idProduct);
+    boolean deleteOrderLine(long id);
 }
