@@ -6,6 +6,7 @@ import com.example.filrougefo.repository.OrderLineRepository;
 import com.example.filrougefo.repository.OrderRepository;
 import com.example.filrougefo.repository.OrderStatusRepository;
 import com.example.filrougefo.service.product.IntProductService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class OrderService implements IntOrderService{
     private final OrderRepository orderRepository;
     private final ClientRepository clientRepository;
+    private final OrderStatusRepository orderStatusRepository;
     private final OrderLineRepository orderLineRepository;
     private IntProductService productService;
 
@@ -62,17 +65,10 @@ public class OrderService implements IntOrderService{
         orderLine.setProduct(p);
         orderLine.setQuantity(BigDecimal.valueOf(quantity));
 
-        OrderLine newOrderLine = orderLineRepository.save(orderLine);
-
-        client.getOrderList().add(pendingOrder);
-
-        clientRepository.save(client);
-
         pendingOrder.getOrderLines().add(orderLine);
-        pendingOrder.setClient(client);
         orderRepository.save(pendingOrder);
 
-        return newOrderLine;
+        return orderLine;
     }
 
     @Override
@@ -89,7 +85,11 @@ public class OrderService implements IntOrderService{
             return orders.get(0);
         }
         Order order = new Order();
+        OrderStatus os = orderStatusRepository.findById(1L).get();
+        order.setStatus(os);
+        order.setClient(client);
         return orderRepository.save(order);
+
     }
 
     @Override
@@ -99,7 +99,7 @@ public class OrderService implements IntOrderService{
 
         return allByClientId
                 .stream()
-                .filter(x-> !x.getStatus().getName().equals("PENDING"))
+                .filter(x-> x.getStatus().getId() != 1)
                 .collect(Collectors.toList());
     }
 
@@ -112,10 +112,10 @@ public class OrderService implements IntOrderService{
             throw new OrderNotFoundException("No such order for id:"+id);
         }
 
-        OrderStatus os = new OrderStatus();
-        os.setId(2);
+        OrderStatus os = orderStatusRepository.findById(2L).get();
         Order order = toValidate.get();
         order.setStatus(os);
+
         orderRepository.save(order);
         return true;
     }

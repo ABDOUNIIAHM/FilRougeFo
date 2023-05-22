@@ -14,21 +14,11 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @SpringBootApplication
-public class FilRougeFoApplication implements CommandLineRunner {
+public class FilRougeFoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FilRougeFoApplication.class, args);
     }
-    @Autowired
-    ClientRepository clientRepository;
 
-    @Override
-    public void run(String... args) throws Exception {
-
-        Optional<Client> byEmail = clientRepository.findByEmail("toto@toto.com");
-
-        System.out.println(byEmail.get().getEmail());
-
-    }
 }
 

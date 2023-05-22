@@ -47,10 +47,11 @@ public class OrderController {
     }
     @GetMapping("/cart")
     public String getMyCart(Model model){
-        Client sessionClient = new Client();
 
-        OrderDto pendingOrderDto = orderMapper.toDTO(orderService.hasPendingOrder(sessionClient));
+        OrderDto pendingOrderDto = orderMapper.toDTO(orderService.hasPendingOrder(authenticatedClient.getClient()));
         model.addAttribute("pendingOrderDto", pendingOrderDto);
+
+        List<Order> orderList = authenticatedClient.getClient().getOrderList();
         return "cart";
     }
 
@@ -59,6 +60,8 @@ public class OrderController {
 
         OrderLine orderLine = orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
         model.addAttribute("orderLine",orderLine);
+
+        List<Order> orderList = authenticatedClient.getClient().getOrderList();
 
         return "redirect:/products/"+id;
     }
