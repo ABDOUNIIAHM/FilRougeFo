@@ -25,6 +25,10 @@ public class FilRougeFoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        Optional<Client> byEmail = clientRepository.findByEmail("toto@toto.com");
+
+        System.out.println(byEmail.get().getEmail());
+
     }
 }
 

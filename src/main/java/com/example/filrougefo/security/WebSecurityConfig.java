@@ -45,7 +45,6 @@ public class WebSecurityConfig {
                             .usernameParameter("email")
                             .passwordParameter("password")
                             .defaultSuccessUrl("/categories", true);
-
                 })
                 .logout(logout -> {
                     logout
