@@ -30,7 +30,7 @@
 </head>
 <body>
 <div th:replace="header :: header"></div>
-<div class="container" th:object="${cardPaymentDto}">
+<div class="container" th:object="${paymentDto}">
   <h2 class="mt-4">Payment</h2>
   <form th:action="@{/auth/payment/{id}(id=*{id})}"  method="post">
 
@@ -55,7 +55,7 @@
         </div>
         <div class="mb-3">
           <label for="expiration-date" class="form-label">Expiration date :</label>
-          <input type="date" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate">
+          <input type="date" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate" required>
           <p style="color: red" th:each="error:${#fields.errors('expirationDate')}" th:text="${error}"></p>
         </div>
         <div class="mb-3">
@@ -66,21 +66,23 @@
       </div>
 
       <div id="paypal-fields" class="payment-fields">
-        <!-- Champs pour le paiement par PayPal -->
+        <!-- Champs pour le paiement par PayPal
         <div class="mb-3">
           <label for="paypal-email" class="form-label">PayPal Email:</label>
           <input type="email" th:field="*{paypalEmail}" th:value="*{paypalEmail}" class="form-control" id="paypal-email" name="paypalEmail">
           <p style="color: red" th:each="error:${#fields.errors('paypalEmail')}" th:text="${error}"></p>
         </div>
+        -->
       </div>
 
       <div id="bank-transfer-fields" class="payment-fields">
-        <!-- Champs pour le virement bancaire -->
+        <!-- Champs pour le virement bancaire
         <div class="mb-3">
           <label for="bank-account" class="form-label">Bank Account:</label>
           <input type="text" th:field="*{bankAccount}" th:value="*{bankAccount}" class="form-control" id="bank-account" name="bankAccount">
           <p style="color: red" th:each="error:${#fields.errors('bankAccount')}" th:text="${error}"></p>
         </div>
+        -->
       </div>
     </div>
 
