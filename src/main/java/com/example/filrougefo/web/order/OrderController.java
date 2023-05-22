@@ -4,6 +4,8 @@ import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
+import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
+import com.example.filrougefo.web.order.paymentDto.PaymentDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -60,14 +62,14 @@ public class OrderController {
     }
     @GetMapping("/payment")
     public String getPaymentForm(Model model, @RequestParam("idOrder") long idOrder){
-        PaymentDto paymentDto = new PaymentDto();
+        CardPaymentDto paymentDto = new CardPaymentDto();
         paymentDto.setId(idOrder);
-        model.addAttribute("paymentDto",paymentDto);
+        model.addAttribute("paymentDto", paymentDto);
         return "payment";
     }
 
     @PostMapping("/payment/{id}")
-    public String confirmPayment(@ModelAttribute("paymentDto") @Valid PaymentDto paymentDto,BindingResult bindingResult,@PathVariable long id,Model model){
+    public String confirmPayment(@ModelAttribute("paymentDto") @Valid CardPaymentDto paymentDto, BindingResult bindingResult, @PathVariable long id, Model model){
 
         System.out.println("i was calleeeeed");
 

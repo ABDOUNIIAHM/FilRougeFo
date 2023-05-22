@@ -1,4 +1,4 @@
-package com.example.filrougefo.web.order;
+package com.example.filrougefo.web.order.paymentDto;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Pattern;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class PaymentDto {
+public class CardPaymentDto {
     private long id;
     @Pattern(regexp = "^[0-9]{16}$", message = "invalid card number")
     private String cardNumber;
