@@ -1,5 +1,6 @@
 package com.example.filrougefo.security;
 
+import com.example.filrougefo.entity.Client;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,23 +8,19 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig {
-
     private ClientDetailServiceImpl clientDetailService;
-
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -31,7 +28,6 @@ public class WebSecurityConfig {
         provider.setUserDetailsService(clientDetailService);
         return provider;
     }
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws  Exception {
 
@@ -41,12 +37,11 @@ public class WebSecurityConfig {
                     .requestMatchers("/login").permitAll()
                     .requestMatchers("/products").permitAll()
                     .requestMatchers("/client/register").permitAll()
-                    .requestMatchers("/").permitAll();
+                    .anyRequest().authenticated();
 
                 })
                 .formLogin(form -> {
                     form
-                            .loginPage("/login")
                             .usernameParameter("email")
                             .passwordParameter("password")
                             .defaultSuccessUrl("/categories", true);
@@ -59,6 +54,5 @@ public class WebSecurityConfig {
                             .logoutSuccessUrl("/login");
                 })
                 .build();
-
     }
 }

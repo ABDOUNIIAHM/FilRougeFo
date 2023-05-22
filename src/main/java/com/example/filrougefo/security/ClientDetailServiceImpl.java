@@ -13,14 +13,13 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ClientDetailServiceImpl implements UserDetailsService {
     private final ClientRepository clientRepository;
-
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws ClientNotFoundException {
 
          Client user = clientRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new ClientNotFoundException("No such client with email:" + email + " !"));
 
-        return new ClientAuthDetail(user);
+         return new ClientAuthDetail(user);
     }
 }

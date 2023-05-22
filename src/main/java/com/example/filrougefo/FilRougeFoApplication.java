@@ -19,16 +19,11 @@ public class FilRougeFoApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(FilRougeFoApplication.class, args);
     }
-@Autowired OrderService orderService;
+    @Autowired
+    ClientRepository clientRepository;
 
     @Override
-    @Transactional
     public void run(String... args) throws Exception {
-
-        Client client = new Client();
-        client.setId(3);
-
-        orderService.getNonPendingOrders(client).stream().forEach(x-> System.out.println(x.getStatus().getName()));
 
     }
 }

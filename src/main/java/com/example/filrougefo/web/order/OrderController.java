@@ -3,10 +3,10 @@ package com.example.filrougefo.web.order;
 import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
+import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
 import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
-import com.example.filrougefo.web.order.paymentDto.PaymentDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,13 +22,13 @@ import java.util.stream.Collectors;
 public class OrderController {
     private final IntOrderService orderService;
     private final OrderMapper orderMapper;
-    private Client sessionClient;
+    private ClientAuthDetail authenticatedClient;
     private final OrderLineMapper orderLineMapper;
     private final IntOrderLineService orderLineService;
     @GetMapping("/orders")
     public String getAllOrders(Model model){
-        Client sessionClient = new Client();
-        List<OrderDto> allOrders = getDtosFromListOrder(orderService.getNonPendingOrders(sessionClient));
+
+        List<OrderDto> allOrders = getDtosFromListOrder(orderService.getNonPendingOrders(authenticatedClient.getClient()));
 
         model.addAttribute("status","PENDING");
         model.addAttribute("orders",allOrders);
@@ -57,7 +57,7 @@ public class OrderController {
     @PostMapping("/add-to-cart/{id}")
     public String addProductToCart(@RequestParam("quantity") int quantity, Model model,@PathVariable int id){
 
-        OrderLine orderLine = orderService.addProductToOrder(id, quantity,sessionClient);
+        OrderLine orderLine = orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
         model.addAttribute("orderLine",orderLine);
 
         return "redirect:/products/"+id;
@@ -106,7 +106,6 @@ public class OrderController {
 
         return dtos;
     }
-
     private List<OrderLineDto> getDtosFromListOrderLine(List<OrderLine> orderLines){
 
         return orderLines
