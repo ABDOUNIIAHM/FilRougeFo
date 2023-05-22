@@ -1,4 +1,4 @@
-package com.example.filrougefo.web.Product;
+package com.example.filrougefo.web.product;
 
 import com.example.filrougefo.entity.Product;
 import org.mapstruct.Mapper;

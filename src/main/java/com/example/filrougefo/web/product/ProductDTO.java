@@ -1,13 +1,14 @@
-package com.example.filrougefo.web.Product;
+package com.example.filrougefo.web.product;
 
 import com.example.filrougefo.entity.Category;
-import com.example.filrougefo.entity.Months;
+import com.example.filrougefo.entity.Month;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,6 @@ public class ProductDTO {
     private String description;
 //    private BigDecimal stock;
     private Category category;
-    private List<Months> seasonalMonths = new ArrayList<>();
+    private List<Month> seasonalMonths = new ArrayList<>();
 
 }
