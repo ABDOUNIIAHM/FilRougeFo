@@ -35,7 +35,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req -> {
                     req
                     .requestMatchers("/login").permitAll()
-                    .requestMatchers("/products").permitAll()
+                    .requestMatchers("/categories/*").permitAll()
                     .requestMatchers("/client/register").permitAll()
                     .anyRequest().authenticated();
 
