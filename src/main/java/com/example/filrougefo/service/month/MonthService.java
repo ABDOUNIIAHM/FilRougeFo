@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -14,6 +15,10 @@ public class MonthService implements IntMonthService{
 
     public List<Month> findAll() {
         return monthRepository.findAll();
+    }
+
+    public Optional<Month> findByName(String name) {
+        return monthRepository.findByNameIgnoreCase(name);
     }
 
 }
