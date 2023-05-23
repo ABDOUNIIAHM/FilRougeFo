@@ -51,7 +51,6 @@ public class OrderController {
         OrderDto pendingOrderDto = orderMapper.toDTO(orderService.hasPendingOrder(authenticatedClient.getClient()));
         model.addAttribute("pendingOrderDto", pendingOrderDto);
 
-        List<Order> orderList = authenticatedClient.getClient().getOrderList();
         return "cart";
     }
 
