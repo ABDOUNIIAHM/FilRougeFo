@@ -7,14 +7,17 @@ import com.example.filrougefo.service.orderline.OrderLineService;
 import com.example.filrougefo.web.client.AddressDto;
 import com.example.filrougefo.web.client.ClientDto;
 import com.example.filrougefo.web.client.PhoneNumberDto;
+import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,6 +26,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -122,16 +126,109 @@ class OrderControllerTest {
                         .param("quantity","1"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/products/1"));
-
     }
+    @WithMockUser
+    @Test
+    void ShouldRedirectToCartView() throws Exception {
+        //given
+        //when
+        when(orderLineService.deleteOrderLine(any(long.class))).thenReturn(true);
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/cart/delete/1")
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/auth/cart"));
+    }
+    @WithMockUser
+    @Test
+    void ShouldReturnErrorViewWhenDeleteDosentWork() throws Exception {
+        //given
+        //when
+        when(orderLineService.deleteOrderLine(any(long.class))).thenReturn(false);
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/cart/delete/1")
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("error"));
+    }
+    @WithMockUser
+    @Test
+    void ShouldReturnPaymentView() throws Exception {
+        //given
+        CardPaymentDto paymentDto = new CardPaymentDto();
+        paymentDto.setId(1);
+        //when
+
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/auth/payment").param("idOrder","1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attribute("paymentDto",paymentDto))
+                .andExpect(MockMvcResultMatchers.view().name("payment"));
+    }
+    @WithMockUser
+    @Test
+        void ShouldReturnSuccessOrderView() throws Exception {
+        //given
+        CardPaymentDto paymentDto = new CardPaymentDto();
+        paymentDto.setId(1);
+        paymentDto.setCvv("500");paymentDto.setCardHolder("joe");
+        paymentDto.setCardNumber("5000500050005000");paymentDto.setExpirationDate(LocalDate.of(2025,5,6));
+        //when
+        when(orderService.validateOrder(any(long.class))).thenReturn(true);
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/payment/1").with(csrf())
+                        .flashAttr("paymentDto",paymentDto))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                //.andExpect(MockMvcResultMatchers.model().attribute("paymentDto",paymentDto))
+                .andExpect(MockMvcResultMatchers.view().name("success-order"));
+    }
+    @WithMockUser
+    @Test
+    void ShouldReturnPaymentViewWhenFormHasErrors() throws Exception {
+        //given
+        CardPaymentDto paymentDto = new CardPaymentDto();
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/payment/1").with(csrf())
+                        .flashAttr("paymentDto",paymentDto))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attribute("paymentDto",paymentDto))
+                .andExpect(MockMvcResultMatchers.view().name("payment"));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private List<OrderDto> getDtosFromListOrder(List<Order> orders){
 
-        List<OrderDto> dtos = orders
-                .stream()
-                .map(x -> orderMapper.toDTO(x))
-                .collect(Collectors.toList());
+    List<OrderDto> dtos = orders
+            .stream()
+            .map(x -> orderMapper.toDTO(x))
+            .collect(Collectors.toList());
 
-        return dtos;
+    return dtos;
     }
     private List<OrderLineDto> getDtosFromListOrderLine(List<OrderLine> orderLines){
 

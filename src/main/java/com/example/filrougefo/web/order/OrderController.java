@@ -58,13 +58,11 @@ public class OrderController {
     @PostMapping("/add-to-cart/{id}")
     public String addProductToCart(@RequestParam("quantity") long quantity, Model model,@PathVariable int id){
 
-       // Client client = authenticatedClient.getClient();
         orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
-        //model.addAttribute("orderLine",orderLineMapper.toDTO(orderLine));
         return "redirect:/products/"+id;
     }
     @PostMapping("/cart/delete/{idOrderLine}")
-    public String deleteOrderLine(@PathVariable int idOrderLine, Model model){
+    public String deleteOrderLine(@PathVariable long idOrderLine){
 
         if(orderLineService.deleteOrderLine(idOrderLine)==true){
             return "redirect:/auth/cart";
@@ -81,17 +79,11 @@ public class OrderController {
 
     @PostMapping("/payment/{id}")
     public String confirmPayment(@ModelAttribute("paymentDto") @Valid CardPaymentDto paymentDto, BindingResult bindingResult, @PathVariable long id, Model model){
-
-        System.out.println("i was calleeeeed");
-
-        System.out.println(paymentDto.getId());
         // gerer l exception si id inexxistant
-
         if(bindingResult.hasErrors()){
             model.addAttribute("paymentDto", paymentDto);
             return "payment";
         }
-
         orderService.validateOrder(id);
         return "success-order";
     }
