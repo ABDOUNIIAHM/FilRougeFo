@@ -1,9 +1,6 @@
 package com.example.filrougefo.web.order;
 
-import com.example.filrougefo.entity.Client;
-import com.example.filrougefo.entity.Order;
-import com.example.filrougefo.entity.OrderLine;
-import com.example.filrougefo.entity.Product;
+import com.example.filrougefo.entity.*;
 import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.orderline.OrderLineService;
@@ -52,10 +49,12 @@ class OrderControllerTest {
         //given
         List<Order> orders = List.of(new Order(), new Order());
         //when
+        when(clientAuthDetail.getClient()).thenReturn(new Client());
         when(orderService.getNonPendingOrders(ArgumentMatchers.any(Client.class))).thenReturn(orders);
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attribute("orders",getDtosFromListOrder(orders)))
                 .andExpect(MockMvcResultMatchers.view().name("All-Orders"));
     }
     @WithMockUser
@@ -84,18 +83,20 @@ class OrderControllerTest {
     @Test
     void ShouldReturnCartView() throws Exception {
         //given
-        List<OrderLine> orderLines = List.of(new OrderLine(), new OrderLine());
         Order order = new Order();
-        order.setId(1);
+        OrderLine orderLine = new OrderLine();
+        Product product = new Product();
+        orderLine.setProduct(product);
+        order.getOrderLines().add(orderLine);
+        //orderLine.setOrder(order);
         //when
-        when(orderLineService.findAllOrderLinesByOrderId(ArgumentMatchers.any(long.class))).thenReturn(orderLines);
+        when(clientAuthDetail.getClient()).thenReturn(new Client());
         when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
-
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/cart"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("order-detail"));
-
+                .andExpect(MockMvcResultMatchers.model().attribute("pendingOrderDto",orderMapper.toDTO(order)))
+                .andExpect(MockMvcResultMatchers.view().name("cart"));
     }
 
 

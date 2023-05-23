@@ -85,8 +85,6 @@ public class OrderService implements IntOrderService{
             return orders.get(0);
         }
         Order order = new Order();
-        OrderStatus os = orderStatusRepository.findById(1L).get();
-        order.setStatus(os);
         order.setClient(client);
         return orderRepository.save(order);
 

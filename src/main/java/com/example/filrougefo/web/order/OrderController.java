@@ -48,7 +48,8 @@ public class OrderController {
     @GetMapping("/cart")
     public String getMyCart(Model model){
 
-        OrderDto pendingOrderDto = orderMapper.toDTO(orderService.hasPendingOrder(authenticatedClient.getClient()));
+        Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
+        OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);
         model.addAttribute("pendingOrderDto", pendingOrderDto);
 
         return "cart";
