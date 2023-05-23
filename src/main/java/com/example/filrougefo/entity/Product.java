@@ -31,7 +31,7 @@ public class Product {
     @JoinTable(name = "product_months",
             joinColumns = @JoinColumn(name = "idProduct"),
             inverseJoinColumns = @JoinColumn(name = "idMonth"))
-    private List<Months> seasonalMonths = new ArrayList<>();
+    private List<Month> seasonalMonths = new ArrayList<>();
     @OneToMany(mappedBy = "product")
     private List<OrderLine> orderLines = new ArrayList<>();
 

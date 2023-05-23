@@ -11,7 +11,7 @@ import java.util.List;
 @Immutable
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class Months {
+public class Month {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

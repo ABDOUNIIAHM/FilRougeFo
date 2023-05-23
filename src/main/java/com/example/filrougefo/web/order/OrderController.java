@@ -59,7 +59,7 @@ public class OrderController {
     public String addProductToCart(@RequestParam("quantity") long quantity, Model model,@PathVariable int id){
 
         orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
-        return "redirect:/products/"+id;
+        return "redirect:/products/" + id;
     }
     @PostMapping("/cart/delete/{idOrderLine}")
     public String deleteOrderLine(@PathVariable long idOrderLine){
