@@ -59,9 +59,7 @@ public class OrderController {
     public String addProductToCart(@RequestParam("quantity") int quantity, Model model,@PathVariable int id){
 
         OrderLine orderLine = orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
-        model.addAttribute("orderLine",orderLine);
-
-        List<Order> orderList = authenticatedClient.getClient().getOrderList();
+        model.addAttribute("orderLine",orderLineMapper.toDTO(orderLine));
 
         return "redirect:/products/"+id;
     }
@@ -69,10 +67,8 @@ public class OrderController {
     public String deleteOrderLine(@PathVariable int idOrderLine, Model model){
 
         if(orderLineService.deleteOrderLine(idOrderLine)==true){
-
             return "redirect:/auth/cart";
         }
-
         return "error";
     }
     @GetMapping("/payment")

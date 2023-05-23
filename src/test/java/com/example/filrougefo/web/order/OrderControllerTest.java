@@ -25,7 +25,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+
 @Import(OrderConfig.class)
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(OrderController.class)
@@ -97,6 +100,24 @@ class OrderControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("pendingOrderDto",orderMapper.toDTO(order)))
                 .andExpect(MockMvcResultMatchers.view().name("cart"));
+    }
+    @WithMockUser
+    @Test
+    void ShouldRedirectToProductDetailView() throws Exception {
+        //given
+        OrderLine orderLine = new OrderLine();
+        Product product = new Product();
+        orderLine.setProduct(product);
+        //when
+        when(clientAuthDetail.getClient()).thenReturn(new Client());
+        when(orderService.addProductToOrder(eq(1),eq(1),any(Client.class))).thenReturn(orderLine);
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/add-to-cart/1")
+                        .with(csrf())
+                        .param("quantity", "1"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/products/1"))
+                .andExpect(MockMvcResultMatchers.model().attribute("orderLine",orderLineMapper.toDTO(orderLine)));
     }
 
 
