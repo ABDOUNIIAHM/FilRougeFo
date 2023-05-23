@@ -5,7 +5,7 @@ import org.mapstruct.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-@Mapper(componentModel = "spring", uses = ImgRestController.class)
+@Mapper(componentModel = "spring")
 public interface ProductMapper {
 
     RestTemplate restTemplate = new RestTemplate();

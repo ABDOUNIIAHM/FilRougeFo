@@ -45,8 +45,8 @@ public class ProductController {
         return "product/product-list";
     }
 
-    @GetMapping("/detail{id}")
-    public String detailProduct(Model model, @RequestParam int id) {
+    @GetMapping("/{id}")
+    public String detailProduct(Model model, @PathVariable int id) {
         Product product = productService.findById(id);
         ProductDTO productDTO = productMapper.toDTO(product);
 
