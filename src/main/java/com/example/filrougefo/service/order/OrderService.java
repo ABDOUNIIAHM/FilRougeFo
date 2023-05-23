@@ -54,7 +54,7 @@ public class OrderService implements IntOrderService{
     }
 
     @Override
-    public OrderLine addProductToOrder(int productId, int quantity,Client client) {
+    public OrderLine addProductToOrder(int productId, long quantity,Client client) {
 
         Product p = productService.findById(productId);
 

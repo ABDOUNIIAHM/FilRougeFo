@@ -56,11 +56,11 @@ public class OrderController {
     }
 
     @PostMapping("/add-to-cart/{id}")
-    public String addProductToCart(@RequestParam("quantity") int quantity, Model model,@PathVariable int id){
+    public String addProductToCart(@RequestParam("quantity") long quantity, Model model,@PathVariable int id){
 
-        OrderLine orderLine = orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
-        model.addAttribute("orderLine",orderLineMapper.toDTO(orderLine));
-
+       // Client client = authenticatedClient.getClient();
+        orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
+        //model.addAttribute("orderLine",orderLineMapper.toDTO(orderLine));
         return "redirect:/products/"+id;
     }
     @PostMapping("/cart/delete/{idOrderLine}")

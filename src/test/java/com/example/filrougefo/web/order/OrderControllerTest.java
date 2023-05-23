@@ -21,6 +21,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,19 +110,20 @@ class OrderControllerTest {
         OrderLine orderLine = new OrderLine();
         Product product = new Product();
         orderLine.setProduct(product);
+        orderLine.setQuantity(BigDecimal.valueOf(1));
+        orderLine.setOrder(new Order());
+        System.out.println(orderLineMapper.toDTO(orderLine));
         //when
         when(clientAuthDetail.getClient()).thenReturn(new Client());
-        when(orderService.addProductToOrder(eq(1),eq(1),any(Client.class))).thenReturn(orderLine);
+        when(orderService.addProductToOrder(any(int.class),any(long.class),any(Client.class))).thenReturn(orderLine);
         //then
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/add-to-cart/1")
                         .with(csrf())
-                        .param("quantity", "1"))
+                        .param("quantity","1"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/products/1"))
-                .andExpect(MockMvcResultMatchers.model().attribute("orderLine",orderLineMapper.toDTO(orderLine)));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/products/1"));
+
     }
-
-
     private List<OrderDto> getDtosFromListOrder(List<Order> orders){
 
         List<OrderDto> dtos = orders
@@ -137,6 +140,4 @@ class OrderControllerTest {
                 .map(x -> orderLineMapper.toDTO(x))
                 .collect(Collectors.toList());
     }
-
-
 }
