@@ -54,7 +54,7 @@ public class OrderService implements IntOrderService{
     }
 
     @Override
-    public OrderLine addProductToOrder(int productId, int quantity,Client client) {
+    public OrderLine addProductToOrder(int productId, long quantity,Client client) {
 
         Product p = productService.findById(productId);
 
@@ -85,8 +85,6 @@ public class OrderService implements IntOrderService{
             return orders.get(0);
         }
         Order order = new Order();
-        OrderStatus os = orderStatusRepository.findById(1L).get();
-        order.setStatus(os);
         order.setClient(client);
         return orderRepository.save(order);
 
