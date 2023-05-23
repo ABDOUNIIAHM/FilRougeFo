@@ -55,4 +55,28 @@ public class ClientDto {
         this.addressList = addressList;
         this.phoneNumberList = phoneNumberList;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<AddressDto> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<AddressDto> addressList) {
+        this.addressList = addressList;
+    }
+
+    public List<PhoneNumberDto> getPhoneNumberList() {
+        return phoneNumberList;
+    }
+
+    public void setPhoneNumberList(List<PhoneNumberDto> phoneNumberList) {
+        this.phoneNumberList = phoneNumberList;
+    }
 }
