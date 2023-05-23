@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "Orders")
 @Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@AllArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,8 @@ public class Order {
     private Client client;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderLine> orderLines = new ArrayList<>();
+
+    public Order() {
+        this.status = new OrderStatus(1,"PENDING");
+    }
 }

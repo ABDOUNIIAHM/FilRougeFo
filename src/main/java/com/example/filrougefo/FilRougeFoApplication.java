@@ -1,6 +1,7 @@
 package com.example.filrougefo;
 import com.example.filrougefo.entity.*;
 import com.example.filrougefo.repository.*;
+import com.example.filrougefo.service.order.OrderService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,8 +19,6 @@ public class FilRougeFoApplication {
     public static void main(String[] args) {
         SpringApplication.run(FilRougeFoApplication.class, args);
     }
-
-
 
 }
 

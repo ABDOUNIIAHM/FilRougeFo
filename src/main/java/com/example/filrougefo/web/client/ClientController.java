@@ -8,6 +8,7 @@ import com.example.filrougefo.exception.ClientAlreadyExistException;
 import com.example.filrougefo.service.client.IntClientService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ public class ClientController {
     private IntClientService clientService;
     private ClientMapper clientMapper;
     private AddressMapper addressMapper;
+    private PasswordEncoder passwordEncoder;
     private PhoneNumberMapper phoneNumberMapper;
 
     @GetMapping("client/register")
@@ -47,6 +49,7 @@ public class ClientController {
         try {
             Client client = getClientFromClientDto(clientDto);
             clientService.isValidEmail(clientDto.getEmail());
+            client.setPassword(passwordEncoder.encode(client.getPassword()));
             clientService.createClient(client);
             return "success-signup";
 

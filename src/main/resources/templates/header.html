@@ -37,6 +37,35 @@
           </a>
         </li>
 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             th:href="@{/auth/orders}"
+             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Orders
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+            th:href="@{/auth/cart}"
+             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            My cart
+          </a>
+          <div class="dropdown-menu" aria-labelledby="ordersDropdown">
+            <a class="dropdown-item" href="/auth/cart">Cart</a>
+            <a class="dropdown-item" href="#">Pending Order</a>
+            <a class="dropdown-item" href="#">All Orders</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+             th:href="@{/logout}"
+             role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Logout
+          </a>
+        </li>
+
       </ul>
     </div>
   </div>

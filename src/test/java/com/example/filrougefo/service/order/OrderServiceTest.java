@@ -60,6 +60,7 @@ class OrderServiceTest {
         Order o2 = new Order();
         o1.setStatus(os);
         o2.setStatus(os);
+
         List<Order> expected = List.of(o1,o2);
 
         when(orderRepository.findAllByStatus_Name(any(String.class))).thenReturn(expected);

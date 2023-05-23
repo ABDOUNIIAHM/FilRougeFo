@@ -19,7 +19,7 @@ public class ProductDTO {
     private String name;
     private String unit;
     private BigDecimal pricePerUnit;
-    private String imgUrl;
+    private String imgBase64;
     private BigDecimal vat;
     private String description;
 //    private BigDecimal stock;
