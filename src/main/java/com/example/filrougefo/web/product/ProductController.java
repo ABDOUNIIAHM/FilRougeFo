@@ -1,7 +1,10 @@
 package com.example.filrougefo.web.product;
 
+import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Month;
 import com.example.filrougefo.entity.Product;
+import com.example.filrougefo.exception.MonthNotFoundException;
+import com.example.filrougefo.service.category.IntCategoryService;
 import com.example.filrougefo.service.month.IntMonthService;
 import com.example.filrougefo.exception.ProductNotFoundException;
 import com.example.filrougefo.service.order.IntOrderService;
@@ -14,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,10 +32,15 @@ public class ProductController {
     private OrderMapper orderMapper;
     private ProductMapper productMapper;
     private IntMonthService monthService;
+    private IntCategoryService categoryService;
 
     @GetMapping
     public String listProduct(Model model) {
         List<Product> productList = productService.findAll();
+
+        //TODO: Category + month DTO
+        List<Month> monthList = monthService.findAll();
+        List<Category> categoryList = categoryService.findAll();
 
         List<ProductDTO> productDTOsList = productList
                 .stream()
@@ -41,11 +48,14 @@ public class ProductController {
                 .collect(Collectors.toList());
 
         model.addAttribute("productList", productDTOsList);
+        model.addAttribute("monthList", monthList);
+        model.addAttribute("categoryList", categoryList);
+
 
         return "product/product-list";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/details/{id}")
     public String detailProduct(Model model, @PathVariable int id) {
         Product product = productService.findById(id);
         ProductDTO productDTO = productMapper.toDTO(product);
@@ -58,7 +68,25 @@ public class ProductController {
         return "product/product-detail";
     }
 
-    @ExceptionHandler(value = {ProductNotFoundException.class})
+    @GetMapping("/month/{monthName}")
+    public String listProductPerMonth(
+            @PathVariable String monthName,
+            Model model) {
+
+        //TODO: Category + month DTO
+        List<Month> monthList = monthService.findAll();
+        List<Category> categoryList = categoryService.findAll();
+
+        List<Product> productList = productService.findAllProductPerMonth(monthName);
+
+        model.addAttribute("productList", productList);
+        model.addAttribute("monthList", monthList);
+        model.addAttribute("categoryList", categoryList);
+
+        return "product/product-list";
+    }
+
+    @ExceptionHandler(value = {ProductNotFoundException.class, MonthNotFoundException.class})
     public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException ex) {
 
         //logger.error("Request: " + req.getRequestURL() + " raised " + ex);

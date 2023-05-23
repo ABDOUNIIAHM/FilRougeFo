@@ -11,4 +11,5 @@ public interface IntProductService {
     Product findById(int id);
     List<Product> searchProductByNamePattern(String name);
     List<Product> findAllProductByCategoryId(int id);
+    List<Product> findAllProductPerMonth(String monthName);
 }
