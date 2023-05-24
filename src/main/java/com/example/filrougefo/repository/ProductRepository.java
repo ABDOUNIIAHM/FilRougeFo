@@ -12,7 +12,6 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product,Integer> {
     Optional<List<Product>> findAllByNameContainingIgnoreCase(String name);
     Optional<List<Product>> findAllByCategory_Id(int id);
-
     List<Product> findAllBySeasonalMonthsContaining(Month month);
 
 }

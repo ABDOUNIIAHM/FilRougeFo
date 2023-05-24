@@ -56,9 +56,11 @@ public class OrderController {
     }
 
     @PostMapping("/add-to-cart/{id}")
-    public String addProductToCart(@RequestParam("quantity") long quantity, Model model,@PathVariable int id){
+    public String addProductToCart(@RequestParam("quantity") String quantity, Model model,@PathVariable int id) {
 
-        orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
+        double qty = Double.parseDouble(quantity);
+
+        orderService.addProductToOrder(id, qty ,authenticatedClient.getClient());
         return "redirect:/products/details/" + id;
     }
     @PostMapping("/cart/delete/{idOrderLine}")

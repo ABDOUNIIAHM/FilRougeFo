@@ -1,13 +1,13 @@
 package com.example.filrougefo.web.product;
 
-import com.example.filrougefo.entity.Category;
-import com.example.filrougefo.entity.Month;
-import com.example.filrougefo.entity.Product;
+import com.example.filrougefo.entity.*;
 import com.example.filrougefo.exception.MonthNotFoundException;
+import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.category.IntCategoryService;
 import com.example.filrougefo.service.month.IntMonthService;
 import com.example.filrougefo.exception.ProductNotFoundException;
 import com.example.filrougefo.service.order.IntOrderService;
+import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.product.IntProductService;
 import com.example.filrougefo.web.order.OrderMapper;
 
@@ -28,7 +28,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ProductController {
     private IntProductService productService;
-    private IntOrderService orderService;
     private OrderMapper orderMapper;
     private ProductMapper productMapper;
     private IntMonthService monthService;
@@ -79,7 +78,12 @@ public class ProductController {
 
         List<Product> productList = productService.findAllProductPerMonth(monthName);
 
-        model.addAttribute("productList", productList);
+        List<ProductDTO> productDTOsList = productList
+                .stream()
+                .map(productMapper::toDTO)
+                .collect(Collectors.toList());
+
+        model.addAttribute("productList", productDTOsList);
         model.addAttribute("monthList", monthList);
         model.addAttribute("categoryList", categoryList);
 
