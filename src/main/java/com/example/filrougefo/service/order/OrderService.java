@@ -6,9 +6,9 @@ import com.example.filrougefo.repository.OrderLineRepository;
 import com.example.filrougefo.repository.OrderRepository;
 import com.example.filrougefo.repository.OrderStatusRepository;
 import com.example.filrougefo.service.product.IntProductService;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @AllArgsConstructor
 public class OrderService implements IntOrderService{
     private final OrderRepository orderRepository;

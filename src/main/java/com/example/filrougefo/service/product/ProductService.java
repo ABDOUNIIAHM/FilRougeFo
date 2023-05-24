@@ -56,5 +56,4 @@ public class ProductService implements IntProductService {
         return productRepository.findAllBySeasonalMonthsContaining(month);
 
     }
-
 }

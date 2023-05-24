@@ -4,23 +4,16 @@ import com.example.filrougefo.entity.*;
 import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.orderline.OrderLineService;
-import com.example.filrougefo.web.client.AddressDto;
-import com.example.filrougefo.web.client.ClientDto;
-import com.example.filrougefo.web.client.PhoneNumberDto;
 import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -31,7 +24,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
@@ -195,30 +187,6 @@ class OrderControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attribute("paymentDto",paymentDto))
                 .andExpect(MockMvcResultMatchers.view().name("payment"));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private List<OrderDto> getDtosFromListOrder(List<Order> orders){

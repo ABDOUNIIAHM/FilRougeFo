@@ -1,9 +1,12 @@
 package com.example.filrougefo.service.orderline;
+
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.exception.OrderLineControllerException;
 import com.example.filrougefo.repository.OrderLineRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -42,10 +45,14 @@ public class OrderLineService implements IntOrderLineService {
 
         if(toDelete.isPresent()){
             OrderLine orderLine = toDelete.get();
-            orderLineRepository.delete(orderLine);
-            return true;
-        }
+            orderLineRepository.deleteById(id);
+            Optional<OrderLine> byId = orderLineRepository.findById(id);
 
+            if(orderLineRepository.findById(id).isEmpty()){
+                return true;
+            }
+            return false;
+        }
         throw new OrderLineControllerException("No such OrderLine found for id:"+id);
     }
 }

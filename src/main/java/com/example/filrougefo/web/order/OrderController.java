@@ -51,7 +51,6 @@ public class OrderController {
         Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
         OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);
         model.addAttribute("pendingOrderDto", pendingOrderDto);
-
         return "cart";
     }
 
@@ -63,6 +62,7 @@ public class OrderController {
         orderService.addProductToOrder(id, qty ,authenticatedClient.getClient());
         return "redirect:/products/details/" + id;
     }
+
     @PostMapping("/cart/delete/{idOrderLine}")
     public String deleteOrderLine(@PathVariable long idOrderLine){
 
@@ -71,6 +71,7 @@ public class OrderController {
         }
         return "error";
     }
+
     @GetMapping("/payment")
     public String getPaymentForm(Model model, @RequestParam("idOrder") long idOrder){
         CardPaymentDto paymentDto = new CardPaymentDto();
