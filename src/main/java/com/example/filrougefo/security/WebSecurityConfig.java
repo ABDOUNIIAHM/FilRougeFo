@@ -37,28 +37,28 @@ public class WebSecurityConfig {
         return (ClientAuthDetail) authentication.getPrincipal();
     }
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws  Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         return httpSecurity
                 .authorizeHttpRequests(req -> {
                     req
-                    .requestMatchers("/login").permitAll()
-                    .requestMatchers("/categories/*").permitAll()
-                    .requestMatchers("/client/register").permitAll()
-                    .anyRequest().authenticated();
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/categories/*").permitAll()
+                        .requestMatchers("/client/register").permitAll()
+                        .anyRequest().authenticated();
 
                 })
                 .formLogin(form -> {
                     form
                             .usernameParameter("email")
                             .passwordParameter("password")
-                            .defaultSuccessUrl("/categories", true);
+                            .defaultSuccessUrl("/", true);
                 })
                 .logout(logout -> {
                     logout
                             .logoutUrl("/logout")
                             .permitAll()
-                            .logoutSuccessUrl("/login");
+                            .logoutSuccessUrl("/");
                 })
                 .build();
     }
