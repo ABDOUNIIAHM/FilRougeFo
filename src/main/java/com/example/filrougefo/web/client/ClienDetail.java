@@ -63,7 +63,7 @@ public class ClienDetail {
         clientDto.setOrderList(client.getOrderList());
         clientDto.setAddressList(adressedto);
         clientDto.setPhoneNumberList(phoneNumberDtoList);
-        System.out.println(clientDto.getAvatarUrl() + "en get (2)");
+
         model.addAttribute("client", client);
         model.addAttribute("clientDton", clientDton);
         model.addAttribute("listAdresse", listAdresse);

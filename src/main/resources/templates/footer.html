@@ -15,24 +15,32 @@
 <body class="body-full">
   <section class="footer-position">
     <!-- Footer -->
-    <footer class="text-center text-white bg-footer" >
-      <!-- Grid container -->
-      <div class="pt-4 pb-0">
-        <!-- Section: CTA -->
-        <section class="">
-          <p class="d-flex justify-content-center align-items-center">
-            <span class="me-3">Une question, une suggestion </span>
-            <a th:href="@{/contact}" type="button" class="btn btn-outline-light btn-rounded">
-             contacter nous!
-            </a>
-          </p>
-        </section>
+<!--    <footer class="text-center text-white bg-footer" >-->
+<!--      &lt;!&ndash; Grid container &ndash;&gt;-->
+<!--      <div class="pt-4 pb-0">-->
+<!--        &lt;!&ndash; Section: CTA &ndash;&gt;-->
+<!--        <section class="">-->
+<!--          <p class="d-flex justify-content-center align-items-center">-->
+<!--            <span class="me-3">Une question, une suggestion </span>-->
+<!--            <a th:href="@{/contact}" type="button" class="btn btn-outline-light btn-rounded">-->
+<!--             contacter nous!-->
+<!--            </a>-->
+<!--          </p>-->
+<!--        </section>-->
         <!-- Section: CTA -->
 
       <!-- Copyright -->
-      <div class="text-center p-3 bg-footer-copyright" >
-        © 2023 Copyright:
-        <a class="text-white" th:href="@{/contact}">Panier Primeur</a>
+      <div class="text-center p-3 bg-footer-copyright d-flex justify-content-around " >
+       <div class="flex-footer">  © 2023 Copyright:
+         <a class="text-white" th:href="@{/contact}">Panier Primeur</a>
+       </div>
+
+        <div class="flex-footer">
+          <span class="me-3">Une question, une suggestion </span>
+          <a th:href="@{/contact}" type="button" class="btn btn-outline-light btn-rounded">
+            contacter nous!
+          </a>
+        </div>
       </div>
       </div>
       <!-- Copyright -->

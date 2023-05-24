@@ -14,89 +14,85 @@
 
 <body>
 <div th:replace="header :: header"></div>
-<div class="container-fluid p-3">
-    <p th:text="${client.id}"></p>
-<p th:text="${clientDton.getEmail()}"></p>
-    <p th:text="${clientDton.getFirstName()}"></p>
-    <p th:text="${clientDton.getLastName()}"></p>
-    <p th:text="${clientDton.avatarUrl}"></p>
-    <!-- Reste du code HTML de la page -->
+<div class="container-fluid p-3 grid-card magin-footer">
 
     <form th:action="@{/client/update}" method="POST">
-        <input type="hidden" th:field="*{client.id}">
-
-        <label>Email:</label>
-        <input type="text" th:field="*{clientDton.email}">
-
-        <label>First Name:</label>
-        <input type="text" th:field="*{clientDton.firstName}">
-
-        <label>Last Name:</label>
-        <input type="text" th:field="*{clientDton.lastName}">
-
-        <label>Avatar URL:</label>
-        <input type="text" th:field="*{clientDton.avatarUrl}">
-
-        <button type="submit">Update</button>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" th:src="${clientDton.avatarUrl}" alt="image client">
+            <div class="card-body">
+                <input type="hidden" th:field="*{client.id}">
+                <label>Prénom</label>
+                <input class="form-control card-title form-control-lg" type="text" th:field="*{clientDton.firstName}">
+                <br>
+                <label>Nom</label>
+                <input class="form-control card-title form-control-lg" type="text" th:field="*{clientDton.lastName}">
+                <br>
+                <label>Email</label>
+                <input  class="card-text form-control" type="text" th:field="*{clientDton.email}">
+                <br>
+                <label>Avatar URL</label>
+                <input  class="card-text form-control" type="text" th:field="*{clientDton.avatarUrl}">
+                <br>
+                <button  class="btn btn-outline-info w-100" type="submit">Modifier</button>
+            </div>
+        </div>
     </form>
-    <form th:action="@{/client/addresses}" method="post">
-        <table>
-            <thead>
-            <tr>
-                <th>Adresse ID</th>
-                <th>Titre</th>
-                <th>Préfixe de route</th>
-                <th>Nom de rue</th>
-                <th>Ville</th>
-                <th>Numéro</th>
-                <th>Complément</th>
-                <th>Code postal</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="address, addressStat : ${listAdresse}">
-                <td>
+
+    <div class="card" style="width: 18rem;">
+        <form th:action="@{/client/addresses}" method="post">
+            <div class="card-body">
+                <div th:each="address, addressStat : ${listAdresse}">
                     <input type="hidden" name="addressId" th:value="${address.id}" />
-                    <span th:text="${address.id}"></span>
-                </td>
-                <td>
-                    <input type="text" name="addressTitle" th:value="${address.title}" />
-                </td>
-                <td>
-                    <input type="text" name="addressRoadPrefix" th:value="${address.roadPrefix}" />
-                </td>
-                <td>
-                    <input type="text" name="addressRoadName" th:value="${address.roadName}" />
-                </td>
-                <td>
-                    <input type="text" name="addressCity" th:value="${address.city}" />
-                </td>
-                <td>
-                    <input type="text" name="addressNumber" th:value="${address.number}" />
-                </td>
-                <td>
-                    <input type="text" name="addressComplement" th:value="${address.complement}" />
-                </td>
-                <td>
-                    <input type="text" name="addressZipCode" th:value="${address.zipCode}" />
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <button type="submit">Enregistrer les modifications</button>
-    </form>
+                    <h3>Adresse</h3>
+<!--                    <span th:text="${address.id}"></span>-->
+<!--                    <br>-->
+                    <label>Titre</label>
+                    <input type="text" class="card-text form-control" name="addressTitle" th:value="${address.title}" />
+                    <br>
+                    <label>Préfixe de route</label>
+                    <input type="text" class="card-text form-control" name="addressRoadPrefix" th:value="${address.roadPrefix}" />
+                    <br>
+                    <label>Nom de rue</label>
+                    <input type="text" class="card-text form-control" name="addressRoadName" th:value="${address.roadName}" />
+                    <br>
+                    <label>Ville</label>
+                    <input type="text" class="card-text form-control" name="addressCity" th:value="${address.city}" />
+                    <br>
+                    <label>Numéro</label>
+                    <input type="text" class="card-text form-control" name="addressNumber" th:value="${address.number}" />
+                    <br>
+                    <label>Complément</label>
+                    <input type="text" class="card-text form-control" name="addressComplement" th:value="${address.complement}" />
+                    <br>
+                    <label>Code postal</label>
+                    <input type="text" class="card-text form-control" name="addressZipCode" th:value="${address.zipCode}" />
+                    <br>
+                </div>
+                <button class="btn btn-outline-info w-100" type="submit">Modifier</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <form th:action="@{/client/phoneNumbers}" method="post">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+
+                        <div th:each="phoneNumber, phoneNumberStat : ${phoneNumberList}" class="list-group-item">
+                            <h3> Téléphone</h3>
+                            <br>
+                            <input type="hidden" name="phoneNumberId" th:value="${phoneNumber.id}" />
+                            <label>numéro de téléphone</label>
+                            <input type="text" class="form-control" name="phoneNumberValue" th:value="${phoneNumber.phoneNumber}" />
+                        </div>
+                    <br>
+                    <button class="btn btn-outline-info w-100" type="submit">Modifier</button>
+                </div>
+            </div>
+        </form>
 
 
-    <form th:action="@{/client/phoneNumbers}" method="post">
-        <table>
-            <tr th:each="phoneNumber, phoneNumberStat : ${phoneNumberList}">
-                <input type="hidden" name="phoneNumberId" th:value="${phoneNumber.id}" />
-                <td th:text="${phoneNumber.id}"></td>
-                <td><input type="text" name="phoneNumberValue" th:value="${phoneNumber.phoneNumber}" /></td>
-            </tr>
-        </table>
-        <button type="submit">Enregistrer</button>
-    </form>
+    </div>
+</div>
 
 </div>
 <script src="/js/script.js" th:src="@{/js/script.js}"></script>

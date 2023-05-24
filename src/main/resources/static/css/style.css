@@ -12,14 +12,28 @@
     background-color:RGBA(94,117,144,0.57);
 }
 .footer-position{
-    position: fixed;
+    position:fixed;
     bottom: 0;
     left: 0;
     width: 100%;
 }
 .body-full{
-    height: 100vh;
+    height: 100%;
+    padding-bottom: 50px
 }
 .bg-footer-copyright{
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(159, 159, 159);
+    height: 50px;
+}
+.flex-footer{
+    display: flex;
+    align-items: center;
+}
+
+
+.grid-card{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 50px;
 }
