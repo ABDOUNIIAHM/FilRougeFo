@@ -15,46 +15,89 @@
 <body>
 <div th:replace="header :: header"></div>
 <div class="container-fluid p-3">
-<p th:text="${clientDto.getEmail()}"></p>
-    <p th:text="${clientDto.getFirstName()}"></p>
-    <p th:text="${clientDto.getLastName()}"></p>
-    <p th:text="${clientDto.getAvatarUrl()}"></p>
+    <p th:text="${client.id}"></p>
+<p th:text="${clientDton.getEmail()}"></p>
+    <p th:text="${clientDton.getFirstName()}"></p>
+    <p th:text="${clientDton.getLastName()}"></p>
+    <p th:text="${clientDton.avatarUrl}"></p>
+    <!-- Reste du code HTML de la page -->
 
-    <table>
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Road Name</th>
-            <th>City</th>
-            <th>Nombre</th>
-            <th>Complement</th>
-            <th>Code Postal</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="address : ${clientDto.addressList}">
-            <td th:text="${address.title}"></td>
-            <td th:text="${address.roadName}"></td>
-            <td th:text="${address.city}"></td>
-            <td th:text="${address.number}"></td>
-            <td th:text="${address.complement}"></td>
-            <td th:text="${address.zipCode}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <form th:action="@{/client/update}" method="POST">
+        <input type="hidden" th:field="*{client.id}">
 
-    <table>
-        <thead>
-        <tr>
-            <th>Numéro de téléphone</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="phone : ${clientDto.phoneNumberList}">
-            <td th:text="${phone.phoneNumber}"></td>
-        </tr>
-        </tbody>
-    </table>
+        <label>Email:</label>
+        <input type="text" th:field="*{clientDton.email}">
+
+        <label>First Name:</label>
+        <input type="text" th:field="*{clientDton.firstName}">
+
+        <label>Last Name:</label>
+        <input type="text" th:field="*{clientDton.lastName}">
+
+        <label>Avatar URL:</label>
+        <input type="text" th:field="*{clientDton.avatarUrl}">
+
+        <button type="submit">Update</button>
+    </form>
+    <form th:action="@{/client/addresses}" method="post">
+        <table>
+            <thead>
+            <tr>
+                <th>Adresse ID</th>
+                <th>Titre</th>
+                <th>Préfixe de route</th>
+                <th>Nom de rue</th>
+                <th>Ville</th>
+                <th>Numéro</th>
+                <th>Complément</th>
+                <th>Code postal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="address, addressStat : ${listAdresse}">
+                <td>
+                    <input type="hidden" name="addressId" th:value="${address.id}" />
+                    <span th:text="${address.id}"></span>
+                </td>
+                <td>
+                    <input type="text" name="addressTitle" th:value="${address.title}" />
+                </td>
+                <td>
+                    <input type="text" name="addressRoadPrefix" th:value="${address.roadPrefix}" />
+                </td>
+                <td>
+                    <input type="text" name="addressRoadName" th:value="${address.roadName}" />
+                </td>
+                <td>
+                    <input type="text" name="addressCity" th:value="${address.city}" />
+                </td>
+                <td>
+                    <input type="text" name="addressNumber" th:value="${address.number}" />
+                </td>
+                <td>
+                    <input type="text" name="addressComplement" th:value="${address.complement}" />
+                </td>
+                <td>
+                    <input type="text" name="addressZipCode" th:value="${address.zipCode}" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit">Enregistrer les modifications</button>
+    </form>
+
+
+    <form th:action="@{/client/phoneNumbers}" method="post">
+        <table>
+            <tr th:each="phoneNumber, phoneNumberStat : ${phoneNumberList}">
+                <input type="hidden" name="phoneNumberId" th:value="${phoneNumber.id}" />
+                <td th:text="${phoneNumber.id}"></td>
+                <td><input type="text" name="phoneNumberValue" th:value="${phoneNumber.phoneNumber}" /></td>
+            </tr>
+        </table>
+        <button type="submit">Enregistrer</button>
+    </form>
+
 </div>
 <script src="/js/script.js" th:src="@{/js/script.js}"></script>
 <div th:include="footer"></div>

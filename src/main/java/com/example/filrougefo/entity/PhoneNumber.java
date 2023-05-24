@@ -12,5 +12,7 @@ public class PhoneNumber {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String phoneNumber;
-
+    @ManyToOne
+    @JoinColumn(name = "id_client")
+    private Client client;
 }

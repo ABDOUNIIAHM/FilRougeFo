@@ -30,19 +30,4 @@ public class Client {
     @JoinColumn(name = "id_client")
     private List<PhoneNumber> phoneNumberList = new ArrayList<>();
 
-    public List<Address> getAddressList() {
-        return addressList;
-    }
-
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
-    }
-
-    public List<PhoneNumber> getPhoneNumberList() {
-        return phoneNumberList;
-    }
-
-    public void setPhoneNumberList(List<PhoneNumber> phoneNumberList) {
-        this.phoneNumberList = phoneNumberList;
-    }
 }
