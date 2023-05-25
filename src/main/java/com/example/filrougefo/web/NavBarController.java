@@ -21,6 +21,7 @@ public class NavBarController {
         Order pendingOrder = orderService.hasPendingOrder(client);
         return pendingOrder.getOrderLines().size();
     }
+
     @ModelAttribute
     public void commonAttributes(Model model, HttpServletRequest req, Authentication authentication) {
 
@@ -33,6 +34,9 @@ public class NavBarController {
                 int cartCount = countCartItems(authenticatedClient.getClient());
                 model.addAttribute("cartCount", cartCount);
             }
+
         }
     }
 }
+
+

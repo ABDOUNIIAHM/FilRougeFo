@@ -43,10 +43,15 @@ public class WebSecurityConfig {
             //throw new IllegalStateException("Authenticated client details are not available or are of an incompatible type.");
         }
     }
+    private static final String[] WHITELIST_RESSOURCES = {"/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico"};
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         return httpSecurity
+                .authorizeHttpRequests(requests -> {
+                    requests
+                            .requestMatchers(WHITELIST_RESSOURCES).permitAll();
+                })
                 .authorizeHttpRequests(req -> {
                     req
                          .requestMatchers("/auth/**").authenticated()
@@ -54,8 +59,10 @@ public class WebSecurityConfig {
                 })
                 .formLogin(form -> {
                     form
+                            .loginPage("/login")
                             .usernameParameter("email")
                             .passwordParameter("password")
+
                             .defaultSuccessUrl("/auth/cart", true);
                 })
                 .logout(logout -> {
