@@ -3,31 +3,24 @@ package com.example.filrougefo.web.client;
 import com.example.filrougefo.entity.Address;
 import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.PhoneNumber;
-import com.example.filrougefo.repository.AddressRepository;
 import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.address.AddressService;
 import com.example.filrougefo.service.client.IntClientService;
 import com.example.filrougefo.service.phonenumber.PhoneNumberService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
-public class ClienDetail {
+@RequestMapping("/auth/client")
+public class ClienDetailController {
 
     private IntClientService clientService;
     private AddressService addressService;
@@ -36,7 +29,7 @@ public class ClienDetail {
     private PhoneNumberService phoneNumberService;
     private PhoneNumberMapper phoneNumberMapper;
 
-    @GetMapping("/client/detail")
+    @GetMapping("/detail")
     public String geDetailProfil(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         Client client = authenticatedClient.getClient();
         String username = userDetails.getUsername();
@@ -66,7 +59,7 @@ public class ClienDetail {
     }
 
 
-    @PostMapping("/client/update")
+    @PostMapping("/update")
     public String updateClient(@ModelAttribute("clientDto") ClientDto updatedClient) {
         long clientId = updatedClient.getId();
         String email = updatedClient.getEmail();
@@ -77,10 +70,10 @@ public class ClienDetail {
 
         clientService.updateClientInformation(clientId, email, firstName, lastName, avatarUrl);
 
-        return "redirect:/client/detail";
+        return "redirect:/auth/client/detail";
     }
 
-    @PostMapping("/client/addresses")
+    @PostMapping("/addresses")
     public String updateClientAddresses(@RequestParam("addressId") List<Long> addressIds,
                                         @RequestParam("addressTitle") List<String> titles,
                                         @RequestParam("addressRoadPrefix") List<String> roadPrefixes,
@@ -109,10 +102,10 @@ public class ClienDetail {
             addressService.updateAddress(addressId, title, roadPrefix, roadName, city, number, complement, zipCode);
         }
 
-        return "redirect:/client/detail";
+        return "redirect:/auth/client/detail";
     }
 
-    @PostMapping("/client/phoneNumbers")
+    @PostMapping("/phoneNumbers")
     public String updateClientPhoneNumbers(@RequestParam("phoneNumberId") List<Long> phoneNumberIds,
                                            @RequestParam("phoneNumberValue") List<String> phoneNumber) {
         for (int i = 0; i < phoneNumberIds.size(); i++) {
@@ -121,7 +114,7 @@ public class ClienDetail {
             phoneNumberService.updatePhoneNumber(phoneNumberId, value);
         }
 
-        return "redirect:/client/detail";
+        return "redirect:/auth/client/detail";
     }
 
 }
