@@ -1,6 +1,5 @@
 package com.example.filrougefo.web.order;
 
-import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.security.ClientAuthDetail;
@@ -25,18 +24,20 @@ public class OrderController {
     private ClientAuthDetail authenticatedClient;
     private final OrderLineMapper orderLineMapper;
     private final IntOrderLineService orderLineService;
+
     @GetMapping("/orders")
-    public String getAllOrders(Model model){
+    public String getAllOrders(Model model) {
 
         List<OrderDto> allOrders = getDtosFromListOrder(orderService.getNonPendingOrders(authenticatedClient.getClient()));
 
         model.addAttribute("status","PENDING");
         model.addAttribute("orders",allOrders);
 
-        return "All-Orders";
+        return "order/order-history";
     }
+
     @GetMapping("/orders/{id}")
-    public String getOrderDetails(@PathVariable int id, Model model){
+    public String getOrderDetails(@PathVariable int id, Model model) {
 
         List<OrderLineDto> orderLines =
                 getDtosFromListOrderLine(orderLineService.findAllOrderLinesByOrderId(id));
@@ -52,7 +53,7 @@ public class OrderController {
         Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
         OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);
         model.addAttribute("pendingOrderDto", pendingOrderDto);
-        return "cart";
+        return "order/cart";
     }
 
     @PostMapping("/add-to-cart/{id}")
