@@ -4,11 +4,9 @@ import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.order.IntOrderService;
-import com.zaxxer.hikari.util.FastList;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,19 +23,18 @@ public class NavBarController {
     }
 
     @ModelAttribute
-    public void commonAttributes(Model model, HttpServletRequest req) {
+    public void commonAttributes(Model model, HttpServletRequest req, Authentication authentication) {
 
         String requestURI = req.getRequestURI();
         if (requestURI.contains("/auth/cart/delete")) {
             return;
         }
+        if(authentication != null && authentication.isAuthenticated()){
+            if (authenticatedClient != null) {
+                int cartCount = countCartItems(authenticatedClient.getClient());
+                model.addAttribute("cartCount", cartCount);
+            }
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            ClientAuthDetail clientAuthDetail = (ClientAuthDetail) authentication.getPrincipal();
-            Client client = clientAuthDetail.getClient();
-            int cartCount = countCartItems(client);
-            model.addAttribute("cartCount", cartCount);
         }
     }
 }

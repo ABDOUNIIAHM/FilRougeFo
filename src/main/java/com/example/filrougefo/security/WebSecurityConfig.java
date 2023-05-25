@@ -34,7 +34,14 @@ public class WebSecurityConfig {
     @SessionScope
     public ClientAuthDetail authenticatedClient() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (ClientAuthDetail) authentication.getPrincipal();
+        if (authentication != null && authentication.getPrincipal() instanceof ClientAuthDetail) {
+            return (ClientAuthDetail) authentication.getPrincipal();
+        } else {
+            return null;
+            // Handle the case where the principal object is not of type ClientAuthDetail
+            // You can return null or throw an exception depending on your requirements
+            //throw new IllegalStateException("Authenticated client details are not available or are of an incompatible type.");
+        }
     }
     private static final String[] WHITELIST_RESSOURCES = {"/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico"};
     @Bean
@@ -47,19 +54,16 @@ public class WebSecurityConfig {
                 })
                 .authorizeHttpRequests(req -> {
                     req
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/categories/*").permitAll()
-                        .requestMatchers("/client/register").permitAll()
-                        .anyRequest().authenticated();
-
+                         .requestMatchers("/auth/**").authenticated()
+                         .anyRequest().anonymous();
                 })
                 .formLogin(form -> {
                     form
                             .loginPage("/login")
                             .usernameParameter("email")
                             .passwordParameter("password")
-                            .permitAll()
-                            .defaultSuccessUrl("/products");
+
+                            .defaultSuccessUrl("/auth/cart", true);
                 })
                 .logout(logout -> {
                     logout
