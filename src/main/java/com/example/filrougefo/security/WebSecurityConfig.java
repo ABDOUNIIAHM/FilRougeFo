@@ -68,7 +68,7 @@ public class WebSecurityConfig {
                 })
                 .logout(logout -> {
                     logout
-                            .logoutUrl("/logout")
+                            .logoutUrl("/auth/logout")
                             .permitAll()
                             .logoutSuccessUrl("/login");
                 })
