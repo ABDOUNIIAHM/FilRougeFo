@@ -1,7 +1,9 @@
 package com.example.filrougefo;
 
+import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
+import com.example.filrougefo.repository.ClientRepository;
 import com.example.filrougefo.repository.OrderLineRepository;
 import com.example.filrougefo.repository.OrderRepository;
 import com.example.filrougefo.service.orderline.OrderLineService;
@@ -16,43 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootApplication
-public class FilRougeFoApplication{ //implements CommandLineRunner {
+public class FilRougeFoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FilRougeFoApplication.class, args);
     }
-<<<<<<< HEAD
-//    @Autowired
-//    ClientRepository clientRepository;
-//
-//    @Override
-//    public void run(String... args) throws Exception {
-//
-//        Optional<Client> byEmail = clientRepository.findByEmail("toto@toto.com");
-//
-//        System.out.println(byEmail.get().getEmail());
-//
-//    }
-=======
 
-    @Autowired
-    OrderLineService orderLineService;
-    @Autowired
-    OrderRepository orderRepository;
-    @Autowired
-    OrderLineRepository orderLineRepository;
-
-
-    @Override
-    @Transactional
-    public void run(String... args) throws Exception {
-        long id = 9;
-
-        orderLineRepository.deleteById(id);
-
-
-
-    }
->>>>>>> fb245aeddceb1543450414ec10a09594ca9030bc
 }
 
