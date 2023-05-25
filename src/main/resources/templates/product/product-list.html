@@ -64,11 +64,11 @@
 
                                 <input th:unless="${product.unit == 'piece'}" type="number" min=0 step=0.250
                                        class="form-control"
-                                       name="quantity" placeholder="Quantity" required>
+                                       name="quantity" placeholder="Quantité" required>
 
                                 <span class="input-group-text" id="basic-addon2" th:text="${product.unit}"></span>
                                 <button type="submit" name="idProduct" th:value="*{product.id}"
-                                        class="btn btn-outline-success">Add</button>
+                                        class="btn btn-outline-success">Ajouté</button>
                             </div>
                         </form>
 

@@ -31,30 +31,30 @@
 <body>
 <div th:replace="header :: header"></div>
 <div class="container" th:object="${paymentDto}">
-  <h2 class="mt-4">Payment</h2>
+  <h2 class="mt-4">Paiement</h2>
   <form th:action="@{/auth/payment/{id}(id=*{id})}"  method="post">
 
     <div class="mb-3">
-      <label for="payment-method" class="form-label">Payment Method:</label>
+      <label for="payment-method" class="form-label">Paiement Method:</label>
       <select id="payment-method" class="form-control">
-        <option value="credit-card">Credit Card</option>
+        <option value="credit-card">Carte de crédit</option>
         <option value="paypal">PayPal</option>
-        <option value="bank-transfer">Bank Transfer</option>
+        <option value="bank-transfer">Virement</option>
       </select>
 
       <div id="credit-card-fields" class="payment-fields">
         <div class="mb-3">
-          <label for="card-number" class="form-label">Card number :</label>
-          <input type="text" th:field="*{cardNumber}" th:value="*{cardNumber}"  class="form-control" id="card-number" name="cardNumber">
+          <label for="card-number" class="form-label">Numéro de carte </label>
+          <input type="text" th:field="*{cardNumber}" th:value="*{cardNumber}"  class="form-control" id="card-number" name="Numéro de carte">
           <p style="color: red" th:each="error:${#fields.errors('cardNumber')}" th:text="${error}"></p>
         </div>
         <div class="mb-3">
-          <label for="card-holder" class="form-label">Card holder :</label>
-          <input type="text" th:field="*{cardHolder}" th:value="*{cardHolder}" class="form-control" id="card-holder" name="cardHolder">
+          <label for="card-holder" class="form-label">Titulaire de la carte</label>
+          <input type="text" th:field="*{cardHolder}" th:value="*{cardHolder}" class="form-control" id="card-holder" name="Nom du titulaire">
           <p style="color: red" th:each="error:${#fields.errors('cardHolder')}" th:text="${error}"></p>
         </div>
         <div class="mb-3">
-          <label for="expiration-date" class="form-label">Expiration date :</label>
+          <label for="expiration-date" class="form-label">Date d'expiration</label>
           <input type="date" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate" required>
           <p style="color: red" th:each="error:${#fields.errors('expirationDate')}" th:text="${error}"></p>
         </div>
@@ -86,7 +86,7 @@
       </div>
     </div>
 
-    <button type="submit" name="id" th:value="*{id}" class="btn btn-primary">Confirm</button>
+    <button type="submit" name="id" th:value="*{id}" class="btn btn-primary">Confirmer</button>
   </form>
 </div>
 
