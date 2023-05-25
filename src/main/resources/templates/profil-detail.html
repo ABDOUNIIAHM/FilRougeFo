@@ -14,7 +14,7 @@
 
 <body>
 <div th:replace="header :: header"></div>
-<div class="container-fluid p-3 grid-card magin-footer">
+<div class=" container container-fluid p-3 grid-card magin-footer container-card">
 
     <form th:action="@{/client/update}" method="POST">
         <div class="card" style="width: 18rem;">
@@ -38,14 +38,12 @@
         </div>
     </form>
 
-    <div class="card" style="width: 18rem;">
+    <div class="card d-flex" style="width: 18rem;">
         <form th:action="@{/client/addresses}" method="post">
             <div class="card-body">
                 <div th:each="address, addressStat : ${listAdresse}">
                     <input type="hidden" name="addressId" th:value="${address.id}" />
                     <h3>Adresse</h3>
-<!--                    <span th:text="${address.id}"></span>-->
-<!--                    <br>-->
                     <label>Titre</label>
                     <input type="text" class="card-text form-control" name="addressTitle" th:value="${address.title}" />
                     <br>
@@ -72,8 +70,8 @@
             </div>
         </form>
     </div>
-    <div>
-        <form th:action="@{/client/phoneNumbers}" method="post">
+    <div style="width: 18rem;">
+        <form th:action="@{/client/phoneNumbers}" method="post"  >
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
 
