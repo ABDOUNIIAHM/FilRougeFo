@@ -16,18 +16,18 @@
     <div class="container mt-2 w-50">
       <div class="card mb-4">
         <div class="card-header">
-          <h3 class="text-center">Registration Form</h3>
+          <h3 class="text-center">Formulaire d'inscription</h3>
         </div>
         <div class="card-body">
           <form th:action="@{/client/register}" th:object="${clientDto}" method="post">
             <!-- Champ pour le client -->
             <fieldset>
-              <legend>Full name</legend>
+              <legend>Nom</legend>
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    *<input type="text" th:field="*{firstName}"  placeholder="First name" class="form-control">
+                    *<input type="text" th:field="*{firstName}"  placeholder="Prénom" class="form-control">
                     <p style="color: red" th:each="error:${#fields.errors('firstName')}" th:text="${error}"></p>
 
                   </div>
@@ -35,7 +35,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    *<input type="text" placeholder="Last name" th:field="*{lastName}" th:value="*{lastName}" class="form-control">
+                    *<input type="text" placeholder="Nom" th:field="*{lastName}" th:value="*{lastName}" class="form-control">
                     <p style="color: red" th:each="error:${#fields.errors('lastName')}" th:text="${error}"></p>
                   </div>
                 </div>
@@ -43,7 +43,7 @@
             </fieldset>
             <!-- Champ pour credentials -->
             <fieldset>
-              <legend>Credentials</legend>
+              <legend>Identitfiant</legend>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="mb-3">
@@ -55,14 +55,14 @@
                   <div class="col-md-4">
                     <div class="mb-3">
                       <label class="form-label"></label>
-                      <input type="password" placeholder="Password" th:field="*{password}" value="toto" class="form-control">
+                      <input type="password" placeholder="mot de passe" th:field="*{password}" value="toto" class="form-control">
 
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="mb-3">
                       <label class="form-label"></label>
-                      <input type="password" placeholder="Confirm password" th:field="*{matchingPassword}" value="toto" class="form-control">
+                      <input type="password" placeholder="Confirmez le mot de passe" th:field="*{matchingPassword}" value="toto" class="form-control">
                       <p style="color: red" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
                     </div>
                   </div>
@@ -70,19 +70,19 @@
             </fieldset>
             <!-- Champ pour l'address' -->
             <fieldset>
-              <legend>Address</legend>
+              <legend>Adresse</legend>
               <div class="row">
                 <div class="col-md-4">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:field="*{addressList[0].title}" th:value="*{addressList[0].title}" placeholder="Title..."  class="form-control">
+                    <input type="text" th:field="*{addressList[0].title}" th:value="*{addressList[0].title}" placeholder="Titre"  class="form-control">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:field="*{addressList[0].number}" th:value="*{addressList[0].number}" placeholder="Road number..."  class="form-control">
+                    <input type="text" th:field="*{addressList[0].number}" th:value="*{addressList[0].number}" placeholder="numéro"  class="form-control">
                     <p style="color: red" th:each="error:${#fields.errors('addressList[0].number')}" th:text="${error}"></p>
 
                   </div>
@@ -91,7 +91,7 @@
                 <div class="col-md-4">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:field="*{addressList[0].roadPrefix}" th:value="*{addressList[0].roadPrefix}" placeholder="Road prefix..." class="form-control">
+                    <input type="text" th:field="*{addressList[0].roadPrefix}" th:value="*{addressList[0].roadPrefix}" placeholder="type" class="form-control">
                     <p style="color: red" th:each="error:${#fields.errors('addressList[0].roadPrefix')}" th:text="${error}"></p>
 
                   </div>
@@ -102,7 +102,7 @@
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:field="*{addressList[0].roadName}" th:value="*{addressList[0].roadName}" placeholder="Road name..." class="form-control">
+                    <input type="text" th:field="*{addressList[0].roadName}" th:value="*{addressList[0].roadName}" placeholder="Nom" class="form-control">
                     <p style="color: red" th:each="error:${#fields.errors('addressList[0].roadName')}" th:text="${error}"></p>
 
                   </div>
@@ -111,14 +111,14 @@
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:field="*{addressList[0].complement}" th:value="*{addressList[0].complement}" placeholder="Complement..." class="form-control">
+                    <input type="text" th:field="*{addressList[0].complement}" th:value="*{addressList[0].complement}" placeholder="Complement" class="form-control">
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:field="*{addressList[0].zipCode}" th:value="*{addressList[0].zipCode}" placeholder="Zip code..." class="form-control">
+                    <input type="text" th:field="*{addressList[0].zipCode}" th:value="*{addressList[0].zipCode}" placeholder="Code postal" class="form-control">
                     <p style="color: red" th:each="error:${#fields.errors('addressList[0].zipCode')}" th:text="${error}"></p>
                   </div>
                 </div>
@@ -126,7 +126,7 @@
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label class="form-label"></label>
-                    <input type="text" th:field="*{addressList[0].city}" th:value="*{addressList[0].city}" placeholder="City..."  class="form-control">
+                    <input type="text" th:field="*{addressList[0].city}" th:value="*{addressList[0].city}" placeholder="Commune"  class="form-control">
                     <p style="color: red" th:each="error:${#fields.errors('addressList[0].city')}" th:text="${error}"></p>
                   </div>
                 </div>
@@ -139,17 +139,17 @@
             <div class="col-md-3">
               <div class="mb-3">
                 <label class="form-label"></label>
-                <input type="text" th:field="*{phoneNumberList[0].phoneNumber}" value="0606060606" placeholder="Phone number..." class="form-control">
+                <input type="text" th:field="*{phoneNumberList[0].phoneNumber}" value="0606060606" placeholder="Numéro de téléphone" class="form-control">
                 <p style="color: red" th:each="error:${#fields.errors('phoneNumberList[0].phoneNumber')}" th:text="${error}"></p>
               </div>
             </div>
             <div class="row">
               <div class="col-3">
-                <p><aside style="color: darkred">* Mandatory Fields</aside></p>
+                <p><aside style="color: darkred">* Champs obligatoires</aside></p>
 
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-outline-success">Register</button>
+                <button type="submit" class="btn btn-outline-success">S'inscrire</button>
               </div>
             </div>
           </form>

@@ -16,7 +16,7 @@
             <div class="col-2 m-lg-0" >
                 <div class="card mb-2">
                     <div class="card-body ps-1">
-                        <p><strong>All categories</strong></p>
+                        <p><strong>Toute les catégories</strong></p>
                         <ul class="ps-1">
                             <li th:each="c:${categories}">
                                 <a th:text="${c.name}" th:href="@{/categories/{id}(id=${c.id})}"></a>
