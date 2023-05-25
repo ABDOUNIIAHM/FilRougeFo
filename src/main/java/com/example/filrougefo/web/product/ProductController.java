@@ -9,6 +9,8 @@ import com.example.filrougefo.exception.ProductNotFoundException;
 import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.product.IntProductService;
+import com.example.filrougefo.web.category.CategoryDto;
+import com.example.filrougefo.web.category.CategoryMapper;
 import com.example.filrougefo.web.order.OrderMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,27 +30,37 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ProductController {
     private IntProductService productService;
-    private OrderMapper orderMapper;
     private ProductMapper productMapper;
     private IntMonthService monthService;
     private IntCategoryService categoryService;
+    private CategoryMapper categoryMapper;
+    private MonthMapper monthMapper;
 
     @GetMapping
     public String listProduct(Model model) {
-        List<Product> productList = productService.findAll();
 
-        //TODO: Category + month DTO
-        List<Month> monthList = monthService.findAll();
+        List<Product> productList = productService.findAll();
         List<Category> categoryList = categoryService.findAll();
+        List<Month> monthList = monthService.findAll();
+
+        List<MonthDTO> monthDTOList = monthList
+                .stream()
+                .map(monthMapper::toDTO)
+                .toList();
+
+        List<CategoryDto> categoryDtoList = categoryList
+                .stream()
+                .map(categoryMapper::toDTO)
+                .toList();
 
         List<ProductDTO> productDTOsList = productList
                 .stream()
                 .map(productMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
 
         model.addAttribute("productList", productDTOsList);
         model.addAttribute("monthList", monthList);
-        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("categoryList", categoryDtoList);
 
 
         return "product/product-list";
@@ -56,36 +68,47 @@ public class ProductController {
 
     @GetMapping("/details/{id}")
     public String detailProduct(Model model, @PathVariable int id) {
+
         Product product = productService.findById(id);
         ProductDTO productDTO = productMapper.toDTO(product);
 
         List<Month> monthList = monthService.findAll();
+        List<MonthDTO> monthDTOList = monthList
+                .stream()
+                .map(monthMapper::toDTO)
+                .toList();
 
         model.addAttribute("product", productDTO);
-        model.addAttribute("monthList", monthList);
+        model.addAttribute("monthList", monthDTOList);
 
         return "product/product-detail";
     }
 
     @GetMapping("/month/{monthName}")
-    public String listProductPerMonth(
-            @PathVariable String monthName,
-            Model model) {
-
-        //TODO: Category + month DTO
-        List<Month> monthList = monthService.findAll();
-        List<Category> categoryList = categoryService.findAll();
+    public String listProductPerMonth(@PathVariable String monthName, Model model) {
 
         List<Product> productList = productService.findAllProductPerMonth(monthName);
+        List<Month> monthList = monthService.findAll();
+        List<Category> categoryList = categoryService.findAll();
 
         List<ProductDTO> productDTOsList = productList
                 .stream()
                 .map(productMapper::toDTO)
                 .collect(Collectors.toList());
 
+        List<CategoryDto> categoryDtoList = categoryList
+                .stream()
+                .map(categoryMapper::toDTO)
+                .toList();
+
+        List<MonthDTO> monthDTOList = monthList
+                .stream()
+                .map(monthMapper::toDTO)
+                .toList();
+
         model.addAttribute("productList", productDTOsList);
-        model.addAttribute("monthList", monthList);
-        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("monthList", monthDTOList);
+        model.addAttribute("categoryList", categoryDtoList);
 
         return "product/product-list";
     }
