@@ -34,7 +34,14 @@ public class WebSecurityConfig {
     @SessionScope
     public ClientAuthDetail authenticatedClient() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (ClientAuthDetail) authentication.getPrincipal();
+        if (authentication != null && authentication.getPrincipal() instanceof ClientAuthDetail) {
+            return (ClientAuthDetail) authentication.getPrincipal();
+        } else {
+            return null;
+            // Handle the case where the principal object is not of type ClientAuthDetail
+            // You can return null or throw an exception depending on your requirements
+            //throw new IllegalStateException("Authenticated client details are not available or are of an incompatible type.");
+        }
     }
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -42,23 +49,20 @@ public class WebSecurityConfig {
         return httpSecurity
                 .authorizeHttpRequests(req -> {
                     req
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/categories/*").permitAll()
-                        .requestMatchers("/client/register").permitAll()
-                        .anyRequest().authenticated();
-
+                         .requestMatchers("/auth/**").authenticated()
+                         .anyRequest().anonymous();
                 })
                 .formLogin(form -> {
                     form
                             .usernameParameter("email")
                             .passwordParameter("password")
-                            .defaultSuccessUrl("/", true);
+                            .defaultSuccessUrl("/auth/cart", true);
                 })
                 .logout(logout -> {
                     logout
                             .logoutUrl("/logout")
                             .permitAll()
-                            .logoutSuccessUrl("/");
+                            .logoutSuccessUrl("/login");
                 })
                 .build();
     }
