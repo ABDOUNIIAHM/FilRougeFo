@@ -1,8 +1,6 @@
 package com.example.filrougefo.service.client;
 
 import com.example.filrougefo.entity.Address;
-import com.example.filrougefo.entity.Category;
-
 import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.PhoneNumber;
 import com.example.filrougefo.exception.AddressNotFoundException;

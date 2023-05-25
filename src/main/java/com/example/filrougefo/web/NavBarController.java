@@ -34,7 +34,6 @@ public class NavBarController {
                 int cartCount = countCartItems(authenticatedClient.getClient());
                 model.addAttribute("cartCount", cartCount);
             }
-
         }
     }
 }
