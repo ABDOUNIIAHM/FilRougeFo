@@ -70,10 +70,9 @@
         </div>
 
         <li class="nav-item">
-          <form th:action="@{/logout}" method="post">
-            <a class="nav-link" th:href="@{/logout}" th:text="Déconnexion"></a>
+          <form th:action="@{/auth/logout}" method="post">
+            <a class="nav-link " th:href="@{/auth/logout}" th:text="Déconnexion"></a>
           </form>
-
         </li>
 
       </ul>
