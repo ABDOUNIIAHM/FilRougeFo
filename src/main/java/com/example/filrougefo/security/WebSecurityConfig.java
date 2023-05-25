@@ -55,6 +55,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req -> {
                     req
                          .requestMatchers("/auth/**").authenticated()
+                         .requestMatchers("/products/**").permitAll()
                          .anyRequest().anonymous();
                 })
                 .formLogin(form -> {
