@@ -80,8 +80,8 @@
 }
 
 .login-img-div{
-    width: 33%;
-    height: 100%;
+    width: 50%;
+    height: 99%;
 }
 .login-champ{
     justify-content:space-around;
@@ -95,5 +95,8 @@
 }
 .bg-light-custome{
     background-color: rgba(199, 199, 199, 0.19);
+}
+.no-scoll{
+    overflow: hidden;
 }
 
