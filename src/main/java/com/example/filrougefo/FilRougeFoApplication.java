@@ -16,11 +16,24 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootApplication
-public class FilRougeFoApplication implements CommandLineRunner {
+public class FilRougeFoApplication{ //implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(FilRougeFoApplication.class, args);
     }
+<<<<<<< HEAD
+//    @Autowired
+//    ClientRepository clientRepository;
+//
+//    @Override
+//    public void run(String... args) throws Exception {
+//
+//        Optional<Client> byEmail = clientRepository.findByEmail("toto@toto.com");
+//
+//        System.out.println(byEmail.get().getEmail());
+//
+//    }
+=======
 
     @Autowired
     OrderLineService orderLineService;
@@ -40,5 +53,6 @@ public class FilRougeFoApplication implements CommandLineRunner {
 
 
     }
+>>>>>>> fb245aeddceb1543450414ec10a09594ca9030bc
 }
 

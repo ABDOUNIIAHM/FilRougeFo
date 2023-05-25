@@ -18,5 +18,7 @@ public class Address {
     private String complement;
     private String zipCode;
     private String city;
-
+    @ManyToOne
+    @JoinColumn(name = "id_client")
+ private Client client;
 }

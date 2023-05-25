@@ -29,4 +29,5 @@ public class Client {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_client")
     private List<PhoneNumber> phoneNumberList = new ArrayList<>();
+
 }
