@@ -47,31 +47,31 @@ public class OrderController {
     }
     @GetMapping("/cart")
     public String getMyCart(Model model){
-        Client sessionClient = new Client();
 
-        OrderDto pendingOrderDto = orderMapper.toDTO(orderService.hasPendingOrder(sessionClient));
+        Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
+        OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);
         model.addAttribute("pendingOrderDto", pendingOrderDto);
         return "cart";
     }
 
     @PostMapping("/add-to-cart/{id}")
-    public String addProductToCart(@RequestParam("quantity") int quantity, Model model,@PathVariable int id){
+    public String addProductToCart(@RequestParam("quantity") String quantity, Model model,@PathVariable int id) {
 
-        OrderLine orderLine = orderService.addProductToOrder(id, quantity,authenticatedClient.getClient());
-        model.addAttribute("orderLine",orderLine);
+        double qty = Double.parseDouble(quantity);
 
-        return "redirect:/products/"+id;
+        orderService.addProductToOrder(id, qty ,authenticatedClient.getClient());
+        return "redirect:/products/details/" + id;
     }
+
     @PostMapping("/cart/delete/{idOrderLine}")
-    public String deleteOrderLine(@PathVariable int idOrderLine, Model model){
+    public String deleteOrderLine(@PathVariable long idOrderLine){
 
         if(orderLineService.deleteOrderLine(idOrderLine)==true){
-
             return "redirect:/auth/cart";
         }
-
         return "error";
     }
+
     @GetMapping("/payment")
     public String getPaymentForm(Model model, @RequestParam("idOrder") long idOrder){
         CardPaymentDto paymentDto = new CardPaymentDto();
@@ -82,17 +82,11 @@ public class OrderController {
 
     @PostMapping("/payment/{id}")
     public String confirmPayment(@ModelAttribute("paymentDto") @Valid CardPaymentDto paymentDto, BindingResult bindingResult, @PathVariable long id, Model model){
-
-        System.out.println("i was calleeeeed");
-
-        System.out.println(paymentDto.getId());
         // gerer l exception si id inexxistant
-
         if(bindingResult.hasErrors()){
             model.addAttribute("paymentDto", paymentDto);
             return "payment";
         }
-
         orderService.validateOrder(id);
         return "success-order";
     }

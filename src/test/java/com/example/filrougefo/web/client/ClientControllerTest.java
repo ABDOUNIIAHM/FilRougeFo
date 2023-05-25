@@ -1,13 +1,9 @@
 package com.example.filrougefo.web.client;
 
-import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.exception.ClientAlreadyExistException;
 import com.example.filrougefo.service.client.ClientService;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
-import org.mockito.ArgumentMatchers.*;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,7 +16,7 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 
 
-@Import(ClientControllerTestConfiguration.class)
+@Import(ClientConfig.class)
 @WebMvcTest(ClientController.class)
 class ClientControllerTest {
 

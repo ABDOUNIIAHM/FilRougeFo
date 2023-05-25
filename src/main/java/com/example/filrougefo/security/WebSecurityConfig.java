@@ -12,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.context.annotation.SessionScope;
+
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
@@ -29,28 +31,34 @@ public class WebSecurityConfig {
         return provider;
     }
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws  Exception {
+    @SessionScope
+    public ClientAuthDetail authenticatedClient() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (ClientAuthDetail) authentication.getPrincipal();
+    }
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         return httpSecurity
                 .authorizeHttpRequests(req -> {
                     req
-                    .requestMatchers("/login").permitAll()
-                    .requestMatchers("/categories/*").permitAll()
-                    .requestMatchers("/client/register").permitAll()
-                    .anyRequest().authenticated();
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/categories/*").permitAll()
+                        .requestMatchers("/client/register").permitAll()
+                        .anyRequest().authenticated();
 
                 })
                 .formLogin(form -> {
                     form
                             .usernameParameter("email")
                             .passwordParameter("password")
-                            .defaultSuccessUrl("/categories", true);
+                            .defaultSuccessUrl("/", true);
                 })
                 .logout(logout -> {
                     logout
                             .logoutUrl("/logout")
                             .permitAll()
-                            .logoutSuccessUrl("/login");
+                            .logoutSuccessUrl("/");
                 })
                 .build();
     }

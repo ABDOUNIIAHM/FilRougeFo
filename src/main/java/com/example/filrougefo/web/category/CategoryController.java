@@ -3,8 +3,8 @@ package com.example.filrougefo.web.category;
 import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.exception.CategoryNotFoundException;
 import com.example.filrougefo.service.category.IntCategoryService;
-import com.example.filrougefo.web.Product.ProductDTO;
-import com.example.filrougefo.web.Product.ProductMapper;
+import com.example.filrougefo.web.product.ProductDTO;
+import com.example.filrougefo.web.product.ProductMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

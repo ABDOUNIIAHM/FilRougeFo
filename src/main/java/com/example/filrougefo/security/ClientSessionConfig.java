@@ -9,10 +9,5 @@ import org.springframework.web.context.annotation.SessionScope;
 
 @Configuration
 public class ClientSessionConfig {
-    @Bean
-    @SessionScope
-    public ClientAuthDetail authenticatedClient() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (ClientAuthDetail) authentication.getPrincipal();
-    }
+
 }

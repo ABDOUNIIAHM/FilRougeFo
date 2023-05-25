@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:replace="~{fragments/headFragment :: head}"></div>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="container-fluid p-3">
+
+        <div class="row">
+            <div class="col-2 m-lg-0">
+                <div class="card mb-2">
+                    <div class="card-body ps-1">
+                        <p><strong>All categories</strong></p>
+                        <ul class="ps-1">
+                            <li th:each="category : ${categoryList}">
+                                <a th:text="${category.name}" th:href="@{/categories/{id}(id=${category.id})}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card mb-2">
+                    <div class="card-body ps-1">
+                        <p><strong>Months</strong></p>
+                        <ul class="ps-1">
+                            <li th:each="month : ${monthList}">
+                                <a th:text="${month.name}" th:href="@{/products/month/{monthName}(monthName=${month.name})}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-10">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+                    <div class="col-2 mb-3" th:each="product : ${productList}">
+                        <div class="card">
+                            <div class="card-header">
+                                <span th:text="${product.name}"></span>
+                            </div>
+                            <div class="card-body">
+                                <span th:text="${product.description}"></span>
+                            </div>
+                            <div class="card-footer">
+                                <form th:action="@{/products/details/{id}(id=${product.id})}" method="get">
+                                    <button class="btn btn-outline-info">Detail</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

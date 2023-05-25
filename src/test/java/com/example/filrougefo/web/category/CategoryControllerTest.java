@@ -3,8 +3,8 @@ package com.example.filrougefo.web.category;
 import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.service.category.CategoryService;
-import com.example.filrougefo.web.Product.ProductDTO;
-import com.example.filrougefo.web.Product.ProductMapper;
+import com.example.filrougefo.web.product.ProductDTO;
+import com.example.filrougefo.web.product.ProductMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
-@Import(CategoryConfigurationTestController.class)
+@Import(CategoryConfig.class)
 @WebMvcTest(CategoryController.class)
 class CategoryControllerTest {
     @Autowired
