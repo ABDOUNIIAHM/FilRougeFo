@@ -36,10 +36,15 @@ public class WebSecurityConfig {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return (ClientAuthDetail) authentication.getPrincipal();
     }
+    private static final String[] WHITELIST_RESSOURCES = {"/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico"};
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         return httpSecurity
+                .authorizeHttpRequests(requests -> {
+                    requests
+                            .requestMatchers(WHITELIST_RESSOURCES).permitAll();
+                })
                 .authorizeHttpRequests(req -> {
                     req
                         .requestMatchers("/login").permitAll()
@@ -50,15 +55,17 @@ public class WebSecurityConfig {
                 })
                 .formLogin(form -> {
                     form
+                            .loginPage("/login")
                             .usernameParameter("email")
                             .passwordParameter("password")
-                            .defaultSuccessUrl("/", true);
+                            .permitAll()
+                            .defaultSuccessUrl("/products");
                 })
                 .logout(logout -> {
                     logout
                             .logoutUrl("/logout")
                             .permitAll()
-                            .logoutSuccessUrl("/");
+                            .logoutSuccessUrl("/login");
                 })
                 .build();
     }

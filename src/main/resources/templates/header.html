@@ -70,11 +70,10 @@
         </div>
 
         <li class="nav-item">
-          <a class="nav-link"
-             th:href="@{/logout}"
-             role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Logout
-          </a>
+          <form th:action="@{/logout}" method="post">
+            <a class="nav-link" th:href="@{/logout}" th:text="Déconnexion"></a>
+          </form>
+
         </li>
 
       </ul>

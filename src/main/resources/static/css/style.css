@@ -75,3 +75,25 @@
     object-fit: cover;
 }
 
+.login-img{
+    height: 100%;
+}
+
+.login-img-div{
+    width: 33%;
+    height: 100%;
+}
+.login-champ{
+    justify-content:space-around;
+    height:100%;
+}
+.login-champ-use{
+    margin-bottom: 30px;
+}
+.login-champ-pwd{
+    margin-top: 30px;
+}
+.bg-light-custome{
+    background-color: rgba(199, 199, 199, 0.19);
+}
+
