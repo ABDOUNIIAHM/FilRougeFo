@@ -56,7 +56,7 @@ class OrderControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("orders",getDtosFromListOrder(orders)))
-                .andExpect(MockMvcResultMatchers.view().name("All-Orders"));
+                .andExpect(MockMvcResultMatchers.view().name("order/order-history"));
     }
     @WithMockUser
     @Test

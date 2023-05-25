@@ -19,7 +19,7 @@
     <div class="col-4 col-sm-3">
       <div class="product-img-container">
 <!--        <img th:src="@{product.imgURl}" class="rounded" style="object-fit: cover;">-->
-        <img src="data:image/jpeg;base64," th:attrappend="src=${product.imgBase64}" class="rounded">
+        <img src="data:image/jpeg;base64," th:attrappend="src=${product.imgBase64}" class="rounded" th:alt="${product.name}">
       </div>
     </div>
 
