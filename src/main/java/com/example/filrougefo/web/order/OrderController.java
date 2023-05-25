@@ -55,7 +55,7 @@ public class OrderController {
     }
 
     @PostMapping("/add-to-cart/{id}")
-    public String addProductToCart(@RequestParam("quantity") String quantity, Model model,@PathVariable int id) {
+    public String addProductToCart(@RequestParam("quantity") String quantity, Model model, @PathVariable int id) {
 
         double qty = Double.parseDouble(quantity);
 
