@@ -37,8 +37,26 @@
              role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Orders
           </a>
-        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             href="/auth/cart"
+             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            My cart
+          </a>
+          <div class="dropdown-menu" aria-labelledby="ordersDropdown">
+            <a class="dropdown-item" href="/auth/cart">Cart</a>
+            <a class="dropdown-item" href="#">Pending Order</a>
+            <a class="dropdown-item" href="#">All Orders</a>
 
+          </div>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link"
+             href="/client/detail"
+             role="button"  aria-expanded="false">
+           profil
+          </a>
+        </li>
         <div sec:authorize="isAuthenticated()">
           <a th:href="@{/auth/cart}"
              class="btn btn-primary position-relative btn-sm">

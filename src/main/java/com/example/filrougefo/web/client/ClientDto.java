@@ -13,6 +13,7 @@ import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @EqualsAndHashCode @ToString
@@ -53,6 +54,31 @@ public class ClientDto {
         this.avatarUrl = avatarUrl;
         this.orderList = orderList;
         this.addressList = addressList;
+        this.phoneNumberList = phoneNumberList;
+    }
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<AddressDto> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<AddressDto> addressList) {
+        this.addressList = addressList;
+    }
+
+    public List<PhoneNumberDto> getPhoneNumberList() {
+        return phoneNumberList;
+    }
+
+    public void setPhoneNumberList(List<PhoneNumberDto> phoneNumberList) {
         this.phoneNumberList = phoneNumberList;
     }
 }
