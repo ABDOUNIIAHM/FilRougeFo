@@ -43,6 +43,7 @@ public class OrderController {
 
         model.addAttribute("orderLines", orderLines);
         model.addAttribute("order",orderMapper.toDTO(orderService.findOrderById(id)));
+
         return "order-detail";
     }
     @GetMapping("/cart")
@@ -104,7 +105,7 @@ public class OrderController {
 
         return orderLines
                 .stream()
-                .map(x -> orderLineMapper.toDTO(x))
+                .map(orderLineMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
