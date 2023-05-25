@@ -36,9 +36,9 @@
 
           <form th:action="@{/auth/add-to-cart/{id}(id=*{product.id})}" method="post">
             <div class="text-center">
-              <input type="number" name="quantity" placeholder="Quantity" required>
+              <input type="number" name="quantity" placeholder="Quantité" required>
               <button type="submit" name="idProduct" th:value="*{product.id}"
-                      class="btn btn-outline-success">Add to basket</button>
+                      class="btn btn-outline-success">Ajouté au panier</button>
             </div>
           </form>
 
@@ -47,18 +47,18 @@
       </div>
 
       <dl class="row">
-        <dt class="col-sm-3">Category</dt>
+        <dt class="col-sm-3">Catégories</dt>
         <dd class="col-sm-9">
           <span th:text="${product.category.name}"></span>
         </dd>
 
-        <dt class="col-sm-3">Price</dt>
+        <dt class="col-sm-3">Prix</dt>
         <dd class="col-sm-9">
           <span th:utext="${'&euro;'+'&nbsp;'}"></span>
           <span th:text="${product.pricePerUnit}"></span> / <span th:text="${product.unit}"></span>
         </dd>
 
-        <dt class="col-sm-3">V.A.T.</dt>
+        <dt class="col-sm-3">T.V.A</dt>
         <dd class="col-sm-9">
           <span th:text="${product.vat * 100}"></span>
           <span th:utext="${'&nbsp;'+'&percnt;'}"></span>
@@ -69,7 +69,7 @@
           <span th:text="${product.description}"></span>
         </dd>
 
-        <dt class="col-sm-3">Seasonal months:</dt>
+        <dt class="col-sm-3">Mois de Consommation</dt>
         <dd class="col-sm-9">
           <div class="container text-center row row-cols-1 row-cols-sm-4 row-cols-md-5 row-cols-xl-7">
             <div th:each="month : ${monthList}">

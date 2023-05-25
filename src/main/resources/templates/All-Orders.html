@@ -13,12 +13,12 @@
 
 <div class="container mt-2">
   <div class="card">
-    <div class="card-header"><h2>My Orders</h2></div>
+    <div class="card-header"><h2>Mes commandes</h2></div>
     <div class="card-body">
       <table class="table">
         <thead>
         <tr>
-          <th>Order id</th><th>Date</th><th>Status</th><th>Price</th>
+          <th>Order id</th><th>Date</th><th>Statut</th><th>Prix</th>
         </tr>
         </thead>
         <tbody>
@@ -26,14 +26,14 @@
           <td th:text="${c.id}"></td>
           <td th:text="${c.date}"></td>
           <td th:text="${c.status.name}"></td>
-          <td>total price</td>
+          <td>total Prix</td>
           <td>
             <div class="container">
               <form th:action="@{/auth/orders/{id}(id=${c.id})}" method="get">
-                <button type="submit" name="detail" class="btn btn-primary">items</button>
+                <button type="submit" name="detail" class="btn btn-primary">articles</button>
               </form>
               <form th:if="${c.status.name==status}" th:action="@{/auth/cart/validate/{id}(id=${c.id})}" method="post">
-                <button type="submit" name="detail" th:value="${c.id}" class="btn btn-success">Validate</button>
+                <button type="submit" name="detail" th:value="${c.id}" class="btn btn-success">Valider</button>
               </form>
             </div>
           </td>
@@ -43,7 +43,7 @@
     </div>
     <div class="card-footer">
       <form th:action="@{/categories}" method="get" class="text-center">
-        <button type="submit" class="btn btn-outline-success">Home</button>
+        <button type="submit" class="btn btn-outline-success">accueil</button>
       </form>
     </div>
   </div>
