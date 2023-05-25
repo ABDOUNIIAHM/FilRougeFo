@@ -30,22 +30,16 @@ import java.util.stream.Collectors;
 public class ClienDetail {
 
     private IntClientService clientService;
-    private AddressRepository addressRepository;
     private AddressService addressService;
-    private ClientMapper clientMapper;
     private ClientAuthDetail authenticatedClient;
     private AddressMapper addressMapper;
     private PhoneNumberService phoneNumberService;
-    private PasswordEncoder passwordEncoder;
     private PhoneNumberMapper phoneNumberMapper;
 
     @GetMapping("/client/detail")
     public String geDetailProfil(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         Client client = authenticatedClient.getClient();
-        System.out.println(client.getAvatarUrl() + "en get (1)");
         String username = userDetails.getUsername();
-        long clientId = clientService.getClientIdByUsername(username);
-
         ClientDto clientDton = clientService.getClientDtoByUsername(username);
         List<Address> listAdresse = addressService.findAddressesByClient(client);
 
