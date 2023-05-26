@@ -37,6 +37,7 @@ public class ClientController {
         model.addAttribute("clientDto",clientDto);
         return "signup-form";
     }
+
     @PostMapping("client/register")
     public String addNewClient(@ModelAttribute("clientDto") @Valid ClientDto clientDto,
                                BindingResult bindingResult,
