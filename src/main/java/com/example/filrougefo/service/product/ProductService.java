@@ -65,4 +65,9 @@ public class ProductService implements IntProductService {
     public List<Product> searchBykeywordForCategory(String keyword) {
         return productRepository.findProductsByPartialCategoryNameIgnoreCase(keyword);
     }
+
+    @Override
+    public List<Product> searchByKeyForMonths(String keyword) {
+        return productRepository.findProductsByPartialMonthName(keyword);
+    }
 }

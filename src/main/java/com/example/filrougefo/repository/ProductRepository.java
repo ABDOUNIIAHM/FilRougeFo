@@ -24,6 +24,11 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query("SELECT p FROM Product p WHERE LOWER(p.category.name) LIKE CONCAT('%', LOWER(:keyword), '%')")
     List<Product> findProductsByPartialCategoryNameIgnoreCase(@Param("keyword") String keyword);
 
+
+    @Query("SELECT DISTINCT p FROM Product p JOIN p.seasonalMonths m WHERE LOWER(m.name) LIKE CONCAT('%', LOWER(:keyword), '%')")
+    List<Product> findProductsByPartialMonthName(@Param("keyword") String keyword);
+
 }
+
 
 
