@@ -33,7 +33,7 @@
         </div>
 
         <div class="my-auto">
-
+          <p class="text-white bg-danger" th:text="${error}"></p>
           <form th:action="@{/auth/add-to-cart/{id}(id=*{product.id})}" method="post">
             <div class="text-center">
               <input type="number" name="quantity" placeholder="Quantité" required>
