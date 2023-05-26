@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 
 @Import({ClientConfig.class, WebSecurityConfig.class})
@@ -64,7 +65,7 @@ class ClientControllerTest {
         clientDto.getPhoneNumberList().add(new PhoneNumberDto());
         //when
         mockMvc.perform(MockMvcRequestBuilders.post("/client/register")
-                        .flashAttr("clientDto", clientDto))
+                        .flashAttr("clientDto", clientDto).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("clientDto", equalToObject(clientDto)))
                 .andExpect(MockMvcResultMatchers.view().name("signup-form"));
@@ -81,7 +82,7 @@ class ClientControllerTest {
         when(clientService.isValidEmail(ArgumentMatchers.any(String.class))).thenReturn(true);
         //then
         mockMvc.perform(MockMvcRequestBuilders.post("/client/register")
-                        .flashAttr("clientDto", clientDto))
+                        .flashAttr("clientDto", clientDto).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("clientDto", equalToObject(clientDto)))
                 .andExpect(MockMvcResultMatchers.view().name("success-signup"));
@@ -99,7 +100,7 @@ class ClientControllerTest {
         when(clientService.isValidEmail(ArgumentMatchers.any(String.class))).thenThrow( new ClientAlreadyExistException("message"));
         //then
         mockMvc.perform(MockMvcRequestBuilders.post("/client/register")
-                        .flashAttr("clientDto", clientDto))
+                        .flashAttr("clientDto", clientDto).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("clientDto", equalToObject(clientDto)))
                 .andExpect(MockMvcResultMatchers.view().name("signup-form"));
