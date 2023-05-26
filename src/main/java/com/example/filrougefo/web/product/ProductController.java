@@ -60,7 +60,7 @@ public class ProductController {
                 .toList();
 
         model.addAttribute("productList", productDTOsList);
-        model.addAttribute("monthList", monthList);
+        model.addAttribute("monthList",  monthDTOList);
         model.addAttribute("categoryList", categoryDtoList);
 
 

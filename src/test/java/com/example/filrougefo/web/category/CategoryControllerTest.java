@@ -4,12 +4,10 @@ import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.category.CategoryService;
-import com.example.filrougefo.service.category.IntCategoryService;
 import com.example.filrougefo.service.order.OrderService;
-import com.example.filrougefo.web.NavBarController;
+import com.example.filrougefo.web.product.ProductConfig;
 import com.example.filrougefo.web.product.ProductDTO;
 import com.example.filrougefo.web.product.ProductMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +17,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
-@Import(CategoryConfig.class)
+@Import(ProductConfig.class)
 @WebMvcTest(CategoryController.class)
 class CategoryControllerTest {
     @Autowired

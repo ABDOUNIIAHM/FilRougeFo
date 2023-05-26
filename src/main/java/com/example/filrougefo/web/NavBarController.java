@@ -8,6 +8,7 @@ import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.web.login.LoginController;
 import com.example.filrougefo.web.order.OrderController;
 import com.example.filrougefo.web.order.PayementController;
+import com.example.filrougefo.web.product.ProductController;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -15,13 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-@ControllerAdvice(assignableTypes = {OrderController.class, PayementController.class})
+@ControllerAdvice(assignableTypes = {OrderController.class, PayementController.class, ProductController.class})
 @AllArgsConstructor
 public class NavBarController {
     private ClientAuthDetail authenticatedClient;
     private OrderService orderService;
 
-    public int countCartItems(Client client) {
+    private int countCartItems(Client client) {
         Order pendingOrder = orderService.hasPendingOrder(client);
         return pendingOrder.getOrderLines().size();
     }
