@@ -2,7 +2,10 @@ package com.example.filrougefo.web.category;
 
 import com.example.filrougefo.entity.Category;
 import com.example.filrougefo.entity.Product;
+import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.category.CategoryService;
+import com.example.filrougefo.service.order.OrderService;
+import com.example.filrougefo.web.product.ProductConfig;
 import com.example.filrougefo.web.product.ProductDTO;
 import com.example.filrougefo.web.product.ProductMapper;
 import org.junit.jupiter.api.Test;
@@ -14,22 +17,31 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
-@Import(CategoryConfig.class)
+@Import(ProductConfig.class)
 @WebMvcTest(CategoryController.class)
 class CategoryControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private CategoryService categoryService;
+
+    @MockBean
+    private OrderService orderService;
+
+    @MockBean
+    private ClientAuthDetail clientAuthDetail;
     @Autowired
     private CategoryMapper categoryMapper;
     @Autowired
     private ProductMapper productMapper;
+
+
 
     @Test
     void ShouldReturnAllCategories() throws Exception {
@@ -45,7 +57,7 @@ class CategoryControllerTest {
         when(categoryService.findAll()).thenReturn(categories);
         //then
         List<CategoryDto> expected = mapCategoryListToDto();
-        mockMvc.perform(MockMvcRequestBuilders.get("/categories"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/test/categories"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("product-and-category"))
                 .andExpect(MockMvcResultMatchers.model().attribute("categories",hasSize(expected.size())))
