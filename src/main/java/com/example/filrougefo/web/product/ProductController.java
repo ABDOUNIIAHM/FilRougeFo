@@ -123,8 +123,8 @@ public class ProductController {
                 .map(monthMapper::toDTO)
                 .toList();
 
-        model.addAttribute("products",mapCategoryProductsToDto(id));
-        model.addAttribute("categories", mapCategoryListToDto());
+        model.addAttribute("productList",mapCategoryProductsToDto(id));
+        model.addAttribute("categoryList", mapCategoryListToDto());
         model.addAttribute("monthList", monthDTOList);
         return "product/product-list";
     }
