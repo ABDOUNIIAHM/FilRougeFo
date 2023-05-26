@@ -56,8 +56,8 @@ public class WebSecurityConfig {
                     req
                          //.requestMatchers("/auth/**").authenticated()
                          .requestMatchers("/products/**").permitAll()
-                            .requestMatchers("/login").permitAll()
-                            .requestMatchers("/logout").permitAll()
+                         .requestMatchers("/login").permitAll()
+                         .requestMatchers("/logout").permitAll()
                          .anyRequest().authenticated();
                 })
                 .formLogin(form -> {
