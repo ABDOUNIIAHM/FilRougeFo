@@ -14,4 +14,5 @@ public interface IntProductService {
     List<Product> findAllProductPerMonth(String monthName);
 
     List<Product> searchByKeyword(String keyword);
+    List<Product> searchBykeywordForCategory(String keyword);
 }

@@ -127,14 +127,14 @@ public class ProductController {
     @PostMapping
     public String searchProduct(@RequestParam("keyword") String keyword, Model model) {
         List<Product> productList = productService.searchByKeyword(keyword);
-
+       // List<Product> productList = productService.searchByKeyword(keyword);
         List<ProductDTO> productDTOsList = productList
                 .stream()
                 .map(productMapper::toDTO)
                 .toList();
 
 
-        List<Category> categoryList = categoryService.searchByKeyword(keyword);
+
         List<Month> monthList = monthService.findAll();
 
         List<MonthDTO> monthDTOList = monthList

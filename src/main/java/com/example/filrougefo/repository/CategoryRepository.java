@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Optional<List<Category>> findCategoriesByNameContainingIgnoreCase(String name);
 
-    @Query("SELECT c FROM Category c WHERE LOWER(c.name) LIKE CONCAT('%', LOWER(:keyword), '%')")
-    List<Category> findCategoriesByPartialNameIgnoreCase(@Param("keyword") String keyword);
+//    @Query("SELECT c FROM Category c WHERE LOWER(c.name) LIKE CONCAT('%', LOWER(:keyword), '%') OR LOWER(c.name) LIKE CONCAT('%-', LOWER(:keyword), '%')")
+//    List<Category> findCategoriesByPartialNameIgnoreCase(@Param("keyword") String keyword);
+
 }
