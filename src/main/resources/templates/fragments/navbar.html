@@ -16,10 +16,10 @@
         </li>
 
         <!--  recherche -->
-        <li>
-        <form  class="mx-4" th:action="@{/products}" method="post">
+        <li class="nav-item d-flex ">
+        <form  class="mx-4 d-flex  align-items-center" th:action="@{/products}" method="post">
           <input type="text" name="keyword" placeholder="Rechercher...">
-          <button type="submit">Rechercher</button>
+          <a  class="btn text-white mx-4" id="btnSuccess" type="submit">Rechercher</a>
         </form>
         </li>
       </ul>
