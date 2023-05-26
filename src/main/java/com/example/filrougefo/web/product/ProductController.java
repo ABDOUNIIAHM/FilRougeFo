@@ -177,7 +177,7 @@ public class ProductController {
                 .toList();
 
 
-
+        List<Category> categoryList = categoryService.findAll();
         List<Month> monthList = monthService.findAll();
 
         List<MonthDTO> monthDTOList = monthList
