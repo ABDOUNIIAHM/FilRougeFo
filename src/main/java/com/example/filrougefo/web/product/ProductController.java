@@ -1,6 +1,7 @@
 package com.example.filrougefo.web.product;
 
 import com.example.filrougefo.entity.*;
+import com.example.filrougefo.exception.CategoryNotFoundException;
 import com.example.filrougefo.exception.MonthNotFoundException;
 import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.category.IntCategoryService;
@@ -112,9 +113,51 @@ public class ProductController {
 
         return "product/product-list";
     }
+    @GetMapping("/categories/{id}")
+    public String getCategoryProducts(@PathVariable int id, Model model){
+
+        List<Month> monthList = monthService.findAll();
+
+        List<MonthDTO> monthDTOList = monthList
+                .stream()
+                .map(monthMapper::toDTO)
+                .toList();
+
+        model.addAttribute("products",mapCategoryProductsToDto(id));
+        model.addAttribute("categories", mapCategoryListToDto());
+        model.addAttribute("monthList", monthDTOList);
+        return "product/product-list";
+    }
+    private List<CategoryDto> mapCategoryListToDto(){
+
+        List<Category> categoryList = categoryService.findAll();
+        return categoryList
+                .stream()
+                .map(c -> categoryMapper.toDTO(c))
+                .collect(Collectors.toList());
+    }
+    private List<ProductDTO> mapCategoryProductsToDto(int id){
+
+        return categoryService
+                .findById(id)
+                .getProducts()
+                .stream()
+                .map(p -> productMapper.toDTO(p))
+                .collect(Collectors.toList());
+    }
 
     @ExceptionHandler(value = {ProductNotFoundException.class, MonthNotFoundException.class})
     public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException ex) {
+
+        //logger.error("Request: " + req.getRequestURL() + " raised " + ex);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("error");
+        mav.addObject("exception", ex);
+        mav.addObject("url", req.getRequestURL());
+        return mav;
+    }
+    @ExceptionHandler(value = {CategoryNotFoundException.class})
+    public ModelAndView handleError(HttpServletRequest req, CategoryNotFoundException ex) {
 
         //logger.error("Request: " + req.getRequestURL() + " raised " + ex);
         ModelAndView mav = new ModelAndView();

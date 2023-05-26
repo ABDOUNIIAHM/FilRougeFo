@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping
 @AllArgsConstructor
 public class CategoryController {
     private IntCategoryService categoryService;
     private CategoryMapper categoryMapper;
     private ProductMapper productMapper;
 
-    @GetMapping
+    @GetMapping("/test/categories")
     public String getAllCategories(Model model){
 
         model.addAttribute("categories", mapCategoryListToDto());
