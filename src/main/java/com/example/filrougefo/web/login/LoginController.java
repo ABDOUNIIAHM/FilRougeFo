@@ -6,13 +6,20 @@ import com.example.filrougefo.web.client.ClientDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @Controller
 public class LoginController {
 
     @GetMapping("/login")
-    public String getLoginForm(Model model){
+    public String getLoginForm(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("isError", true);
+        } else {
+            model.addAttribute("isError", false);
+        }
 
-     model.addAttribute("client",new Client());
+        model.addAttribute("client",new Client());
 
         return "login-form";
     }
