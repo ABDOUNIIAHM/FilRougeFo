@@ -12,4 +12,9 @@ public interface IntProductService {
     List<Product> searchProductByNamePattern(String name);
     List<Product> findAllProductByCategoryId(int id);
     List<Product> findAllProductPerMonth(String monthName);
+
+    List<Product> searchByKeyword(String keyword);
+    List<Product> searchBykeywordForCategory(String keyword);
+
+    List<Product> searchByKeyForMonths(String keyword);
 }
