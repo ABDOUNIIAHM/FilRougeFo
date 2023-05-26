@@ -1,13 +1,18 @@
 package com.example.filrougefo.web.client;
 
 import com.example.filrougefo.exception.ClientAlreadyExistException;
+import com.example.filrougefo.security.ClientAuthDetail;
+import com.example.filrougefo.security.ClientDetailServiceImpl;
+import com.example.filrougefo.security.WebSecurityConfig;
 import com.example.filrougefo.service.client.ClientService;
+import com.example.filrougefo.service.order.OrderService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -16,7 +21,7 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 
 
-@Import(ClientConfig.class)
+@Import({ClientConfig.class, WebSecurityConfig.class})
 @WebMvcTest(ClientController.class)
 class ClientControllerTest {
 
@@ -24,6 +29,12 @@ class ClientControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private ClientService clientService;
+    @MockBean
+    private OrderService orderService;
+    @MockBean
+    private ClientAuthDetail clientAuthDetail;
+    @MockBean
+    private ClientDetailServiceImpl clientDetailService;
     @Autowired
     private ClientMapper clientMapper;
     @Autowired

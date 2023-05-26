@@ -57,6 +57,7 @@ public class WebSecurityConfig {
                          //.requestMatchers("/auth/**").authenticated()
                          .requestMatchers("/products/**").permitAll()
                          .requestMatchers("/login").permitAll()
+                            .requestMatchers("/client/register").permitAll()
                          .requestMatchers("/logout").permitAll()
                          .anyRequest().authenticated();
                 })
