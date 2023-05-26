@@ -11,5 +11,5 @@ public interface IntCategoryService {
     Category findById(int id);
     List<Category> findBySearchedName(String name);
     List<Category> findAllCategoriesExceptProductCategory(Product product);
-
+    List<Category> searchByKeyword(String keyword);
 }

@@ -56,4 +56,9 @@ public class ProductService implements IntProductService {
         return productRepository.findAllBySeasonalMonthsContaining(month);
 
     }
+
+    @Override
+    public List<Product> searchByKeyword(String keyword) {
+        return productRepository.findByPartialNameOrDescriptionIgnoreCase(keyword);
+    }
 }

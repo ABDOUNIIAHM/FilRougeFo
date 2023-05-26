@@ -48,4 +48,8 @@ public class CategoryService implements IntCategoryService{
 
         return categories;
     }
+    @Override
+    public List<Category> searchByKeyword(String keyword) {
+        return  categoryRepository.findCategoriesByPartialNameIgnoreCase(keyword);
+    }
 }

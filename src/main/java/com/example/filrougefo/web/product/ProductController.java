@@ -124,4 +124,36 @@ public class ProductController {
         return mav;
     }
 
+    @PostMapping
+    public String searchProduct(@RequestParam("keyword") String keyword, Model model) {
+        List<Product> productList = productService.searchByKeyword(keyword);
+
+        List<ProductDTO> productDTOsList = productList
+                .stream()
+                .map(productMapper::toDTO)
+                .toList();
+
+
+        List<Category> categoryList = categoryService.searchByKeyword(keyword);
+        List<Month> monthList = monthService.findAll();
+
+        List<MonthDTO> monthDTOList = monthList
+                .stream()
+                .map(monthMapper::toDTO)
+                .toList();
+
+        List<CategoryDto> categoryDtoList = categoryList
+                .stream()
+                .map(categoryMapper::toDTO)
+                .toList();
+
+        model.addAttribute("productList", productDTOsList);
+        model.addAttribute("monthList", monthList);
+        model.addAttribute("categoryList", categoryDtoList);
+        model.addAttribute("keyword", keyword);
+
+        return "product/product-list";
+    }
+
+
 }
