@@ -34,7 +34,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @Import({ProductConfig.class, WebSecurityConfig.class})
-//@ExtendWith(SpringExtension.class)
 @WebMvcTest(ProductController.class)
 class ProductControllerTest {
 

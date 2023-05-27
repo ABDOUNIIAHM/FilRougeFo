@@ -2,9 +2,13 @@ package com.example.filrougefo.web.order;
 
 import com.example.filrougefo.entity.*;
 import com.example.filrougefo.security.ClientAuthDetail;
+import com.example.filrougefo.service.month.IntMonthService;
+import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.orderline.OrderLineService;
+import com.example.filrougefo.service.product.IntProductService;
 import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
+import com.example.filrougefo.web.product.ProductMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -34,11 +38,17 @@ class OrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private OrderService orderService;
+    private IntOrderService orderService;
     @MockBean
     private ClientAuthDetail clientAuthDetail;
     @MockBean
+    private IntProductService productService;
+    @MockBean
     private OrderLineService orderLineService;
+    @MockBean
+    private IntMonthService monthService;
+    @Autowired
+    private ProductMapper productMapper;
     @Autowired
     private OrderLineMapper orderLineMapper;
     @Autowired
@@ -65,11 +75,10 @@ class OrderControllerTest {
     @WithMockUser
     @Test
     void ShouldReturnOrderDetailView() throws Exception {
-
         //given
         Order order = new Order();
         Product product = new Product();product.setPricePerUnit(BigDecimal.TEN);
-        OrderLine orderLine = new OrderLine();
+        OrderLine orderLine = new OrderLine();orderLine.setQuantity(BigDecimal.ZERO);
         orderLine.setOrder(order);orderLine.setProduct(product);orderLine.setQuantity(BigDecimal.ONE);
         order.getOrderLines().add(orderLine);
 
