@@ -212,15 +212,18 @@ class OrderControllerTest {
     @Test
     void ShouldReturnSuccessOrderView() throws Exception {
     //given
+    Order order = new Order();
     CardPaymentDto paymentDto = new CardPaymentDto();
     paymentDto.setId(1);
     paymentDto.setCvv("500");paymentDto.setCardHolder("joe");
     paymentDto.setCardNumber("5000500050005000");paymentDto.setExpirationDate(LocalDate.of(2025,5,6));
     //when
+    when(clientAuthDetail.getClient()).thenReturn(new Client());
+    when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
     when(orderService.validateOrder(any(long.class))).thenReturn(true);
     //then
     mockMvc.perform(MockMvcRequestBuilders.post("/auth/payment/1").with(csrf())
-                    .flashAttr("paymentDto",paymentDto))
+                    .flashAttr("paymentDto",paymentDto).with(csrf()))
             .andExpect(MockMvcResultMatchers.status().isOk())
             //.andExpect(MockMvcResultMatchers.model().attribute("paymentDto",paymentDto))
             .andExpect(MockMvcResultMatchers.view().name("success-order"));
@@ -229,12 +232,15 @@ class OrderControllerTest {
     @Test
     void ShouldReturnPaymentViewWhenFormHasErrors() throws Exception {
         //given
+        Order order = new Order();
         CardPaymentDto paymentDto = new CardPaymentDto();
         //when
+        when(clientAuthDetail.getClient()).thenReturn(new Client());
+        when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
 
         //then
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/payment/1").with(csrf())
-                        .flashAttr("paymentDto",paymentDto))
+                        .flashAttr("paymentDto",paymentDto).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("paymentDto",paymentDto))
                 .andExpect(MockMvcResultMatchers.view().name("payment"));
