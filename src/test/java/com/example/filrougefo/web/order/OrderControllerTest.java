@@ -48,9 +48,12 @@ class OrderControllerTest {
     @Test
     void ShouldReturnAllOrdersView() throws Exception {
         //given
-        List<Order> orders = List.of(new Order(), new Order());
+        OrderLine orderLine = new OrderLine(); orderLine.setQuantity(BigDecimal.ONE);
+        Order order = new Order(); order.getOrderLines().add(orderLine);
+        List<Order> orders = List.of(new Order());
         //when
         when(clientAuthDetail.getClient()).thenReturn(new Client());
+        when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
         when(orderService.getNonPendingOrders(ArgumentMatchers.any(Client.class))).thenReturn(orders);
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders"))
@@ -58,20 +61,23 @@ class OrderControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attribute("orders",getDtosFromListOrder(orders)))
                 .andExpect(MockMvcResultMatchers.view().name("order/order-history"));
     }
+
     @WithMockUser
     @Test
     void ShouldReturnOrderDetailView() throws Exception {
 
         //given
         Order order = new Order();
-        Product product = new Product();
+        Product product = new Product();product.setPricePerUnit(BigDecimal.TEN);
         OrderLine orderLine = new OrderLine();
-        orderLine.setOrder(order);
-        orderLine.setProduct(product);
+        orderLine.setOrder(order);orderLine.setProduct(product);orderLine.setQuantity(BigDecimal.ONE);
+        order.getOrderLines().add(orderLine);
 
         List<OrderLine> orderLines = List.of(orderLine);
         //when
+        when(clientAuthDetail.getClient()).thenReturn(new Client());
         when(orderLineService.findAllOrderLinesByOrderId(ArgumentMatchers.any(long.class))).thenReturn(orderLines);
+        when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
         when(orderService.findOrderById(any(long.class))).thenReturn(order);
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders/1"))
