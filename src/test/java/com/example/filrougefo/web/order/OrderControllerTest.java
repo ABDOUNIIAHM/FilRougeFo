@@ -210,20 +210,20 @@ class OrderControllerTest {
     }
     @WithMockUser
     @Test
-        void ShouldReturnSuccessOrderView() throws Exception {
-        //given
-        CardPaymentDto paymentDto = new CardPaymentDto();
-        paymentDto.setId(1);
-        paymentDto.setCvv("500");paymentDto.setCardHolder("joe");
-        paymentDto.setCardNumber("5000500050005000");paymentDto.setExpirationDate(LocalDate.of(2025,5,6));
-        //when
-        when(orderService.validateOrder(any(long.class))).thenReturn(true);
-        //then
-        mockMvc.perform(MockMvcRequestBuilders.post("/auth/payment/1").with(csrf())
-                        .flashAttr("paymentDto",paymentDto))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                //.andExpect(MockMvcResultMatchers.model().attribute("paymentDto",paymentDto))
-                .andExpect(MockMvcResultMatchers.view().name("success-order"));
+    void ShouldReturnSuccessOrderView() throws Exception {
+    //given
+    CardPaymentDto paymentDto = new CardPaymentDto();
+    paymentDto.setId(1);
+    paymentDto.setCvv("500");paymentDto.setCardHolder("joe");
+    paymentDto.setCardNumber("5000500050005000");paymentDto.setExpirationDate(LocalDate.of(2025,5,6));
+    //when
+    when(orderService.validateOrder(any(long.class))).thenReturn(true);
+    //then
+    mockMvc.perform(MockMvcRequestBuilders.post("/auth/payment/1").with(csrf())
+                    .flashAttr("paymentDto",paymentDto))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            //.andExpect(MockMvcResultMatchers.model().attribute("paymentDto",paymentDto))
+            .andExpect(MockMvcResultMatchers.view().name("success-order"));
     }
     @WithMockUser
     @Test
