@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @AllArgsConstructor
 public class NavBarController {
     private ClientAuthDetail authenticatedClient;
-    private OrderService orderService;
+    private IntOrderService orderService;
 
     private int countCartItems(Client client) {
         Order pendingOrder = orderService.hasPendingOrder(client);
