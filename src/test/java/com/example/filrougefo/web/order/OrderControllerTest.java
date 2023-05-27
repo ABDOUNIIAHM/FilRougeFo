@@ -15,6 +15,7 @@ import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -78,7 +79,7 @@ class OrderControllerTest {
         //given
         Order order = new Order();
         Product product = new Product();product.setPricePerUnit(BigDecimal.TEN);
-        OrderLine orderLine = new OrderLine();orderLine.setQuantity(BigDecimal.ZERO);
+        OrderLine orderLine = new OrderLine();orderLine.setQuantity(BigDecimal.ZERO);orderLine.setDiscount(BigDecimal.valueOf(0));
         orderLine.setOrder(order);orderLine.setProduct(product);orderLine.setQuantity(BigDecimal.ONE);
         order.getOrderLines().add(orderLine);
 
@@ -101,38 +102,42 @@ class OrderControllerTest {
         //given
         Order order = new Order();
         OrderLine orderLine = new OrderLine();
-        Product product = new Product();
-        orderLine.setProduct(product);
+        Product product = new Product();product.setPricePerUnit(BigDecimal.TEN);
+        orderLine.setProduct(product);orderLine.setQuantity(BigDecimal.ZERO);orderLine.setDiscount(BigDecimal.valueOf(0));
         order.getOrderLines().add(orderLine);
         //orderLine.setOrder(order);
         //when
         when(clientAuthDetail.getClient()).thenReturn(new Client());
+
         when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/cart"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("pendingOrderDto",orderMapper.toDTO(order)))
-                .andExpect(MockMvcResultMatchers.view().name("cart"));
+                .andExpect(MockMvcResultMatchers.view().name("order/cart"));
     }
     @WithMockUser
     @Test
     void ShouldRedirectToProductDetailView() throws Exception {
         //given
+        Order order = new Order();
         OrderLine orderLine = new OrderLine();
-        Product product = new Product();
+        Product product = new Product();product.setStock(BigDecimal.valueOf(1));product.setId(1);
         orderLine.setProduct(product);
         orderLine.setQuantity(BigDecimal.valueOf(1));
         orderLine.setOrder(new Order());
-        System.out.println(orderLineMapper.toDTO(orderLine));
+
         //when
+        when(productService.findById(any(int.class))).thenReturn(product);
         when(clientAuthDetail.getClient()).thenReturn(new Client());
+        when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
         when(orderService.addProductToOrder(any(int.class),any(long.class),any(Client.class))).thenReturn(orderLine);
         //then
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/add-to-cart/1")
                         .with(csrf())
                         .param("quantity","1"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/products/1"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/products/details/1"));
     }
     @WithMockUser
     @Test
@@ -162,9 +167,12 @@ class OrderControllerTest {
     @Test
     void ShouldReturnPaymentView() throws Exception {
         //given
+        Order order = new Order();
         CardPaymentDto paymentDto = new CardPaymentDto();
         paymentDto.setId(1);
         //when
+        when(clientAuthDetail.getClient()).thenReturn(new Client());
+        when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
 
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/payment").param("idOrder","1"))
