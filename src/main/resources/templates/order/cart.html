@@ -53,9 +53,11 @@
                 <td th:text="${orderLineStat.index}"></td>
                 <td>
                   <span th:text="${orderLine.product.name}"></span>
+
+
                 </td>
                 <td>
-                  <span th:text="${orderLine.quantity} % 1 == 0 ? ${#numbers.formatDecimal(orderLine.quantity, 1, 0)} : ${#numbers.formatDecimal(orderLine.quantity, 1, 3)}"></span>
+                  <span id="quantity" th:text="${orderLine.quantity} % 1 == 0 ? ${#numbers.formatDecimal(orderLine.quantity, 1, 0)} : ${#numbers.formatDecimal(orderLine.quantity, 1, 3)}"></span>
                   <span th:text="'&nbsp;' + ${orderLine.product.unit}"></span>
                 </td>
 
@@ -78,7 +80,7 @@
             <form th:action="@{/auth/payment}" method="get">
               <p>
                 Total : <span th:text="${#numbers.formatDecimal(pendingOrderDto.computeTotal(), 1, 2)} + '&nbsp;&euro;'"></span>
-                <button type="submit" th:name="idOrder" th:value="*{id}" class="btn btn-success">Valider la commande</button>
+                <button type="submit" id="validerCommandeBtn" th:name="idOrder" th:value="*{id}" class="btn btn-success">Valider la commande</button>
               </p>
             </form>
 

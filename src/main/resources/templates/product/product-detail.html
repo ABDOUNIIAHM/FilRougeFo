@@ -33,12 +33,12 @@
         </div>
 
         <div class="my-auto">
-
+          <p class="text-white bg-danger" th:text="${error}"></p>
           <form th:action="@{/auth/add-to-cart/{id}(id=*{product.id})}" method="post">
             <div class="text-center">
               <input type="number" name="quantity" placeholder="Quantité" required>
               <button type="submit" name="idProduct" th:value="*{product.id}"
-                      class="btn btn-outline-success">Ajouté au panier</button>
+                      class="btn btn-outline-success">Ajouter au panier</button>
             </div>
           </form>
 

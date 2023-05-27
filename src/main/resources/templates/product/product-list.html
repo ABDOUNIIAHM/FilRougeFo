@@ -9,6 +9,7 @@
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
+<br>
 
     <div class="container-fluid p-3">
 
@@ -40,7 +41,7 @@
                             class="list-group list-group-flush collapse" id="categories">
                             <li class="list-group-item list-group-item-action">
                                 <!--                                th:classappend="${active}">-->
-                                <a th:href="@{/categories/{id}(id=${category.id})}"
+                                <a th:href="@{/products/categories/{id}(id=${category.id})}"
                                    th:text="${category.name}"></a>
                                 <span th:text="666" class="badge text-bg-secondary badge-pill"></span>
                             </li>
