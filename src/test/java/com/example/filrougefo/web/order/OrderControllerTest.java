@@ -48,9 +48,12 @@ class OrderControllerTest {
     @Test
     void ShouldReturnAllOrdersView() throws Exception {
         //given
-        List<Order> orders = List.of(new Order(), new Order());
+        OrderLine orderLine = new OrderLine(); orderLine.setQuantity(BigDecimal.ONE);
+        Order order = new Order(); order.getOrderLines().add(orderLine);
+        List<Order> orders = List.of(new Order());
         //when
         when(clientAuthDetail.getClient()).thenReturn(new Client());
+        when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
         when(orderService.getNonPendingOrders(ArgumentMatchers.any(Client.class))).thenReturn(orders);
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders"))
@@ -72,6 +75,7 @@ class OrderControllerTest {
         List<OrderLine> orderLines = List.of(orderLine);
         //when
         when(orderLineService.findAllOrderLinesByOrderId(ArgumentMatchers.any(long.class))).thenReturn(orderLines);
+        when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
         when(orderService.findOrderById(any(long.class))).thenReturn(order);
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders/1"))
@@ -88,7 +92,7 @@ class OrderControllerTest {
         OrderLine orderLine = new OrderLine();
         Product product = new Product();
         orderLine.setProduct(product);
-        order.getOrderLines().add(orderLine);
+        order.getOrderLines().add(orderLine); orderLine.setQuantity(BigDecimal.ONE);
         //orderLine.setOrder(order);
         //when
         when(clientAuthDetail.getClient()).thenReturn(new Client());
