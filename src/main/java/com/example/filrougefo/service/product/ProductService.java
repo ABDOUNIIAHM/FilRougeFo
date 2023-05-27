@@ -70,4 +70,8 @@ public class ProductService implements IntProductService {
     public List<Product> searchByKeyForMonths(String keyword) {
         return productRepository.findProductsByPartialMonthName(keyword);
     }
+
+    public void save(Product product) {
+        productRepository.save(product);
+    }
 }

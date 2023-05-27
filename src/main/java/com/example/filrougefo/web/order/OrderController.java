@@ -20,6 +20,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -110,6 +113,72 @@ public class OrderController {
 
     @PostMapping("/payment/{id}")
     public String confirmPayment(@ModelAttribute("paymentDto") @Valid CardPaymentDto paymentDto, BindingResult bindingResult, @PathVariable long id, Model model){
+        List<OrderLine> orderLines = orderLineService.findAllOrderLinesByOrderId(id);
+        boolean stockSufficient = true; // Variable de contrôle pour vérifier le stock suffisant
+        boolean anyProductOutOfStock = false; // Variable de contrôle pour vérifier si au moins un produit est en rupture de stock
+        List<String> outOfStockProducts = new ArrayList<>();
+
+        for (OrderLine orderLine : orderLines) {
+            double quantity = orderLine.getQuantity().doubleValue(); // quantité de l'OrderLine
+
+            // Récupérer le produit
+            Product product = orderLine.getProduct();
+
+            // Soustraire la quantité du stock
+            double currentStock = product.getStock().doubleValue();
+
+            if (currentStock < quantity) {
+                anyProductOutOfStock = true; // Au moins un produit est en rupture de stock
+                String productName = product.getName();
+                String productunit = product.getUnit();
+                String productStockRemaining = String.valueOf(currentStock);
+                String productDetails = productName + " (Stock restant : " + productStockRemaining + " " + productunit + ")";
+                outOfStockProducts.add(productDetails);
+            }
+        }
+
+        if (anyProductOutOfStock) {
+            Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
+            OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);
+            model.addAttribute("outOfStockProducts", outOfStockProducts);
+            model.addAttribute("pendingOrderDto", pendingOrderDto);
+            return "order/cart";
+        }
+
+// Tous les stocks sont suffisants, effectuer la soustraction du stock pour chaque produit
+        for (OrderLine orderLine : orderLines) {
+            double quantity = orderLine.getQuantity().doubleValue(); // quantité de l'OrderLine
+
+            // Récupérer le produit
+            Product product = orderLine.getProduct();
+
+            // Vérifier si le stock est suffisant pour déduire la quantité
+            double currentStock = product.getStock().doubleValue();
+            if (currentStock >= quantity) {
+                double updatedStock = currentStock - quantity;
+                product.setStock(BigDecimal.valueOf(updatedStock));
+                productService.save(product);
+            } else {
+             // ajout du nom du produit avec le stock insuffisant
+                stockSufficient = false;
+                String productName = product.getName();
+                String productunit = product.getUnit();
+                String productStockRemaining = String.valueOf(currentStock);
+                String productDetails = productName + " (Stock restant : " + productStockRemaining + " " + productunit + ")";
+                outOfStockProducts.add(productDetails);
+            }
+        }
+
+        if (!stockSufficient) {
+            //remet la page correctement
+            Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
+            OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);
+            model.addAttribute("outOfStockProducts", outOfStockProducts);
+            model.addAttribute("pendingOrderDto", pendingOrderDto);
+            return "order/cart";
+        }
+
+
 
         if(bindingResult.hasErrors()){
             model.addAttribute("paymentDto", paymentDto);

@@ -17,4 +17,6 @@ public interface IntProductService {
     List<Product> searchBykeywordForCategory(String keyword);
 
     List<Product> searchByKeyForMonths(String keyword);
+
+    void save(Product product);
 }
