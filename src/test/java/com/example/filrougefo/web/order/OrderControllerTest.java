@@ -118,7 +118,7 @@ class OrderControllerTest {
     }
     @WithMockUser
     @Test
-    void ShouldRedirectToProductDetailView() throws Exception {
+    void ShouldRedirectToProductDetailViewWhenAddingProduct() throws Exception {
         //given
         Order order = new Order();
         OrderLine orderLine = new OrderLine();
@@ -138,6 +138,34 @@ class OrderControllerTest {
                         .param("quantity","1"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/products/details/1"));
+    }
+
+    @WithMockUser
+    @Test
+    void ShouldReturnProductDetailViewWithErrorWhenAddingProduct() throws Exception {
+        //given
+        Category category = new Category();category.setName("");
+        Order order = new Order();
+
+        Product product = new Product();product.setStock(BigDecimal.valueOf(1));product.setId(1);product.setName("");
+        product.setCategory(category);product.setVat(BigDecimal.valueOf(1));
+
+        OrderLine orderLine = new OrderLine();orderLine.setProduct(product);
+        orderLine.setQuantity(BigDecimal.valueOf(1));orderLine.setOrder(order);
+
+        //when
+        when(productService.findById(any(int.class))).thenReturn(product);
+        when(clientAuthDetail.getClient()).thenReturn(new Client());
+        when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
+        when(orderService.addProductToOrder(any(int.class),any(long.class),any(Client.class))).thenReturn(orderLine);
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/add-to-cart/1")
+                        .with(csrf())
+                        .param("quantity","2"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attribute("error","La quantité demandée est supérieure au stock disponible."))
+                .andExpect(MockMvcResultMatchers.view().name("product/product-detail"));
+
     }
     @WithMockUser
     @Test
@@ -203,6 +231,7 @@ class OrderControllerTest {
         //given
         CardPaymentDto paymentDto = new CardPaymentDto();
         //when
+
         //then
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/payment/1").with(csrf())
                         .flashAttr("paymentDto",paymentDto))
@@ -210,7 +239,6 @@ class OrderControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attribute("paymentDto",paymentDto))
                 .andExpect(MockMvcResultMatchers.view().name("payment"));
     }
-
 
     private List<OrderDto> getDtosFromListOrder(List<Order> orders){
 
