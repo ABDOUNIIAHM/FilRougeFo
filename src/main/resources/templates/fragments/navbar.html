@@ -15,6 +15,13 @@
           <a class="nav-link" th:href="@{/products}">Produits</a>
         </li>
 
+        <!--  recherche -->
+        <li class="nav-item d-flex ">
+        <form  class="mx-4 d-flex  align-items-center" th:action="@{/products}" method="post">
+          <input type="text" name="keyword" placeholder="Rechercher...">
+          <button  class="btn text-white btn-success mx-4"  type="submit">Rechercher</button>
+        </form>
+        </li>
       </ul>
 
       <!-- Right Hand Side -->

@@ -14,7 +14,6 @@ public interface ProductMapper {
     ProductDTO toDTO(Product Product);
 
     @Mapping(target = "imgUrl", ignore = true)
-    @Mapping(target = "stock", ignore = true)
     @Mapping(target = "orderLines", ignore = true)
     Product fromDTO(ProductDTO ProductDTO);
 

@@ -22,7 +22,7 @@ public class ProductDTO {
     private String imgBase64;
     private BigDecimal vat;
     private String description;
-//    private BigDecimal stock;
+    private BigDecimal stock;
     private Category category;
     private List<Month> seasonalMonths = new ArrayList<>();
 

@@ -24,5 +24,14 @@ public class OrderLineDto {
 
         // price * (1 - discount) * qty
         return this.product.getPricePerUnit().multiply((BigDecimal.valueOf(1).subtract(discount))).multiply(this.quantity);
+
+    }
+
+    public ProductDTO getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductDTO product) {
+        this.product = product;
     }
 }
