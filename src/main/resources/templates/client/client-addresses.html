@@ -1,0 +1,47 @@
+<div class="card" th:fragment="client-addresses">
+
+    <div class="card-header">
+        <h4>Mes addresses</h4>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-responsive">
+
+            <thead>
+                <tr>
+                    <th th:text="'&numero;'"></th>
+                    <th>Numéro de voie</th>
+                    <th>Voie</th>
+                    <th>Ville</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr th:each="address : ${client.addressList}">
+                    <td th:text="${addressStat.index + 1}"></td>
+                    <td th:text="${address.number}"></td>
+                    <td th:text="${address.roadPrefix} + ' ' + ${address.roadName}"></td>
+                    <td th:text="${address.city}"></td>
+                    <td>
+                        <a th:href="@{/auth/client/addresses/{id}(id=${address.id})}"
+                           class="btn btn-primary">Modifier adresse</a>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="card-footer">
+        <a th:href="@{/auth/client/addresses/add}"
+           class="btn btn-success">Ajouter adresse</a>
+    </div>
+
+</div>
+
+</div>

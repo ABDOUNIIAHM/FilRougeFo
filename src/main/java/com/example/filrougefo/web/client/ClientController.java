@@ -28,7 +28,7 @@ public class ClientController {
     private PhoneNumberMapper phoneNumberMapper;
 
     @GetMapping("client/register")
-    public String getRegisterForm(Model model){
+    public String getRegisterForm(Model model) {
 
         ClientDto clientDto = new ClientDto();
         clientDto.getAddressList().add(new AddressDto());
@@ -40,9 +40,9 @@ public class ClientController {
     @PostMapping("client/register")
     public String addNewClient(@ModelAttribute("clientDto") @Valid ClientDto clientDto,
                                BindingResult bindingResult,
-                               Model model){
+                               Model model) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "signup-form";
         }
 
