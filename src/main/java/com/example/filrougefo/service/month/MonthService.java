@@ -17,8 +17,8 @@ public class MonthService implements IntMonthService{
         return monthRepository.findAll();
     }
 
-    public Optional<Month> findByName(String name) {
-        return monthRepository.findByNameIgnoreCase(name);
+    public Optional<Month> findById(int id) {
+        return monthRepository.findById(id);
     }
 
 }
