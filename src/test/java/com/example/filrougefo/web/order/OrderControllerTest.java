@@ -68,7 +68,7 @@ class OrderControllerTest {
         when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
         when(orderService.getNonPendingOrders(ArgumentMatchers.any(Client.class))).thenReturn(orders);
         //then
-        mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders"))
+       mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("orders",getDtosFromListOrder(orders)))
                 .andExpect(MockMvcResultMatchers.view().name("order/order-history"));
