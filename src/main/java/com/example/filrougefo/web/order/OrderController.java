@@ -134,14 +134,13 @@ public class OrderController {
             model.addAttribute("outOfStockProducts",outOfStockProducts);
             return "order/cart";
         }
-// Tous les stocks sont suffisants, effectuer la soustraction du stock pour chaque produit
+
         productService.updateProductStock(pendingOrder);
         orderService.validateOrder(id);
         return "success-order";
     }
 
     private List<OrderDto> getDtosFromListOrder(List<Order> orders){
-
         List<OrderDto> dtos = orders
                 .stream()
                 .map(x -> orderMapper.toDTO(x))

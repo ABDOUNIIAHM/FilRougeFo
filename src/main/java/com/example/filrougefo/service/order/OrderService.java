@@ -59,6 +59,17 @@ public class OrderService implements IntOrderService{
 
         Order pendingOrder = hasPendingOrder(client);
 
+        List<OrderLine> orderLines = pendingOrder.getOrderLines()
+                .stream()
+                .filter(ol -> ol.getProduct().getId() == productId)
+                .toList();
+
+        if(orderLines.size()==1){
+
+            
+        }
+
+
         OrderLine orderLine = new OrderLine();
         orderLine.setOrder(pendingOrder);
         orderLine.setProduct(p);
