@@ -59,7 +59,7 @@ public class OrderController {
         model.addAttribute("orderLines", orderLines);
         model.addAttribute("order",orderMapper.toDTO(orderService.findOrderById(id)));
 
-        return "order-detail";
+        return "order/order-detail";
     }
     @GetMapping("/cart")
     public String getMyCart(Model model){
