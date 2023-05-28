@@ -38,25 +38,6 @@ public class ProductController {
     private CategoryMapper categoryMapper;
     private MonthMapper monthMapper;
 
-//Méthode pour récupère toute les category et tout les mois
-    private void populateModelWithLists(Model model) {
-        List<Category> categoryList = categoryService.findAll();
-        List<Month> monthList = monthService.findAll();
-
-        List<MonthDTO> monthDTOList = monthList
-                .stream()
-                .map(monthMapper::toDTO)
-                .toList();
-
-        List<CategoryDto> categoryDtoList = categoryList
-                .stream()
-                .map(categoryMapper::toDTO)
-                .toList();
-
-        model.addAttribute("categoryList", categoryDtoList);
-        model.addAttribute("monthList", monthDTOList);
-    }
-
     @GetMapping
     public String listProduct(Model model) {
 
@@ -106,8 +87,9 @@ public class ProductController {
 
         return "product/product-list";
     }
+
     @GetMapping("/categories/{id}")
-    public String getCategoryProducts(@PathVariable int id, Model model){
+    public String getCategoryProducts(@PathVariable int id, Model model) {
 
         List<Month> monthList = monthService.findAll();
 
@@ -121,16 +103,53 @@ public class ProductController {
         model.addAttribute("monthList", monthDTOList);
         return "product/product-list";
     }
-    private List<CategoryDto> mapCategoryListToDto(){
 
+    @PostMapping
+    public String searchProduct(@RequestParam("keyword") String keyword, Model model) {
+
+        List<Product> productList = productService.searchProductsGlobal(keyword);
+
+        List<ProductDTO> productDTOsList = productList
+                .stream()
+                .map(productMapper::toDTO)
+                .toList();
+
+        populateModelWithLists(model);
+        model.addAttribute("productList", productDTOsList);
+        model.addAttribute("keyword", keyword);
+
+        return "product/product-list";
+
+    }
+
+    // Populate the model with all months and all categories
+    private void populateModelWithLists(Model model) {
+        List<Category> categoryList = categoryService.findAll();
+        List<Month> monthList = monthService.findAll();
+
+        List<MonthDTO> monthDTOList = monthList
+                .stream()
+                .map(monthMapper::toDTO)
+                .toList();
+
+        List<CategoryDto> categoryDtoList = categoryList
+                .stream()
+                .map(categoryMapper::toDTO)
+                .toList();
+
+        model.addAttribute("categoryList", categoryDtoList);
+        model.addAttribute("monthList", monthDTOList);
+    }
+
+    private List<CategoryDto> mapCategoryListToDto() {
         List<Category> categoryList = categoryService.findAll();
         return categoryList
                 .stream()
                 .map(c -> categoryMapper.toDTO(c))
                 .collect(Collectors.toList());
     }
-    private List<ProductDTO> mapCategoryProductsToDto(int id){
 
+    private List<ProductDTO> mapCategoryProductsToDto(int id) {
         return categoryService
                 .findById(id)
                 .getProducts()
@@ -149,6 +168,7 @@ public class ProductController {
         mav.addObject("url", req.getRequestURL());
         return mav;
     }
+
     @ExceptionHandler(value = {CategoryNotFoundException.class})
     public ModelAndView handleError(HttpServletRequest req, CategoryNotFoundException ex) {
 
@@ -160,30 +180,6 @@ public class ProductController {
         return mav;
     }
 
-    @PostMapping
-    public String searchProduct(@RequestParam("keyword") String keyword, Model model) {
-        List<Product> productList = new ArrayList<>();
-        List<Product> productListProduit = productService.searchByKeyword(keyword);
-        List<Product> productListCategory = productService.searchBykeywordForCategory(keyword);
-        List<Product> productListMonth = productService.searchByKeyForMonths(keyword);
-
-
-        productList.addAll(productListProduit);
-        productList.addAll(productListCategory);
-        productList.addAll(productListMonth);
-        List<ProductDTO> productDTOsList = productList
-                .stream()
-                .map(productMapper::toDTO)
-                .toList();
-
-
-        populateModelWithLists(model);
-        model.addAttribute("productList", productDTOsList);
-        model.addAttribute("keyword", keyword);
-
-        return "product/product-list";
-
-    }
 
 
 }
