@@ -10,35 +10,147 @@
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
+
 <div class="container-fluid p-3">
 
-  <div class="row row-cols-1 row-cols-sm-2">
+  <div class="row row-cols-1 row-cols-md-2">
+
+    <!-- Filters -->
+    <div id="sidebar" class="col col-sm-4 col-md-2 bg-light rounded">
+
+      <div class="py-3">
+
+        <h6>Filtres</h6>
+
+        <div class="py-1">
+          <a th:href="@{/products}" class="btn d-block btn-outline-primary">
+            Réinitialiser
+          </a>
+        </div>
 
 
-    <!--            IMAGE   -->
-    <div class="col-4 col-sm-3">
-      <div class="product-img-container">
-<!--        <img th:src="@{product.imgURl}" class="rounded" style="object-fit: cover;">-->
-        <img src="data:image/jpeg;base64," th:attrappend="src=${product.imgBase64}" class="rounded" th:alt="${product.name}">
+
+        <!-- Categories -->
+        <div class="py-1">
+
+          <a href="#categories" class="btn d-block btn-outline-secondary" role="button"
+             data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">
+            Categories <i class="bi bi-chevron-down"></i>
+          </a>
+
+          <ul th:each="category : ${categoryList}"
+              class="list-group list-group-flush collapse" id="categories">
+            <li class="list-group-item list-group-item-action">
+              <!--                                th:classappend="${active}">-->
+              <a th:href="@{/products/categories/{id}(id=${category.id})}"
+                 th:text="${category.name}"></a>
+              <span th:text="666" class="badge text-bg-secondary badge-pill"></span>
+            </li>
+          </ul>
+
+        </div>
+
+        <!-- Mois -->
+        <div class="py-1">
+
+          <a href="#months" class="btn d-block btn-outline-secondary" role="button"
+             data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">
+            Mois <i class="bi bi-chevron-down"></i>
+          </a>
+
+          <ul th:each="month : ${monthList}"
+              class="list-group list-group-flush collapse" id="months">
+            <li class="list-group-item list-group-item-action">
+              <!--                                th:classappend="${active}">-->
+              <a th:href="@{/products/month/{monthName}(monthName=${month.name})}"
+                 th:text="${month.name}"></a>
+              <span th:text="666" class="badge text-bg-secondary badge-pill"></span>
+            </li>
+          </ul>
+
+        </div>
+
       </div>
     </div>
 
-    <div class="col-8 col-sm-9 p-3">
+    <!-- Product cards -->
+    <div class="col col-sm-8 col-md-10">
 
-      <div class="border-bottom border-black w-100 mb-2 d-flex justify-content-between">
-        <div class="">
-          <h2 class="d-inline-block">
-            <span th:text="${product.name}"></span>
-          </h2>
+      <div class="card m-2">
+
+        <div class="card-body">
+
+          <div class="row row-cols-1 row-cols-sm-2">
+
+            <!--            IMAGE   -->
+            <div class="col-4 col-sm-3">
+              <div class="product-img-container">
+                <!--        <img th:src="@{product.imgURl}" class="rounded" style="object-fit: cover;">-->
+                <img src="data:image/jpeg;base64," th:attrappend="src=${product.imgBase64}" class="rounded" th:alt="${product.name}">
+              </div>
+            </div>
+
+            <div class="col-8 col-sm-9 p-3">
+
+              <div class="border-bottom border-black w-100 mb-2 d-flex justify-content-between">
+                  <h2 class="d-inline-block" th:text="${product.name}">
+                  </h2>
+
+              </div>
+
+              <dl class="row">
+                <dt class="col-md-3">Catégories</dt>
+                <dd class="col-md-9">
+                  <span th:text="${product.category.name}"></span>
+                </dd>
+
+                <dt class="col-md-3">Prix</dt>
+                <dd class="col-md-9">
+                  <span th:utext="${'&euro;'+'&nbsp;'}"></span>
+                  <span th:text="${product.pricePerUnit}"></span> / <span th:text="${product.unit}"></span>
+                </dd>
+
+                <dt class="col-md-3">Description</dt>
+                <dd class="col-md-9">
+                  <span th:text="${product.description}"></span>
+                </dd>
+
+                <dt class="col-md-3">Mois de Saison</dt>
+                <dd class="col-md-9">
+                  <div class="container text-center row row-cols-1 row-cols-xl-4">
+                    <div th:each="month : ${monthList}">
+                      <div class="col p-1 m-1 text-wrap button rounded"
+                           th:classappend="${product.seasonalMonths.contains(month) ? 'text-bg-primary' : 'text-muted bg-light'}" th:text="${month.name}"></div>
+                    </div>
+                  </div>
+                </dd>
+
+              </dl>
+
+            </div>
+
+
+          </div>
+
         </div>
 
-        <div class="my-auto">
-          <p class="text-white bg-danger" th:text="${error}"></p>
+        <div class="card-footer" sec:authorize="isAuthenticated()">
+
           <form th:action="@{/auth/add-to-cart/{id}(id=*{product.id})}" method="post">
-            <div class="text-center">
-              <input type="number" name="quantity" placeholder="Quantité" required>
+            <div class="input-group">
+
+              <input th:if="${product.unit == 'kg'}" type="number" min=0 step=0.250
+                     class="form-control"
+                     name="quantity" placeholder="Quantité" required>
+
+              <input th:unless="${product.unit == 'kg'}" type="number"  min=0 step=1
+                     class="form-control"
+                     name="quantity" placeholder="Quantité" required>
+
+              <span class="input-group-text" th:text="${product.unit}"></span>
               <button type="submit" name="idProduct" th:value="*{product.id}"
-                      class="btn btn-outline-success">Ajouter au panier</button>
+                      class="btn btn-outline-success">Ajouter</button>
+
             </div>
           </form>
 
@@ -46,43 +158,7 @@
 
       </div>
 
-      <dl class="row">
-        <dt class="col-sm-3">Catégories</dt>
-        <dd class="col-sm-9">
-          <span th:text="${product.category.name}"></span>
-        </dd>
-
-        <dt class="col-sm-3">Prix</dt>
-        <dd class="col-sm-9">
-          <span th:utext="${'&euro;'+'&nbsp;'}"></span>
-          <span th:text="${product.pricePerUnit}"></span> / <span th:text="${product.unit}"></span>
-        </dd>
-
-<!--        <dt class="col-sm-3">T.V.A</dt>-->
-<!--        <dd class="col-sm-9">-->
-<!--          <span th:text="${product.vat * 100}"></span>-->
-<!--          <span th:utext="${'&nbsp;'+'&percnt;'}"></span>-->
-<!--        </dd>-->
-
-        <dt class="col-sm-3">Description</dt>
-        <dd class="col-sm-9">
-          <span th:text="${product.description}"></span>
-        </dd>
-
-        <dt class="col-sm-3">Mois de Saison</dt>
-        <dd class="col-sm-9">
-          <div class="container text-center row row-cols-1 row-cols-sm-4 row-cols-md-5 row-cols-xl-7">
-            <div th:each="month : ${monthList}">
-              <div class="col p-1 m-1 text-wrap button rounded"
-                   th:classappend="${product.seasonalMonths.contains(month) ? 'text-bg-primary' : 'text-muted bg-light'}" th:text="${month.name}"></div>
-            </div>
-          </div>
-        </dd>
-
-      </dl>
-
     </div>
-
 
   </div>
 

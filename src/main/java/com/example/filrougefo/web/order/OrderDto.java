@@ -24,7 +24,6 @@ public class OrderDto {
     public BigDecimal computeTotal() {
         BigDecimal total = BigDecimal.valueOf(0);
         for (OrderLineDto orderLine : orderLines) {
-            System.out.println(orderLine.computeTotal());
             total = total.add(orderLine.computeTotal());
         }
         return total;

@@ -4,6 +4,7 @@ import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.order.IntOrderService;
+import com.example.filrougefo.web.Admin.ApiController;
 import com.example.filrougefo.web.client.ClientController;
 import com.example.filrougefo.web.order.OrderController;
 import com.example.filrougefo.web.product.ProductController;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @ControllerAdvice(assignableTypes = {
         ProductController.class,
         OrderController.class,
-        ClientController.class})
+        ClientController.class,
+        ApiController.class})
 @AllArgsConstructor
 public class NavBarController {
     private ClientAuthDetail authenticatedClient;
