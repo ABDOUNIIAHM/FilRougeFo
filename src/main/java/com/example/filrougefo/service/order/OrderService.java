@@ -75,7 +75,7 @@ public class OrderService implements IntOrderService{
 
             orderLine.setProduct(product);
 
-            OrderLine orderLine1 = pendingOrder.getOrderLines().stream().filter(ol -> ol.getId() == orderLine.getId()).findFirst().map(ol -> orderLine).get();
+            pendingOrder.getOrderLines().stream().filter(ol -> ol.getId() == orderLine.getId()).findFirst().map(ol -> orderLine).get();
 
             orderRepository.save(pendingOrder);
         }
