@@ -5,6 +5,7 @@ import com.example.filrougefo.repository.ClientRepository;
 import com.example.filrougefo.repository.OrderLineRepository;
 import com.example.filrougefo.repository.OrderRepository;
 import com.example.filrougefo.repository.OrderStatusRepository;
+import com.example.filrougefo.service.orderline.OrderLineService;
 import com.example.filrougefo.service.product.IntProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +25,7 @@ public class OrderService implements IntOrderService{
     private final ClientRepository clientRepository;
     private final OrderStatusRepository orderStatusRepository;
     private final OrderLineRepository orderLineRepository;
+    private final OrderLineService orderLineService;
     private IntProductService productService;
 
     @Override
@@ -70,9 +73,12 @@ public class OrderService implements IntOrderService{
             Product product = orderLine.getProduct();
             product.setStock(product.getStock().subtract(BigDecimal.valueOf(quantity)));
 
+            orderLine.setProduct(product);
 
+            OrderLine orderLine1 = pendingOrder.getOrderLines().stream().filter(ol -> ol.getId() == orderLine.getId()).findFirst().map(ol -> orderLine).get();
+
+            orderRepository.save(pendingOrder);
         }
-
 
         OrderLine orderLine = new OrderLine();
         orderLine.setOrder(pendingOrder);
