@@ -9,11 +9,13 @@ import com.example.filrougefo.exception.ProductNotFoundException;
 import com.example.filrougefo.repository.ProductRepository;
 import com.example.filrougefo.service.month.MonthService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
+import com.example.filrougefo.web.product.ProductDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +33,6 @@ public class ProductService implements IntProductService {
 
     @Override
     public Product findById(int id) {
-
         return productRepository
                 .findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("No such product with id=" + id + " was found !"));
@@ -39,7 +40,6 @@ public class ProductService implements IntProductService {
 
     @Override
     public List<Product> searchProductByNamePattern(String name) {
-
         return productRepository
                 .findAllByNameContainingIgnoreCase(name)
                 .orElseThrow(() -> new ProductNotFoundException("No such product with name=" + name + " was found !"));
@@ -67,13 +67,29 @@ public class ProductService implements IntProductService {
         return productRepository.findByPartialNameOrDescriptionIgnoreCase(keyword);
     }
     @Override
-    public List<Product> searchBykeywordForCategory(String keyword) {
+    public List<Product> searchByKeywordForCategory(String keyword) {
         return productRepository.findProductsByPartialCategoryNameIgnoreCase(keyword);
     }
 
     @Override
-    public List<Product> searchByKeyForMonths(String keyword) {
+    public List<Product> searchByKeywordForMonths(String keyword) {
         return productRepository.findProductsByPartialMonthName(keyword);
+    }
+
+    public List<Product> searchProductsGlobal(String keyword) {
+
+        List<Product> productList = new ArrayList<>();
+
+        List<Product> productListProduit = searchByKeyword(keyword);
+        List<Product> productListCategory = searchByKeywordForCategory(keyword);
+        List<Product> productListMonth = searchByKeywordForMonths(keyword);
+
+        productList.addAll(productListProduit);
+        productList.addAll(productListCategory);
+        productList.addAll(productListMonth);
+
+        // Removes duplicates
+       return productList.stream().distinct().toList();
     }
 
     @Override

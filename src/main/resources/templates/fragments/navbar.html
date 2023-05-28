@@ -18,12 +18,11 @@
 
         <!--  Search -->
         <li class="nav-item">
-        <form class="d-flex" role="search" method="POST">
-          <input th:action="@{/products}"
-                 type="text" name="keyword" placeholder="Rechercher..."
-                 class="form-control me-2">
-          <button class="btn btn-outline-success" type="submit">Rechercher</button>
-        </form>
+          <form class="d-flex" th:action="@{/products}" method="POST">
+            <input type="text" name="keyword" placeholder="Rechercher..."
+                   class="form-control me-2">
+            <button class="btn btn-outline-success" type="submit">Rechercher</button>
+          </form>
         </li>
       </ul>
 
