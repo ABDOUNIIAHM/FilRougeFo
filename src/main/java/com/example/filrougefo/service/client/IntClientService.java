@@ -14,6 +14,7 @@ public interface IntClientService {
     Client findById(long id);
     List<Client> findAll();
     boolean isValidEmail(String email);
+    boolean isValidUpdatedEmail(String email, long id);
     Client createClient(Client client);
     void updateClient(Client client);
 
@@ -28,4 +29,6 @@ public interface IntClientService {
     ClientDto getClientDtoWithDetailsByUsername(String username);
 
     Client getClientById(long clientId);
+
+
 }

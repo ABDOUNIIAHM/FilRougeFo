@@ -14,32 +14,27 @@
 
 <body>
 <div th:replace="header :: header"></div>
-
 <div class=" container container-fluid p-3 grid-card margin-footer container-card">
 
-    <form th:action="@{/auth/client/update}" method="POST">
-
+    <form th:action="@{/auth/client/update}" method="POST" th:object="${client}">
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" th:src="${client.avatarUrl}" alt="Avatar Client">
+            <img class="card-img-top" th:src="*{avatarUrl}" alt="image client">
             <div class="card-body">
-                <input type="hidden" th:field="${client.id}">
+                <input type="hidden" th:field="*{id}">
                 <label>Prénom</label>
                 <input class="form-control card-title form-control-lg"
                        type="text"
-                       th:field="${client.firstName}">
-                <p style="color: red" th:each="error : ${#fields.errors('client.firstName')}" th:text="${error}"></p>
+                       th:field="*{firstName}">
+                <p style="color: red" th:each="error:${#fields.errors('firstName')}" th:text="${error}"></p>
                 <br>
                 <label>Nom</label>
-                <input class="form-control card-title form-control-lg" type="text" th:field="${client.lastName}">
-                <p style="color: red" th:each="error:${#fields.errors('client.lastName')}" th:text="${error}"></p>
+                <input class="form-control card-title form-control-lg" type="text" th:field="*{lastName}">
                 <br>
                 <label>Email</label>
-                <input  class="card-text form-control" type="text" th:field="${client.email}">
-                <p style="color: red" th:each="error:${#fields.errors('client.email')}" th:text="${error}"></p>
+                <input  class="card-text form-control" type="text" th:field="*{email}">
                 <br>
                 <label>Avatar URL</label>
-                <input  class="card-text form-control" type="text" th:field="${client.avatarUrl}">
-                <p style="color: red" th:each="error:${#fields.errors('client.avatarUrl')}" th:text="${error}"></p>
+                <input  class="card-text form-control" type="text" th:field="*{avatarUrl}">
                 <br>
                 <button  class="btn btn-outline-info w-100" type="submit">Modifier</button>
             </div>
@@ -47,51 +42,34 @@
     </form>
 
     <div class="card d-flex" style="width: 18rem;">
-
+        <form th:action="@{/auth/client/addresses}" method="post">
             <div class="card-body">
-
-                <div th:each="thisAddress : ${client.addressList}">
-
-                    <div class="card-body">
-
-                        <form th:action="@{/auth/client/address}" method="post">
-
-                            <h4 th:text="'Adresse &numero;' + ${thisAddressStat.index} + 1">Adresse</h4>
-
-                            <p th:text="${thisAddress}"></p>
-
-                            <label>Titre</label>
-                            <input th:field="${address.title}" th:value="${thisAddress.title}"
-                           type="text" class="card-text form-control" name="addressTitle" >
-                            <p style="color: red" th:each="error:${#fields.errors('address.title')}" th:text="${error}"></p>
-
-                            <br>
-                            <label>Numéro</label>
-                            <input type="text" class="card-text form-control" th:field="${address.number}"  th:value="${thisAddress.number}">
-
+                <div th:each="address, addressStat : ${client.addressList}">
+                    <input type="hidden" name="addressId" th:value="${address.id}" />
+                    <h3>Adresse</h3>
+                    <label>Titre</label>
+                    <input type="text" class="card-text form-control" name="addressTitle" th:value="${address.title}" />
                     <br>
                     <label>Préfixe de route</label>
-                    <input type="text" class="card-text form-control" th:field="${address.roadPrefix}" th:value="${thisAddress.roadPrefix}">
+                    <input type="text" class="card-text form-control" name="addressRoadPrefix" th:value="${address.roadPrefix}" />
                     <br>
                     <label>Nom de rue</label>
-                    <input type="text" class="card-text form-control" th:field="${address.roadName}" th:value="${thisAddress.roadName}">
-
-
+                    <input type="text" class="card-text form-control" name="addressRoadName" th:value="${address.roadName}" />
+                    <br>
+                    <label>Ville</label>
+                    <input type="text" class="card-text form-control" name="addressCity" th:value="${address.city}" />
+                    <br>
+                    <label>Numéro</label>
+                    <input type="text" class="card-text form-control" name="addressNumber" th:value="${address.number}" />
                     <br>
                     <label>Complément</label>
-                    <input type="text" class="card-text form-control"  th:field="${address.complement}"  th:value="${thisAddress.complement}">
+                    <input type="text" class="card-text form-control" name="addressComplement" th:value="${address.complement}" />
                     <br>
                     <label>Code postal</label>
-                    <input type="text" class="card-text form-control" th:field="${address.zipCode}"  th:value="${thisAddress.zipCode}">
-                            <br>
-                            <label>Ville</label>
-                            <input type="text" class="card-text form-control" th:field="${address.city}" th:value="${thisAddress.city}">
+                    <input type="text" class="card-text form-control" name="addressZipCode" th:value="${address.zipCode}" />
                     <br>
-                            <button class="btn btn-outline-info w-100" type="submit" th:field="${client.id}">Modifier</button>
-                        </form>
-                    </div>
                 </div>
-
+                <button class="btn btn-outline-info w-100" type="submit">Modifier</button>
             </div>
         </form>
     </div>

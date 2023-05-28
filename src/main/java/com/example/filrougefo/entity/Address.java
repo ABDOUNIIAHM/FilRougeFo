@@ -20,5 +20,5 @@ public class Address {
     private String city;
     @ManyToOne
     @JoinColumn(name = "id_client")
- private Client client;
+    private Client client;
 }

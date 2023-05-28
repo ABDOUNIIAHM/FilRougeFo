@@ -29,7 +29,7 @@ public class ClienDetailController {
     private PhoneNumberService phoneNumberService;
     private PhoneNumberMapper phoneNumberMapper;
 
-    @GetMapping("/detail")
+    @GetMapping("/details")
     public String geDetailProfil(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         Client client = authenticatedClient.getClient();
         String username = userDetails.getUsername();
@@ -45,7 +45,7 @@ public class ClienDetailController {
         clientDto.setFirstName(client.getFirstName());
         clientDto.setLastName(client.getLastName());
         clientDto.setEmail(client.getEmail());
-        clientDto.setPassword(client.getPassword());
+//        clientDto.setPassword(client.getPassword());
         clientDto.setAvatarUrl(client.getAvatarUrl());
         clientDto.setOrderList(client.getOrderList());
         clientDto.setAddressList(adressedto);
@@ -59,7 +59,7 @@ public class ClienDetailController {
     }
 
 
-    @PostMapping("/update")
+    @PostMapping("/updateOLD")
     public String updateClient(@ModelAttribute("clientDto") ClientDto updatedClient) {
         long clientId = updatedClient.getId();
         String email = updatedClient.getEmail();
@@ -73,7 +73,7 @@ public class ClienDetailController {
         return "redirect:/auth/client/detail";
     }
 
-    @PostMapping("/addresses")
+    @PostMapping("/addressesOLD")
     public String updateClientAddresses(@RequestParam("addressId") List<Long> addressIds,
                                         @RequestParam("addressTitle") List<String> titles,
                                         @RequestParam("addressRoadPrefix") List<String> roadPrefixes,
@@ -105,7 +105,7 @@ public class ClienDetailController {
         return "redirect:/auth/client/detail";
     }
 
-    @PostMapping("/phoneNumbers")
+    @PostMapping("/phoneNumbersOLD")
     public String updateClientPhoneNumbers(@RequestParam("phoneNumberId") List<Long> phoneNumberIds,
                                            @RequestParam("phoneNumberValue") List<String> phoneNumber) {
         for (int i = 0; i < phoneNumberIds.size(); i++) {

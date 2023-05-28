@@ -12,6 +12,6 @@ public class PhoneNumberDto {
     private long id;
     @NotNull(message = "")
     @NotEmpty(message = "")
-    @Pattern(regexp = "\\d{10}", message = "invalid phone number")
+    @Pattern(regexp = "\\d{10}", message = "Votre numéro de téléphone doit posséder 10 chiffres.")
     private String phoneNumber;
 }
