@@ -4,10 +4,8 @@ import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.order.IntOrderService;
-import com.example.filrougefo.service.order.OrderService;
-import com.example.filrougefo.web.login.LoginController;
+import com.example.filrougefo.web.client.ClientController;
 import com.example.filrougefo.web.order.OrderController;
-import com.example.filrougefo.web.order.PayementController;
 import com.example.filrougefo.web.product.ProductController;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -16,7 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-@ControllerAdvice(assignableTypes = {OrderController.class, PayementController.class, ProductController.class})
+@ControllerAdvice(assignableTypes = {
+        ProductController.class,
+        OrderController.class,
+        ClientController.class})
 @AllArgsConstructor
 public class NavBarController {
     private ClientAuthDetail authenticatedClient;
