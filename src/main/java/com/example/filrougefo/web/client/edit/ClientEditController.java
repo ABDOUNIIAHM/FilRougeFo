@@ -1,5 +1,6 @@
 package com.example.filrougefo.web.client.edit;
 
+import com.example.filrougefo.entity.Address;
 import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.PhoneNumber;
@@ -162,26 +163,51 @@ public class ClientEditController {
         return "redirect:/auth/client/detail";
     }
 
-    @PostMapping("/address/add")
+    @GetMapping("/address/add")
+    public String addressForm(Model model) {
+
+        model.addAttribute("address", new AddressDto());
+
+        return "client/address-form";
+    }
+
+    @GetMapping("/address/{id}")
+    public String addressForm(Model model, @PathVariable("id") long id) {
+
+        AddressDto updatedAddress = addressMapper.toDTO(addressService.findById(id));
+        model.addAttribute("address", updatedAddress);
+
+        return "client/address-form";
+    }
+
+    @PostMapping("/address")
     public String updateAddress(Model model, @ModelAttribute("address") @Valid AddressDto updatedAddress, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            System.out.println("err in address");
-
-            return "client/client-profile";
+            return "client/address-form";
         }
 
+        if (updatedAddress.getId() == 0) {
 
-        addressService.updateAddress(
-                updatedAddress.getId(),
-                updatedAddress.getTitle(),
-                updatedAddress.getRoadPrefix(),
-                updatedAddress.getRoadName(),
-                updatedAddress.getCity(),
-                updatedAddress.getNumber(),
-                updatedAddress.getComplement(),
-                updatedAddress.getZipCode()
-        );
+            Client client = authenticatedClient.getClient();
+            Address address = addressMapper.fromDTO(updatedAddress);
+            address.setClient(client);
+            client.setAddressList(addressService.findAddressesByClient(client));
+            client.getAddressList().add(address);
+            clientService.updateClient(client);
+
+        } else {
+            addressService.updateAddress(
+                    updatedAddress.getId(),
+                    updatedAddress.getTitle(),
+                    updatedAddress.getRoadPrefix(),
+                    updatedAddress.getRoadName(),
+                    updatedAddress.getCity(),
+                    updatedAddress.getNumber(),
+                    updatedAddress.getComplement(),
+                    updatedAddress.getZipCode()
+            );
+        }
 
         return "redirect:/auth/client/detail";
     }

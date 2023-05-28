@@ -8,6 +8,8 @@ import java.util.List;
 
 @Service
 public interface IntAddressService {
+
+    Address findById(long id);
     List<Address> findAddressesByClient(Client client);
 
     void updateAddress(long addressId, String title, String roadPrefix, String roadName, String city, String number, String complement, String zipCode);

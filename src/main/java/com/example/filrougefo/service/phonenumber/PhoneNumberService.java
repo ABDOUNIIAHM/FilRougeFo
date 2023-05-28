@@ -20,7 +20,7 @@ public class PhoneNumberService implements IntPhoneNumberService {
     public PhoneNumber findById(long id) {
         return phoneNumberRepository
                 .findById(id)
-                .orElseThrow(()-> new PhoneNumberNotFoundException("No PhoneNumber found for id="+id));
+                .orElseThrow(() -> new PhoneNumberNotFoundException("No PhoneNumber found for id="+id));
     }
 
     @Override

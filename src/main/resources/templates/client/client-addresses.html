@@ -20,15 +20,15 @@
 
             <tbody>
 
-                <tr th:each="address : ${client.addressList}">
+                <tr th:each="address : ${client.addressList}" th:object="${address}">
                     <td th:text="${addressStat.index + 1}"></td>
-                    <td th:text="${address.number}"></td>
-                    <td th:text="${address.roadPrefix} + ' ' + ${address.roadName}"></td>
-                    <td th:text="${address.city}"></td>
+                    <td th:text="*{number}"></td>
+                    <td th:text="*{roadPrefix} + ' ' + *{roadName}"></td>
+                    <td th:text="*{city}"></td>
                     <td>
-                        <a th:href="@{/auth/client/addresses/{id}(id=${address.id})}"
-                           class="btn btn-primary">Modifier adresse</a>
+                        <a th:href="@{/auth/client/address/{id}(id=${address.id})}" class="btn btn-primary">Modifier adresse</a>
                     </td>
+                    </form>
                 </tr>
 
             </tbody>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="card-footer">
-        <a th:href="@{/auth/client/addresses/add}"
+        <a th:href="@{/auth/client/address/add}"
            class="btn btn-success">Ajouter adresse</a>
     </div>
 
