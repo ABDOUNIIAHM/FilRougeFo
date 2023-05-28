@@ -76,8 +76,8 @@ class ClientControllerTest {
         //given
         List<AddressDto> addresses = List.of(new AddressDto(0,"","18","bis","rue de toto","","44000","nantes"));
         List<PhoneNumberDto> phones = List.of(new PhoneNumberDto(0,"0606060606"));
-        ClientDto clientDto = new ClientDto(0,"toto","toto","toto@tototo.com","toto","",null,addresses,phones);
-        clientDto.setMatchingPassword("toto");
+        ClientDto clientDto = new ClientDto(0,"toto","toto","toto@tototo.com","toto","toto","",null,addresses,phones);
+
         //when
         when(clientService.isValidEmail(ArgumentMatchers.any(String.class))).thenReturn(true);
         //then
@@ -93,8 +93,8 @@ class ClientControllerTest {
         //given
         List<AddressDto> addresses = List.of(new AddressDto(0,"","18","bis","rue de toto","","44000","nantes"));
         List<PhoneNumberDto> phones = List.of(new PhoneNumberDto(0,"0606060606"));
-        ClientDto clientDto = new ClientDto(0,"toto","toto","toto@toto.com","toto","",null,addresses,phones);
-        clientDto.setMatchingPassword("toto");
+        ClientDto clientDto = new ClientDto(0,"toto","toto","toto@toto.com","toto","toto","",null,addresses,phones);
+
 
         //when
         when(clientService.isValidEmail(ArgumentMatchers.any(String.class))).thenThrow( new ClientAlreadyExistException("message"));

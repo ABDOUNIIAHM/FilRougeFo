@@ -134,6 +134,7 @@ public class OrderService implements IntOrderService{
         OrderStatus os = orderStatusRepository.findById(2L).get();
         Order order = toValidate.get();
         order.setStatus(os);
+        order.setDate(LocalDate.now());
 
         orderRepository.save(order);
         return true;

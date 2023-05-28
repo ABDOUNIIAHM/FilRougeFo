@@ -62,8 +62,9 @@ class OrderControllerTest {
         OrderLine orderLine = new OrderLine(); orderLine.setQuantity(BigDecimal.ONE);
         Order order = new Order(); order.getOrderLines().add(orderLine);
         List<Order> orders = List.of(new Order());
+        Client client = new Client(); client.setOrderList(orders);
         //when
-        when(clientAuthDetail.getClient()).thenReturn(new Client());
+        when(clientAuthDetail.getClient()).thenReturn(client);
         when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
         when(orderService.getNonPendingOrders(ArgumentMatchers.any(Client.class))).thenReturn(orders);
         //then
@@ -124,7 +125,8 @@ class OrderControllerTest {
         //given
         Order order = new Order();
         OrderLine orderLine = new OrderLine();
-        Product product = new Product();product.setStock(BigDecimal.valueOf(1));product.setId(1);
+        Category category = new Category(); category.setName("");
+        Product product = new Product();product.setStock(BigDecimal.valueOf(1));product.setId(1);product.setCategory(category);product.setVat(BigDecimal.ONE);
         orderLine.setProduct(product);
         orderLine.setQuantity(BigDecimal.valueOf(1));
         orderLine.setOrder(new Order());
@@ -133,7 +135,7 @@ class OrderControllerTest {
         when(productService.findById(any(int.class))).thenReturn(product);
         when(clientAuthDetail.getClient()).thenReturn(new Client());
         when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
-        when(orderService.addProductToOrder(any(int.class),any(long.class),any(Client.class))).thenReturn(orderLine);
+        when(orderService.addProductToOrder(any(int.class),any(double.class),any(Client.class))).thenReturn(true);
         //then
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/add-to-cart/1")
                         .with(csrf())
@@ -159,7 +161,7 @@ class OrderControllerTest {
         when(productService.findById(any(int.class))).thenReturn(product);
         when(clientAuthDetail.getClient()).thenReturn(new Client());
         when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
-        when(orderService.addProductToOrder(any(int.class),any(long.class),any(Client.class))).thenReturn(orderLine);
+        when(orderService.addProductToOrder(any(int.class),any(double.class),any(Client.class))).thenReturn(false);
         //then
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/add-to-cart/1")
                         .with(csrf())
