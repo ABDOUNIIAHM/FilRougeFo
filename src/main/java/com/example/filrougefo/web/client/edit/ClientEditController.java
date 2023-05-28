@@ -55,6 +55,18 @@ public class ClientEditController {
 
         return "client/client-layout";
     }
+    @GetMapping("/password")
+    public String editPasswordForm(Model model){
+
+
+
+        return "client/edit-password";
+    }
+    @PostMapping("/password")
+    public String editPassword(Model model){
+
+        return "redirect:/auth/client/detail";
+    }
 
     @PostMapping("/update")
     public String updateClientProfile(Model model, @ModelAttribute("client") @Valid ClientProfileDTO updatedClient, BindingResult bindingResult) {
