@@ -17,7 +17,7 @@ public interface IntOrderService {
     List<Order> findAllOrdersByStatus_Name(String name);
     List<Order> findAllByOrdersBeforeChosenDate(LocalDate date);
     Order findOrderById(long id);
-    OrderLine addProductToOrder(int productId, double quantity, Client client);
+    boolean addProductToOrder(int productId, double quantity, Client client);
 
     List<Order> findAllOrders(Client client);
 

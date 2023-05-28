@@ -20,6 +20,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,9 +75,8 @@ public class OrderController {
         Product product = productService.findById(id);
         ProductDTO productDTO = productMapper.toDTO(product);
         double qty = Double.parseDouble(quantity);
-        if (qty <= productDTO.getStock().doubleValue()) {
+        if (orderService.addProductToOrder(id, qty, authenticatedClient.getClient()) == true) {
             // La quantité est suffisante
-            orderService.addProductToOrder(id, qty, authenticatedClient.getClient());
             return "redirect:/products/details/" + id;
         } else {
             // La quantité est insuffisante, renvoyez un message d'erreur
@@ -115,12 +117,29 @@ public class OrderController {
             model.addAttribute("paymentDto", paymentDto);
             return "payment";
         }
+
+        Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
+        List<Product> outOfStock = productService.checkIfAvailableStock(pendingOrder);
+
+        if(outOfStock.size()>0){
+
+            List<String> outOfStockProducts = outOfStock
+                            .stream()
+                            .map(p -> p.getName() + " (Stock restant : " + p.getStock() + " " + p.getUnit() + ")")
+                            .toList();
+
+            OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);
+            model.addAttribute("pendingOrderDto", pendingOrderDto);
+            model.addAttribute("outOfStockProducts",outOfStockProducts);
+            return "order/cart";
+        }
+
+        productService.updateProductStock(pendingOrder);
         orderService.validateOrder(id);
         return "success-order";
     }
 
     private List<OrderDto> getDtosFromListOrder(List<Order> orders){
-
         List<OrderDto> dtos = orders
                 .stream()
                 .map(x -> orderMapper.toDTO(x))

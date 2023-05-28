@@ -5,6 +5,7 @@ import com.example.filrougefo.repository.ClientRepository;
 import com.example.filrougefo.repository.OrderLineRepository;
 import com.example.filrougefo.repository.OrderRepository;
 import com.example.filrougefo.repository.OrderStatusRepository;
+import com.example.filrougefo.service.orderline.OrderLineService;
 import com.example.filrougefo.service.product.IntProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +25,7 @@ public class OrderService implements IntOrderService{
     private final ClientRepository clientRepository;
     private final OrderStatusRepository orderStatusRepository;
     private final OrderLineRepository orderLineRepository;
+    private final OrderLineService orderLineService;
     private IntProductService productService;
 
     @Override
@@ -53,11 +56,31 @@ public class OrderService implements IntOrderService{
     }
 
     @Override
-    public OrderLine addProductToOrder(int productId, double quantity,Client client) {
+    public boolean addProductToOrder(int productId, double quantity,Client client) {
 
         Product p = productService.findById(productId);
 
         Order pendingOrder = hasPendingOrder(client);
+
+        List<OrderLine> orderLines = pendingOrder.getOrderLines()
+                .stream()
+                .filter(ol -> ol.getProduct().getId() == productId)
+                .toList();
+
+        if(orderLines.size()==1){
+
+            OrderLine orderLine = orderLines.get(0);
+            Product product = orderLine.getProduct();
+
+            if(orderLine.getQuantity().add(BigDecimal.valueOf(quantity)).doubleValue() > product.getStock().doubleValue()){
+                return false;
+            }
+
+            orderLine.setQuantity(orderLine.getQuantity().add(BigDecimal.valueOf(quantity)));
+            pendingOrder.getOrderLines().stream().filter(ol -> ol.getId() == orderLine.getId()).findFirst().map(ol -> orderLine).get();
+            orderRepository.save(pendingOrder);
+            return true;
+        }
 
         OrderLine orderLine = new OrderLine();
         orderLine.setOrder(pendingOrder);
@@ -66,8 +89,7 @@ public class OrderService implements IntOrderService{
 
         pendingOrder.getOrderLines().add(orderLine);
         orderRepository.save(pendingOrder);
-
-        return orderLine;
+        return true;
     }
 
     @Override
