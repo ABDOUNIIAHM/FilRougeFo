@@ -1,7 +1,6 @@
 package com.example.filrougefo.service.product;
 
 import com.example.filrougefo.entity.Order;
-import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +12,7 @@ public interface IntProductService {
     Product findById(int id);
     List<Product> searchProductByNamePattern(String name);
     List<Product> findAllProductByCategoryId(int id);
-    List<Product> findAllProductPerMonth(String monthName);
-
+    List<Product> findAllProductPerMonth(int id);
     List<Product> searchByKeyword(String keyword);
     List<Product> searchByKeywordForCategory(String keyword);
 

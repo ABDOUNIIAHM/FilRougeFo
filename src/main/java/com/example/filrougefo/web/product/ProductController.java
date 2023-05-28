@@ -59,31 +59,26 @@ public class ProductController {
         Product product = productService.findById(id);
         ProductDTO productDTO = productMapper.toDTO(product);
 
-        List<Month> monthList = monthService.findAll();
-        List<MonthDTO> monthDTOList = monthList
-                .stream()
-                .map(monthMapper::toDTO)
-                .toList();
+        populateModelWithLists(model);
 
         model.addAttribute("product", productDTO);
-        model.addAttribute("monthList", monthDTOList);
 
         return "product/product-detail";
     }
 
-    @GetMapping("/month/{monthName}")
-    public String listProductPerMonth(@PathVariable String monthName, Model model) {
+    @GetMapping("/month/{id}")
+    public String listProductPerMonth(@PathVariable int id, Model model) {
 
-        List<Product> productList = productService.findAllProductPerMonth(monthName);
+        List<Product> productList = productService.findAllProductPerMonth(id);
 
         List<ProductDTO> productDTOsList = productList
                 .stream()
                 .map(productMapper::toDTO)
                 .collect(Collectors.toList());
+
         populateModelWithLists(model);
 
         model.addAttribute("productList", productDTOsList);
-
 
         return "product/product-list";
     }
@@ -91,16 +86,9 @@ public class ProductController {
     @GetMapping("/categories/{id}")
     public String getCategoryProducts(@PathVariable int id, Model model) {
 
-        List<Month> monthList = monthService.findAll();
-
-        List<MonthDTO> monthDTOList = monthList
-                .stream()
-                .map(monthMapper::toDTO)
-                .toList();
+        populateModelWithLists(model);
 
         model.addAttribute("productList",mapCategoryProductsToDto(id));
-        model.addAttribute("categoryList", mapCategoryListToDto());
-        model.addAttribute("monthList", monthDTOList);
         return "product/product-list";
     }
 
@@ -124,6 +112,7 @@ public class ProductController {
 
     // Populate the model with all months and all categories
     private void populateModelWithLists(Model model) {
+
         List<Category> categoryList = categoryService.findAll();
         List<Month> monthList = monthService.findAll();
 
