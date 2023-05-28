@@ -24,6 +24,6 @@ public class ProductDTO {
     private String description;
     private BigDecimal stock;
     private Category category;
-    private List<Month> seasonalMonths = new ArrayList<>();
+    private List<MonthDTO> seasonalMonths = new ArrayList<>();
 
 }

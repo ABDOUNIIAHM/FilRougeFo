@@ -9,12 +9,13 @@
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<br>
 
-    <div class="container-fluid p-3">
+
+<div class="container-fluid p-3">
 
         <div class="row row-cols-1 row-cols-md-2">
 
+            <!-- Filters -->
             <div id="sidebar" class="col col-sm-4 col-md-2 bg-light rounded">
 
                 <div class="py-3">
@@ -72,63 +73,62 @@
                 </div>
             </div>
 
-    <div class="col col-sm-8 col-md-10">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+            <!-- Product cards -->
+            <div class="col col-sm-8 col-md-10">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 
-            <div th:each="product : ${productList}" class="col my-3">
-                <div class="card h-100">
+                    <div th:each="product : ${productList}" class="col my-3">
+                        <div class="card h-100">
 
+                            <a th:href="@{/products/details/{id}(id=${product.id})}">
+                                <img src="data:image/jpeg;base64," th:attrappend="src=${product.imgBase64}" class="card-img-top position-relative">
+                            </a>
 
-                    <a th:href="@{/products/details/{id}(id=${product.id})}">
-                        <img src="data:image/jpeg;base64," th:attrappend="src=${product.imgBase64}" class="card-img-top position-relative">
-<!--                        <span class="position-absolute top-50 start-50 translate-middle badge text-bg-light"-->
-<!--                              th:text="${product.pricePerUnit} + '&nbsp;&euro; / ' + ${product.unit}">-->
-<!--                        </span>-->
-                    </a>
+                            <div class="card-body d-flex flex-column justify-content-between" style="transform: rotate(0);">
+                                <div>
+                                    <h5 class="card-title align-bottom me-auto">
+                                        <span th:text="${product.name}"></span>
+                                    </h5>
 
-                    <div class="card-body d-flex flex-column justify-content-between" style="transform: rotate(0);">
-                        <div>
-                            <h5 class="card-title align-bottom me-auto">
-                                <span th:text="${product.name}"></span>
-                            </h5>
+                                    <p class="card-text">
+                                        <span th:text="${product.description}"></span>
+                                        <a class="stretched-link" th:href="@{/products/details/{id}(id=${product.id})}"></a>
+                                    </p>
+                                </div>
 
-                            <p class="card-text">
-                                <span th:text="${product.description}"></span>
-                                <a class="stretched-link" th:href="@{/products/details/{id}(id=${product.id})}"></a>
-                            </p>
-                        </div>
-
-                        <span class="badge text-bg-light d-block"
-                              th:text="${product.pricePerUnit} + '&nbsp;&euro; / ' + ${product.unit}">
-                        </span>
-
-                    </div>
-
-                    <div class="card-footer" sec:authorize="isAuthenticated()">
-                        <form th:action="@{/auth/add-to-cart/{id}(id=*{product.id})}" method="post">
-                            <div class="input-group">
-
-                                <input th:if="${product.unit == 'kg'}" type="number" min=0 step=0.250
-                                       class="form-control"
-                                       name="quantity" placeholder="Quantité" required>
-
-                                <input th:unless="${product.unit == 'kg'}" type="number"  min=0 step=1
-                                       class="form-control"
-                                       name="quantity" placeholder="Quantité" required>
-
-                                <span class="input-group-text" id="basic-addon2" th:text="${product.unit}"></span>
-                                <button type="submit" name="idProduct" th:value="*{product.id}"
-                                        class="btn btn-outline-success">Ajouter</button>
+                                <span class="badge text-bg-light d-block"
+                                      th:text="${product.pricePerUnit} + '&nbsp;&euro; / ' + ${product.unit}">
+                                </span>
 
                             </div>
-                        </form>
+
+                            <div class="card-footer" sec:authorize="isAuthenticated()">
+                                <form th:action="@{/auth/add-to-cart/{id}(id=*{product.id})}" method="post">
+                                    <div class="input-group">
+
+                                        <input th:if="${product.unit == 'kg'}" type="number" min=0 step=0.250
+                                               class="form-control"
+                                               name="quantity" placeholder="Quantité" required>
+
+                                        <input th:unless="${product.unit == 'kg'}" type="number"  min=0 step=1
+                                               class="form-control"
+                                               name="quantity" placeholder="Quantité" required>
+
+                                        <span class="input-group-text" th:text="${product.unit}"></span>
+                                        <button type="submit" name="idProduct" th:value="*{product.id}"
+                                                class="btn btn-outline-success">Ajouter</button>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
                     </div>
+
                 </div>
+
             </div>
 
-        </div>
-
-        </div>
         </div>
 
     </div>
