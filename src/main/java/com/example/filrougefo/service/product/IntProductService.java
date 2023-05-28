@@ -1,5 +1,7 @@
 package com.example.filrougefo.service.product;
 
+import com.example.filrougefo.entity.Order;
+import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,9 @@ public interface IntProductService {
     List<Product> searchBykeywordForCategory(String keyword);
 
     List<Product> searchByKeyForMonths(String keyword);
+
+    List<Product> checkIfAvailableStock(Order order);
+
+    void updateProductStock(Order order);
+    void save(Product product);
 }
