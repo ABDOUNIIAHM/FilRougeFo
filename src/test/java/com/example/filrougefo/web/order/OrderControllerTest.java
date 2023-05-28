@@ -94,7 +94,7 @@ class OrderControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("orderLines",getDtosFromListOrderLine(orderLines)))
-                .andExpect(MockMvcResultMatchers.view().name("order-detail"));
+                .andExpect(MockMvcResultMatchers.view().name("order/order-detail"));
 
     }
     @WithMockUser
