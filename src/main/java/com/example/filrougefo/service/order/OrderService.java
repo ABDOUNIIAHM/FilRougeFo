@@ -66,7 +66,11 @@ public class OrderService implements IntOrderService{
 
         if(orderLines.size()==1){
 
-            
+            OrderLine orderLine = orderLines.get(0);
+            Product product = orderLine.getProduct();
+            product.setStock(product.getStock().subtract(BigDecimal.valueOf(quantity)));
+
+
         }
 
 
