@@ -4,7 +4,7 @@ import com.example.filrougefo.entity.Client;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ClientPasswordMapper {
 
     ClientPasswordDto toDTO(Client client);

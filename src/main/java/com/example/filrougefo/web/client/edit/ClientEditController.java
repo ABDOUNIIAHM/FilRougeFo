@@ -16,6 +16,7 @@ import com.example.filrougefo.web.order.OrderMapper;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.parameters.P;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,11 +30,13 @@ public class ClientEditController {
     private ClientAuthDetail authenticatedClient;
     private IntClientService clientService;
     private ClientProfileMapper clientProfileMapper;
+    private ClientPasswordMapper clientPasswordMapper;
     private AddressService addressService;
     private AddressMapper addressMapper;
     private PhoneNumberService phoneNumberService;
     private PhoneNumberMapper phoneNumberMapper;
     private OrderLineService orderLineService;
+    private PasswordEncoder passwordEncoder;
     private OrderService orderService;
     private OrderMapper orderMapper;
 
@@ -58,13 +61,24 @@ public class ClientEditController {
     @GetMapping("/password")
     public String editPasswordForm(Model model){
 
-
-
+        ClientPasswordDto clientPasswordDto = new ClientPasswordDto();
+        model.addAttribute("clientPasswordDto", clientPasswordDto);
         return "client/edit-password";
     }
     @PostMapping("/password")
-    public String editPassword(Model model){
+    public String editPassword(Model model,
+                               @ModelAttribute("clientPasswordDto") @Valid ClientPasswordDto clientPasswordDto,
+                               BindingResult bindingResult,
+                               ClientAuthDetail authenticatedClient){
 
+        if(bindingResult.hasErrors()){
+            return "client/edit-password";
+        }
+
+        String newPassword = clientPasswordDto.getNewPassword();
+        Client authClient = authenticatedClient.getClient();
+        authClient.setPassword(passwordEncoder.encode(newPassword));
+        clientService.updateClient(authClient);
         return "redirect:/auth/client/detail";
     }
 
