@@ -99,8 +99,18 @@ public class ClientService implements IntClientService {
     public boolean isValidEmail(String email) {
 
         Optional<Client> optClient = clientRepository.findByEmail(email);
-        if(optClient.isPresent()){
-            throw new ClientAlreadyExistException("Email has already been used !");
+        if (optClient.isPresent()) {
+            throw new ClientAlreadyExistException("Email déjà utilisé.");
+        }
+        return true;
+    }
+
+    public boolean isValidUpdatedEmail(String email, long id) {
+
+        Optional<Client> optClient = clientRepository.findClientByEmailAndId(email, id);
+
+        if (optClient.isEmpty() && isValidEmail(email)) {
+            throw new ClientAlreadyExistException("Email déjà utilisé.");
         }
         return true;
     }
@@ -129,7 +139,7 @@ public class ClientService implements IntClientService {
     @Override
     public void updateClientInformation(long clientId, String email, String firstName, String lastName, String avatarUrl){
         Client client = clientRepository.findById(clientId)
-                .orElseThrow(() -> new ClientNotFoundException("No client found for Id:" + clientId));
+                .orElseThrow(() -> new ClientNotFoundException("No client found for id=" + clientId));
 
         // MAJ du client
         client.setEmail(email);

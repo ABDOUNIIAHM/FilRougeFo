@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Paniers Primeur</title>
+    <div th:replace="~{fragments/headFragment :: head}"></div>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid p-3 mb-5">
+
+
+    <form th:action="@{/auth/client/address}" method="POST" th:object="${address}">
+        <div class="row">
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label"></label>
+                <input type="text" th:field="*{title}" placeholder="Titre"  class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label"></label>
+                <input type="text" th:field="*{number}" placeholder="numéro"  class="form-control">
+                <p style="color: red" th:each="error:${#fields.errors('number')}" th:text="${error}"></p>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label"></label>
+                <input type="text" th:field="*{roadPrefix}" placeholder="type" class="form-control">
+                <p style="color: red" th:each="error:${#fields.errors('roadPrefix')}" th:text="${error}"></p>
+
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label"></label>
+                <input type="text" th:field="*{roadName}" placeholder="Nom" class="form-control">
+<!--                <p style="color: red" th:each="error:${#fields.errors('roadName')}" th:text="${error}"></p>-->
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label"></label>
+                <input type="text" th:field="*{complement}" placeholder="Complement" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label"></label>
+                <input type="text" th:field="*{zipCode}" placeholder="Code postal" class="form-control">
+<!--                <p style="color: red" th:each="error:${#fields.errors('zipCode')}" th:text="${error}"></p>-->
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label"></label>
+                <input type="text" th:field="*{city}" th:value="*{city}" placeholder="Commune"  class="form-control">
+<!--                <p style="color: red" th:each="error:${#fields.errors('city')}" th:text="${error}"></p>-->
+            </div>
+        </div>
+
+        <input hidden type="text" th:field="*{id}">
+
+        <button type="submit" class="btn btn-success">Editer</button>
+        </form>
+
+</div>
+
+
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
