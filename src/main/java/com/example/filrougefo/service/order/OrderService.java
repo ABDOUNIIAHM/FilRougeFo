@@ -56,7 +56,7 @@ public class OrderService implements IntOrderService{
     }
 
     @Override
-    public OrderLine addProductToOrder(int productId, double quantity,Client client) {
+    public boolean addProductToOrder(int productId, double quantity,Client client) {
 
         Product p = productService.findById(productId);
 
@@ -70,15 +70,16 @@ public class OrderService implements IntOrderService{
         if(orderLines.size()==1){
 
             OrderLine orderLine = orderLines.get(0);
-            //Product product = orderLine.getProduct();
-            //product.setStock(product.getStock().subtract(BigDecimal.valueOf(quantity)));
-            //orderLine.setProduct(product);
+            Product product = orderLine.getProduct();
+
+            if(orderLine.getQuantity().add(BigDecimal.valueOf(quantity)).doubleValue() > product.getStock().doubleValue()){
+                return false;
+            }
+
             orderLine.setQuantity(orderLine.getQuantity().add(BigDecimal.valueOf(quantity)));
-
             pendingOrder.getOrderLines().stream().filter(ol -> ol.getId() == orderLine.getId()).findFirst().map(ol -> orderLine).get();
-
             orderRepository.save(pendingOrder);
-            return orderLine;
+            return true;
         }
 
         OrderLine orderLine = new OrderLine();
@@ -88,8 +89,7 @@ public class OrderService implements IntOrderService{
 
         pendingOrder.getOrderLines().add(orderLine);
         orderRepository.save(pendingOrder);
-
-        return orderLine;
+        return true;
     }
 
     @Override
