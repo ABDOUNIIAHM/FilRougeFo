@@ -1,3 +1,7 @@
+body {
+    padding-bottom: 70px;
+}
+
 .cross-alert{
     position: absolute;
     top:1px;
@@ -8,24 +12,23 @@
    display: none;
     position: relative;
 }
+
 .bg-footer{
     background-color:RGBA(94,117,144,0.57);
 }
+
 .footer-position{
     position:fixed;
     bottom: 0;
     left: 0;
     width: 100%;
 }
-.body-full{
-    height: 100%;
-    padding-bottom: 50px
-}
-.bg-footer-copyright{
 
+.bg-footer-copyright{
     background-color: rgba(159, 159, 159);
     height: 50px;
 }
+
 .flex-footer{
     display: flex;
     align-items: center;
@@ -35,6 +38,7 @@
     max-width: 1400px;
     margin: auto;
 }
+
 .grid-card {
     display: flex;
     justify-content: space-around;

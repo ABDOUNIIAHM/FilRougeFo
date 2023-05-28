@@ -108,11 +108,11 @@
                         <form th:action="@{/auth/add-to-cart/{id}(id=*{product.id})}" method="post">
                             <div class="input-group">
 
-                                <input th:if="${product.unit == 'piece'}" type="number" min=0 step=1
+                                <input th:if="${!product.unit == 'kg'}" type="number" min=0 step=1
                                        class="form-control"
                                        name="quantity" placeholder="Quantité" required>
 
-                                <input th:unless="${product.unit == 'piece'}" type="number" min=0 step=0.250
+                                <input th:unless="${!product.unit == 'kg'}" type="number" min=0 step=0.250
                                        class="form-control"
                                        name="quantity" placeholder="Quantité" required>
 

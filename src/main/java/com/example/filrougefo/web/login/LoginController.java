@@ -18,7 +18,7 @@ public class LoginController {
             model.addAttribute("isError", false);
         }
 
-        model.addAttribute("client",new Client());
+        model.addAttribute("client",new ClientDto());
 
         return "login-form";
     }
