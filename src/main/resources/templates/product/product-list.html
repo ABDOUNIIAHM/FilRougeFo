@@ -44,8 +44,8 @@
                                     </p>
                                 </div>
 
-                                <span class="badge text-bg-light d-block"
-                                      th:text="${product.pricePerUnit} + '&nbsp;&euro; / ' + ${product.unit}">
+                                <span class="fs-6 badge text-bg-light d-block"
+                                      th:text="${#numbers.formatDecimal(product.computePriceWithTaxes(), 1, 2)} + '&nbsp;&euro; / ' + ${product.unit}">
                                 </span>
 
                             </div>

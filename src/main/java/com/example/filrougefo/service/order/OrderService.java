@@ -57,7 +57,7 @@ public class OrderService implements IntOrderService{
     }
 
     @Override
-    public boolean addProductToOrder(int productId, double quantity,Client client) {
+    public boolean addProductToOrder(int productId, double quantity, Client client) {
 
         Product p = productService.findById(productId);
 
@@ -68,12 +68,12 @@ public class OrderService implements IntOrderService{
                 .filter(ol -> ol.getProduct().getId() == productId)
                 .toList();
 
-        if(orderLines.size()==1){
+        if (orderLines.size() == 1) {
 
             OrderLine orderLine = orderLines.get(0);
             Product product = orderLine.getProduct();
 
-            if(orderLine.getQuantity().add(BigDecimal.valueOf(quantity)).doubleValue() > product.getStock().doubleValue()){
+            if (orderLine.getQuantity().add(BigDecimal.valueOf(quantity)).doubleValue() > product.getStock().doubleValue()){
                 return false;
             }
 

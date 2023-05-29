@@ -16,7 +16,7 @@ public class AddressDto {
     @NotNull(message = "Ne doit pas être vide.")
     @NotEmpty(message = "Ne doit pas être vide.")
     @Size(max = 50, message = "50 caractères maximum.")
-    @Pattern(regexp = "^[\\w \\p{L}}-]{0,50}$", message = "Entrée non valide.")
+    @Pattern(regexp = "^[\\w \\p{L}}-]+$", message = "Entrée non valide.")
     private String title;
 
     // "3bis, "1345ter", "3"
