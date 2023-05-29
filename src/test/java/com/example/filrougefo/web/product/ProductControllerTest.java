@@ -67,8 +67,8 @@ class ProductControllerTest {
     @Test
     void ShouldReturnAllCategoryProductsWhenAuthenticated() throws Exception {
         //given
-        Product p1 = new Product(); p1.setId(1);
-        Product p2 = new Product(); p2.setId(2);
+        Product p1 = new Product(); p1.setId(1);p1.setVat(BigDecimal.ONE);p1.setPricePerUnit(BigDecimal.ONE);
+        Product p2 = new Product(); p2.setId(2);p2.setVat(BigDecimal.ONE);p2.setPricePerUnit(BigDecimal.ONE);
 
         Category c1 = new Category(); c1.setId(1); c1.getProducts().add(p1); c1.getProducts().add(p2);  c1.setName("category1");
         Category c2 = new Category(); c2.setId(2);  c2.setName("category2");
@@ -97,8 +97,8 @@ class ProductControllerTest {
     @Test
     void ShouldReturnAllCategoryProductsWhenNotAuthenticated() throws Exception {
         //given
-        Product p1 = new Product(); p1.setId(1);
-        Product p2 = new Product(); p2.setId(2);
+        Product p1 = new Product(); p1.setId(1);p1.setVat(BigDecimal.ONE);p1.setPricePerUnit(BigDecimal.ONE);
+        Product p2 = new Product(); p2.setId(2);p2.setVat(BigDecimal.ONE);p2.setPricePerUnit(BigDecimal.ONE);
 
         Category c1 = new Category(); c1.setId(1); c1.getProducts().add(p1); c1.getProducts().add(p2);  c1.setName("category1");
         Category c2 = new Category(); c2.setId(2);  c2.setName("category2");

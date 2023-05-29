@@ -67,7 +67,7 @@ class OrderControllerTest {
     void ShouldReturnOrderDetailView() throws Exception {
         //given
         Order order = new Order();
-        Product product = new Product();product.setPricePerUnit(BigDecimal.TEN);
+        Product product = new Product();product.setPricePerUnit(BigDecimal.TEN);product.setVat(BigDecimal.ONE);
         OrderLine orderLine = new OrderLine();orderLine.setQuantity(BigDecimal.ZERO);orderLine.setDiscount(BigDecimal.valueOf(0));
         orderLine.setOrder(order);orderLine.setProduct(product);orderLine.setQuantity(BigDecimal.ONE);
         order.getOrderLines().add(orderLine);
@@ -92,7 +92,7 @@ class OrderControllerTest {
         Order order = new Order();
         OrderLine orderLine = new OrderLine();
 
-        Product product = new Product();product.setPricePerUnit(BigDecimal.TEN);
+        Product product = new Product();product.setPricePerUnit(BigDecimal.TEN);product.setVat(BigDecimal.ONE);
         orderLine.setProduct(product);orderLine.setQuantity(BigDecimal.ZERO);orderLine.setDiscount(BigDecimal.valueOf(0));
         order.getOrderLines().add(orderLine);
 
@@ -140,7 +140,7 @@ class OrderControllerTest {
         Order order = new Order();
 
         Product product = new Product();product.setStock(BigDecimal.valueOf(1));product.setId(1);product.setName("");
-        product.setCategory(category);product.setVat(BigDecimal.valueOf(1));
+        product.setCategory(category);product.setVat(BigDecimal.valueOf(1));product.setPricePerUnit(BigDecimal.ONE);
 
         OrderLine orderLine = new OrderLine();orderLine.setProduct(product);
         orderLine.setQuantity(BigDecimal.valueOf(1));orderLine.setOrder(order);
