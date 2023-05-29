@@ -5,19 +5,23 @@ import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.address.IntAddressService;
 import com.example.filrougefo.service.month.IntMonthService;
 import com.example.filrougefo.service.order.IntOrderService;
-import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.orderline.OrderLineService;
 import com.example.filrougefo.service.product.IntProductService;
 import com.example.filrougefo.web.client.AddressMapper;
 import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
 import com.example.filrougefo.web.product.ProductMapper;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.ArgumentMatchers;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -30,9 +34,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @Import(OrderConfig.class)
 @ExtendWith(SpringExtension.class)

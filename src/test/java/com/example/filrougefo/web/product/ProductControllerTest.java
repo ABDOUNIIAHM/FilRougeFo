@@ -7,12 +7,18 @@ import com.example.filrougefo.security.WebSecurityConfig;
 import com.example.filrougefo.service.category.IntCategoryService;
 import com.example.filrougefo.service.month.IntMonthService;
 import com.example.filrougefo.service.order.IntOrderService;
-import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.product.IntProductService;
 import com.example.filrougefo.web.category.CategoryDto;
 import com.example.filrougefo.web.category.CategoryMapper;
+
 import org.junit.jupiter.api.Test;
+
 import org.mockito.ArgumentMatchers;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,9 +33,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.contains;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
 
 @Import({ProductConfig.class, WebSecurityConfig.class})
 @WebMvcTest(ProductController.class)

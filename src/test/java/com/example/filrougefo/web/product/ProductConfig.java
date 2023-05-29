@@ -11,7 +11,6 @@ public class ProductConfig {
     @Bean
     CategoryMapper categoryMapper(){
         return new CategoryMapperImpl();
-
     }
     @Bean
     ProductMapper productMapper(){

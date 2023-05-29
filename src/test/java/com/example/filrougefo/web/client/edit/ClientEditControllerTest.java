@@ -7,19 +7,21 @@ import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.security.ClientDetailServiceImpl;
 import com.example.filrougefo.security.WebSecurityConfig;
 import com.example.filrougefo.service.address.IntAddressService;
-import com.example.filrougefo.service.client.ClientService;
 import com.example.filrougefo.service.client.IntClientService;
 import com.example.filrougefo.service.order.IntOrderService;
-import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
 import com.example.filrougefo.service.phonenumber.IntPhoneNumberService;
 import com.example.filrougefo.web.client.AddressMapper;
-import com.example.filrougefo.web.client.ClientConfig;
 import com.example.filrougefo.web.client.ClientMapper;
 import com.example.filrougefo.web.client.PhoneNumberMapper;
 import com.example.filrougefo.web.order.OrderMapper;
+
 import org.junit.jupiter.api.Test;
+
 import org.mockito.ArgumentMatchers;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,9 +34,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+
 
 @Import({ClientEditConfig.class, WebSecurityConfig.class})
 @WebMvcTest(ClientEditController.class)

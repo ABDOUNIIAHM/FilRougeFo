@@ -6,9 +6,10 @@ import com.example.filrougefo.web.product.MonthMapper;
 import com.example.filrougefo.web.product.MonthMapperImpl;
 import com.example.filrougefo.web.product.ProductMapper;
 import com.example.filrougefo.web.product.ProductMapperImpl;
+
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import com.example.filrougefo.web.order.OrderMapper;
+
 @TestConfiguration
 public class OrderConfig {
     @Bean
