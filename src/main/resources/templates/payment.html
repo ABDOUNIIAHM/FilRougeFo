@@ -42,7 +42,7 @@
             </div>
             <div class="mb-3">
               <label for="expiration-date" class="form-label">Date d'expiration</label>
-              <input type="date" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate" required>
+              <input type="month" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate" required>
               <p style="color: red" th:each="error:${#fields.errors('expirationDate')}" th:text="${error}"></p>
             </div>
             <div class="mb-3">
