@@ -1,6 +1,5 @@
 package com.example.filrougefo.security;
 
-import com.example.filrougefo.entity.Client;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

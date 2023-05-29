@@ -11,7 +11,6 @@ public interface IntProductService {
     List<Product> findAll();
     Product findById(int id);
     List<Product> searchProductByNamePattern(String name);
-    List<Product> findAllProductByCategoryId(int id);
     List<Product> findAllProductPerMonth(int id);
     List<Product> searchByKeyword(String keyword);
     List<Product> searchByKeywordForCategory(String keyword);

@@ -1,6 +1,5 @@
 package com.example.filrougefo.web.client.edit;
 
-import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.web.client.AddressDto;
 import com.example.filrougefo.web.client.PhoneNumberDto;
 import com.example.filrougefo.web.client.validation.ValidEmail;

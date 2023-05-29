@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface OrderStatusRepository extends JpaRepository<OrderStatus, Long> {
 
-    List<OrderStatus> findAllByNameIsNotContaining(String name);
 }

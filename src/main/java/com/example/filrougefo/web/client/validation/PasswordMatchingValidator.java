@@ -7,6 +7,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 @AllArgsConstructor
 public class PasswordMatchingValidator implements ConstraintValidator<MatchingPassword, Object> {
 
@@ -20,7 +21,7 @@ public class PasswordMatchingValidator implements ConstraintValidator<MatchingPa
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
 
-        if(o==null) {
+        if(o == null) {
             return false;
         }
         if(o instanceof ClientDto){
@@ -28,10 +29,6 @@ public class PasswordMatchingValidator implements ConstraintValidator<MatchingPa
             return client.getPassword().equals(client.getMatchingPassword());
         }
 
-        if(o instanceof ClientPasswordDto){
-            ClientPasswordDto client = (ClientPasswordDto) o;
-            return client.getMatchingPassword().equals(client.getPassword());
-        }
         if(o instanceof EditPasswordDto){
             EditPasswordDto pass = (EditPasswordDto) o;
             return passwordEncoder.matches(pass.getMatchingPassword(),pass.getPassword());

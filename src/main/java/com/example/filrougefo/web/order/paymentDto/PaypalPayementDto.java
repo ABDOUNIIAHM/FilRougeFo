@@ -13,5 +13,4 @@ public class PaypalPayementDto {
     @ValidEmail
     private String paypalEmail;
 
-
 }

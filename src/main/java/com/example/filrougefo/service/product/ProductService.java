@@ -1,4 +1,5 @@
 package com.example.filrougefo.service.product;
+
 import com.example.filrougefo.entity.Month;
 import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
@@ -41,14 +42,6 @@ public class ProductService implements IntProductService {
                 .findAllByNameContainingIgnoreCase(name)
                 .orElseThrow(() -> new ProductNotFoundException("No such product with name=" + name + " was found !"));
     }
-
-    @Override
-    public List<Product> findAllProductByCategoryId(int id) {
-        return productRepository
-                .findAllByCategory_Id(id)
-                .orElseThrow(() -> new ProductNotFoundException("No product found for the chosen category !"));
-    }
-
     @Override
     public List<Product> findAllProductPerMonth(int id) {
         Month month = monthService

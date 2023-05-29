@@ -1,4 +1,5 @@
 package com.example.filrougefo.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 

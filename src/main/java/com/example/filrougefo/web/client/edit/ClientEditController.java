@@ -9,21 +9,20 @@ import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.address.IntAddressService;
 import com.example.filrougefo.service.client.IntClientService;
 import com.example.filrougefo.service.order.IntOrderService;
-import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
-import com.example.filrougefo.service.orderline.OrderLineService;
 import com.example.filrougefo.service.phonenumber.IntPhoneNumberService;
-import com.example.filrougefo.service.phonenumber.PhoneNumberService;
 import com.example.filrougefo.web.client.*;
 import com.example.filrougefo.web.order.OrderMapper;
+
 import jakarta.validation.Valid;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @AllArgsConstructor
