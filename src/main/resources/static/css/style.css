@@ -110,6 +110,7 @@ body {
     font-size: 12px;
     margin-top: 5px;
 }
+
 #btnSuccess{
     background-color: #1c4f37;
 }
@@ -133,6 +134,11 @@ body {
 .fields-error {
     color: red;
     font-size: 0.8em;
+}
+
+.fields-error p {
+    margin: 0;
+    padding: 0;
 }
 
 .card-with-css{
