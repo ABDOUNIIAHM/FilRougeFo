@@ -146,3 +146,8 @@ body {
     margin-inline: 4em;
     height: fit-content;
 }
+
+.img-navBar{
+    height: 30px;
+    margin-right: 20px;
+}

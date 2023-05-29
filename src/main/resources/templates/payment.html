@@ -30,26 +30,41 @@
           </select>
 
           <div id="credit-card-fields" class="payment-fields">
+
             <div class="mb-3">
               <label for="card-number" class="form-label">Numéro de carte </label>
               <input type="text" th:field="*{cardNumber}" th:value="*{cardNumber}"  class="form-control" id="card-number" name="Numéro de carte">
-              <p style="color: red" th:each="error:${#fields.errors('cardNumber')}" th:text="${error}"></p>
+              <div class="fields-error">
+                <p th:each="error:${#fields.errors('cardNumber')}" th:text="${error}"></p>
+              </div>
             </div>
+
             <div class="mb-3">
               <label for="card-holder" class="form-label">Titulaire de la carte</label>
               <input type="text" th:field="*{cardHolder}" th:value="*{cardHolder}" class="form-control" id="card-holder" name="Nom du titulaire">
-              <p style="color: red" th:each="error:${#fields.errors('cardHolder')}" th:text="${error}"></p>
+              <div class="fields-error">
+                <p th:each="error:${#fields.errors('cardHolder')}" th:text="${error}"></p>
+              </div>
             </div>
+
             <div class="mb-3">
               <label for="expiration-date" class="form-label">Date d'expiration</label>
-              <input type="date" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate" required>
-              <p style="color: red" th:each="error:${#fields.errors('expirationDate')}" th:text="${error}"></p>
+              <input type="month" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate" required>
+              <div class="fields-error">
+                <p th:each="error:${#fields.errors('expirationDate')}" th:text="${error}"></p>
+              </div>
             </div>
+
             <div class="mb-3">
+
               <label for="cvv" class="form-label">CVV :</label>
               <input type="text" th:field="*{cvv}" th:value="*{cvv}" class="form-control" id="cvv" name="cvv">
-              <p style="color: red" th:each="error:${#fields.errors('cvv')}" th:text="${error}"></p>
+              <div class="fields-error">
+                <p th:each="error:${#fields.errors('cvv')}" th:text="${error}"></p>
+              </div>
+
             </div>
+
           </div>
 
           <div id="paypal-fields" class="payment-fields">
@@ -83,6 +98,7 @@
         </div>
 
         <button type="submit" name="id" th:value="*{id}" class="btn btn-success">Payer et valider la commande</button>
+
       </form>
 
     </div>

@@ -25,7 +25,7 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Titre</label>
-                            <input type="text" th:field="*{title}" placeholder="Titre"  class="form-control">
+                            <input type="text" th:field="*{title}" placeholder="Chez moi, au travail, ..."  class="form-control">
                             <div class="fields-error">
                                 <p th:each="error:${#fields.errors('title')}" th:text="${error}"></p>
                             </div>
@@ -35,7 +35,7 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Numéro</label>
-                            <input type="text" th:field="*{number}" placeholder="Numéro"  class="form-control">
+                            <input type="text" th:field="*{number}" placeholder="1, 2bis, 1234ter, ..."  class="form-control">
                             <div class="fields-error">
                                 <p th:each="error:${#fields.errors('number')}" th:text="${error}"></p>
                             </div>
@@ -45,7 +45,7 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Type de voie</label>
-                            <input type="text" th:field="*{roadPrefix}" placeholder="type" class="form-control">
+                            <input type="text" th:field="*{roadPrefix}" placeholder="Rue, boulevard, chemin, ..." class="form-control">
                             <div class="fields-error">
                                 <p th:each="error:${#fields.errors('roadPrefix')}" th:text="${error}"></p>
                             </div>
@@ -56,7 +56,7 @@
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label class="form-label">Nom de voie</label>
-                            <input type="text" th:field="*{roadName}" placeholder="Nom" class="form-control">
+                            <input type="text" th:field="*{roadName}" class="form-control">
                             <div class="fields-error">
                                 <p th:each="error:${#fields.errors('roadName')}" th:text="${error}"></p>
                             </div>
@@ -67,7 +67,7 @@
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label class="form-label">Complément</label>
-                            <input type="text" th:field="*{complement}" placeholder="Complement" class="form-control">
+                            <input type="text" th:field="*{complement}" placeholder="Bât 4 Appt 12, ..." class="form-control">
                             <div class="fields-error">
                                 <p th:each="error:${#fields.errors('complement')}" th:text="${error}"></p>
                             </div>
@@ -87,7 +87,7 @@
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label class="form-label">Ville</label>
-                            <input type="text" th:field="*{city}" th:value="*{city}" placeholder="Commune"  class="form-control">
+                            <input type="text" th:field="*{city}" placeholder="Commune" class="form-control">
                             <div class="fields-error">
                                 <p th:each="error:${#fields.errors('zipCode')}" th:text="${error}"></p>
                             </div>
