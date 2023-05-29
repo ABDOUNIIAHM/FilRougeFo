@@ -119,6 +119,7 @@ public class ClientEditController {
         model.addAttribute("isEditPhone", true);
         model.addAttribute("editedPhoneNumber", phoneNumberMapper.toDTO(phoneNumberToUpdate));
         model.addAttribute("id", id);
+        model.addAttribute("newPhoneNumber", new PhoneNumberDto());
 
         return "client/client-layout";
     }
