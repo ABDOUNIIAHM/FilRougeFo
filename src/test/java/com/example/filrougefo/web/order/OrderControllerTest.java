@@ -2,11 +2,13 @@ package com.example.filrougefo.web.order;
 
 import com.example.filrougefo.entity.*;
 import com.example.filrougefo.security.ClientAuthDetail;
+import com.example.filrougefo.service.address.IntAddressService;
 import com.example.filrougefo.service.month.IntMonthService;
 import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.orderline.OrderLineService;
 import com.example.filrougefo.service.product.IntProductService;
+import com.example.filrougefo.web.client.AddressMapper;
 import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
 import com.example.filrougefo.web.product.ProductMapper;
 import org.junit.jupiter.api.Test;
@@ -48,31 +50,16 @@ class OrderControllerTest {
     private OrderLineService orderLineService;
     @MockBean
     private IntMonthService monthService;
+    @MockBean
+    private IntAddressService addressService;
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private AddressMapper addressMapper;
     @Autowired
     private OrderLineMapper orderLineMapper;
     @Autowired
     private OrderMapper orderMapper;
-
-    @WithMockUser
-    @Test
-    void ShouldReturnAllOrdersView() throws Exception {
-        //given
-        OrderLine orderLine = new OrderLine(); orderLine.setQuantity(BigDecimal.ONE);
-        Order order = new Order(); order.getOrderLines().add(orderLine);
-        List<Order> orders = List.of(new Order());
-        Client client = new Client(); client.setOrderList(orders);
-        //when
-        when(clientAuthDetail.getClient()).thenReturn(client);
-        when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
-        when(orderService.getNonPendingOrders(ArgumentMatchers.any(Client.class))).thenReturn(orders);
-        //then
-       mockMvc.perform(MockMvcRequestBuilders.get("/auth/orders"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("orders",getDtosFromListOrder(orders)))
-                .andExpect(MockMvcResultMatchers.view().name("order/order-history"));
-    }
 
     @WithMockUser
     @Test
@@ -141,7 +128,7 @@ class OrderControllerTest {
                         .with(csrf())
                         .param("quantity","1"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/products/details/1"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/products"));
     }
 
     @WithMockUser

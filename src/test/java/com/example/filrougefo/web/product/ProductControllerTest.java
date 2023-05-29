@@ -6,6 +6,7 @@ import com.example.filrougefo.security.ClientDetailServiceImpl;
 import com.example.filrougefo.security.WebSecurityConfig;
 import com.example.filrougefo.service.category.IntCategoryService;
 import com.example.filrougefo.service.month.IntMonthService;
+import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.order.OrderService;
 import com.example.filrougefo.service.product.IntProductService;
 import com.example.filrougefo.web.category.CategoryDto;
@@ -43,7 +44,7 @@ class ProductControllerTest {
     private IntMonthService monthService;
 
     @MockBean
-    private OrderService orderService;
+    private IntOrderService orderService;
     @MockBean
     private IntProductService productService;
 

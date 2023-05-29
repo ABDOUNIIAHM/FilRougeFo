@@ -6,6 +6,7 @@ import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.security.ClientAuthDetail;
 import com.example.filrougefo.service.address.AddressService;
+import com.example.filrougefo.service.address.IntAddressService;
 import com.example.filrougefo.service.month.IntMonthService;
 import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
@@ -42,9 +43,8 @@ public class OrderController {
     private final IntOrderLineService orderLineService;
     private IntMonthService monthService;
     private MonthMapper monthMapper;
-    private AddressService addressService;
+    private IntAddressService addressService;
     private AddressMapper addressMapper;
-
 
 
     private boolean handleOutOfStockProducts(Order pendingOrder, Model model) {
@@ -63,18 +63,6 @@ public class OrderController {
 
         return false;
     }
-
-    @GetMapping("/orders")
-    public String getAllOrders(Model model) {
-
-        List<OrderDto> allOrders = getDtosFromListOrder(orderService.getNonPendingOrders(authenticatedClient.getClient()));
-
-        model.addAttribute("status","PENDING");
-        model.addAttribute("orders",allOrders);
-
-        return "order/order-history";
-    }
-
 
     @GetMapping("/orders/{id}")
     public String getOrderDetails(@PathVariable int id, Model model) {
