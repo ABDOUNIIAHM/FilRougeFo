@@ -60,15 +60,13 @@ public class ClientEditController {
     }
 
     @GetMapping("/phone/delete/{id}")
-    public String deleteClientPhone(@PathVariable("id") long phoneId){
-
+    public String deleteClientPhone(@PathVariable("id") long phoneId) {
         phoneNumberService.deletePhoneNumber(phoneId);
         return "redirect:/auth/client/detail";
     }
 
     @GetMapping("/address/delete/{id}")
-    public String deleteClientAddress(@PathVariable("id") long addressId){
-
+    public String deleteClientAddress(@PathVariable("id") long addressId) {
         addressService.deleteAddress(addressId);
         return "redirect:/auth/client/detail";
     }
@@ -173,7 +171,7 @@ public class ClientEditController {
             model.addAttribute("client", getClientProfileDTO());
             model.addAttribute("isEditPhone", true);
             model.addAttribute("editedPhoneNumber", editedPhoneNumber);
-            model.addAttribute("id", editedPhoneNumber.getId());
+            model.addAttribute("newPhoneNumber", new PhoneNumberDto());
 
             return "client/client-layout";
         }
@@ -209,6 +207,7 @@ public class ClientEditController {
     public String addressForm(Model model) {
 
         model.addAttribute("address", new AddressDto());
+        model.addAttribute("isNewAddress", true);
 
         return "client/address-form";
     }

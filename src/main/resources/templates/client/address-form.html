@@ -10,12 +10,13 @@
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<br>
 
 <div class="card card-with-css">
+
     <div class="card-header">
-        <h4>Modifier l'adresse</h4>
+        <h2 th:text="${isNewAddress == null} ? 'Modifier l\'adresse' : 'Nouvelle Addresse'"></h2>
     </div>
+
     <div class="card-body">
         <div class="container-fluid p-3 ">
 
@@ -25,33 +26,40 @@
                         <div class="mb-3">
                             <label class="form-label">Titre</label>
                             <input type="text" th:field="*{title}" placeholder="Titre"  class="form-control">
+                            <div class="fields-error">
+                                <p th:each="error:${#fields.errors('title')}" th:text="${error}"></p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Numéro</label>
-                            <input type="text" th:field="*{number}" placeholder="numéro"  class="form-control">
-                            <p style="color: red" th:each="error:${#fields.errors('number')}" th:text="${error}"></p>
-
+                            <input type="text" th:field="*{number}" placeholder="Numéro"  class="form-control">
+                            <div class="fields-error">
+                                <p th:each="error:${#fields.errors('number')}" th:text="${error}"></p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label class="form-label">Type</label>
+                            <label class="form-label">Type de voie</label>
                             <input type="text" th:field="*{roadPrefix}" placeholder="type" class="form-control">
-                            <p style="color: red" th:each="error:${#fields.errors('roadPrefix')}" th:text="${error}"></p>
-
+                            <div class="fields-error">
+                                <p th:each="error:${#fields.errors('roadPrefix')}" th:text="${error}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="mb-3">
-                            <label class="form-label">Nom</label>
+                            <label class="form-label">Nom de voie</label>
                             <input type="text" th:field="*{roadName}" placeholder="Nom" class="form-control">
-                            <p style="color: red" th:each="error:${#fields.errors('roadName')}" th:text="${error}"></p>
+                            <div class="fields-error">
+                                <p th:each="error:${#fields.errors('roadName')}" th:text="${error}"></p>
+                            </div>
 
                         </div>
                     </div>
@@ -60,6 +68,9 @@
                         <div class="mb-3">
                             <label class="form-label">Complément</label>
                             <input type="text" th:field="*{complement}" placeholder="Complement" class="form-control">
+                            <div class="fields-error">
+                                <p th:each="error:${#fields.errors('complement')}" th:text="${error}"></p>
+                            </div>
                         </div>
                     </div>
 
@@ -67,7 +78,9 @@
                         <div class="mb-3">
                             <label class="form-label">Code Postal</label>
                             <input type="text" th:field="*{zipCode}" placeholder="Code postal" class="form-control">
-                            <p style="color: red" th:each="error:${#fields.errors('zipCode')}" th:text="${error}"></p>
+                            <div class="fields-error">
+                                <p th:each="error:${#fields.errors('zipCode')}" th:text="${error}"></p>
+                            </div>
                         </div>
                     </div>
 
@@ -75,14 +88,20 @@
                         <div class="mb-3">
                             <label class="form-label">Ville</label>
                             <input type="text" th:field="*{city}" th:value="*{city}" placeholder="Commune"  class="form-control">
-                            <p style="color: red" th:each="error:${#fields.errors('city')}" th:text="${error}"></p>
+                            <div class="fields-error">
+                                <p th:each="error:${#fields.errors('zipCode')}" th:text="${error}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <input hidden type="text" th:field="*{id}">
-<div class="d-flex justify-content-around mt-3">
-    <button type="submit" class="btn btn-success w-25 d-flex justify-content-around ">Editer</button>
-</div>
+
+            <div class="d-flex justify-content-around mt-3">
+                <button type="submit" class="btn btn-success w-25 d-flex justify-content-around ">
+                    <span th:text="${isNewAddress == null} ? '&Eacute;diter' : 'Ajouter'"></span>
+                </button>
+            </div>
 
 
             </form>

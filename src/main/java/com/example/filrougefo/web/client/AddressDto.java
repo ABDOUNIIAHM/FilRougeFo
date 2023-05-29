@@ -37,10 +37,9 @@ public class AddressDto {
     @Size(max = 50, message = "50 caractères maximum.")
     @Pattern(regexp = "[\\w\\p{L}- ]+$", message = "Entrée non valide, alphabet Latins uniquement.")
     private String roadName;
-    @NotNull(message = "Ne doit pas être vide")
-    @NotEmpty(message = "Ne doit pas être vide")
+
     @Size(max = 50, message = "50 caractères maximum.")
-    @Pattern(regexp = "[\\w\\p{L}- ]+$", message = "Entrée non valide, alphabet Latins uniquement.")
+    @Pattern(regexp = "[\\w\\p{L}- ]*$", message = "Entrée non valide, alphabet Latins uniquement.")
     private String complement;
     @NotNull(message = "Ne doit pas être vide")
     @NotEmpty(message = "Ne doit pas être vide")

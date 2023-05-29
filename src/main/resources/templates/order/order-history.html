@@ -1,29 +1,29 @@
-<div class="card" th:fragment="order-history">
+<div th:fragment="order-history">
 
-    <div class="card-header">
-      <h2>Mes commandes</h2>
-    </div>
+  <div class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" href="#order-history" type="button">Commandes</button>
+  </div>
 
-    <div class="card-body">
+  <div class="accordion-collapse collapse" id="order-history">
+
+    <div class="accordion-body">
 
       <table class="table table-responsive">
 
         <thead>
-          <tr>
-            <th th:text="'&numero;'"></th>
-            <th>Commandé le</th>
-            <th>Statut</th>
-            <th>Total</th>
-            <th></th>
-          </tr>
+        <tr>
+          <th th:text="'&numero;'"></th>
+          <th>Date</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
         </thead>
 
         <tbody>
 
-          <tr th:each="order : ${client.orderList}">
+        <tr th:each="order : ${client.orderList}">
           <td th:text="${orderStat.index + 1}"></td>
           <td th:text="${order.date}"></td>
-          <td th:text="${order.status.name}"></td>
           <td th:text="${#numbers.formatDecimal(order.computeTotal(), 1, 2)} + '&nbsp;&euro;'"></td>
           <td>
             <a th:href="@{/auth/orders/{id}(id=${order.id})}"
@@ -37,11 +37,8 @@
 
     </div>
 
-  <div class="card-footer">
-
-    <a th:href="@{/auth/cart}"
-       class="btn btn-success">Panier</a>
-
   </div>
+
+
 
 </div>
