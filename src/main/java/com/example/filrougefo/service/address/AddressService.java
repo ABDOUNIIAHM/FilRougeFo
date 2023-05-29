@@ -43,4 +43,9 @@ public class AddressService implements IntAddressService {
         // Enregistrer les modifications dans la base de données
         addressRepository.save(address);
     }
+
+    @Override
+    public void deleteAddress(long addressId) {
+        addressRepository.deleteById(addressId);
+    }
 }
