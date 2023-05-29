@@ -6,30 +6,50 @@
 
     <div class="card-body">
 
-        <div th:each="phoneNumber : ${client.phoneNumberList}" th:object="${phoneNumber}" class="mb-3 row">
-            <div class="col-md-11">
-                <input th:value="*{phoneNumber}" type="text" readonly
-                       class="form-control-plaintext">
-                <a th:href="@{/auth/client/phone/update/{id}(id=*{id})}"
-                    class="btn btn-sm btn-primary">&Eacute;diter</a>
+        <div th:each="phoneNumber : ${client.phoneNumberList}" th:object="${phoneNumber}" class="row">
+            <div class="row row-cols-2 mb-3">
+
+                <div class="col-9">
+                    <input th:value="*{phoneNumber}" type="text" readonly
+                           class="form-control-plaintext form-control-sm">
+                </div>
+
+                <div class="col-3">
+                    <a th:href="@{/auth/client/phone/update/{id}(id=*{id})}"
+                       class="btn btn-sm btn-primary">&Eacute;diter</a>
+                </div>
+
             </div>
+
         </div>
+
+
 
     </div>
 
     <div class="card-footer">
 
-        <a class="btn btn-success" data-bs-toggle="collapse" href="#addPhoneNumber" role="button"
+        <a class="btn btn-success btn-sm" data-bs-toggle="collapse" href="#addPhoneNumber" role="button"
            aria-controls="collapseExample">
             Ajouter un numéro
         </a>
 
         <div class="collapse"  th:classappend="${addPhoneError == null ? '' : 'show'}" id="addPhoneNumber">
-            <form th:action="@{/auth/client/phone/add}" method="POST" th:object="${newPhoneNumber}">
-                <input th:field="*{phoneNumber}" type="text" class="form-control">
-                <p style="color: red" th:each="error:${#fields.errors('phoneNumber')}" th:text="${error}"></p>
-                <button type="submit" class="btn btn-primary">Ajouter</button>
+
+            <form th:action="@{/auth/client/phone/add}" method="POST" th:object="${newPhoneNumber}"
+                  class="row row-cols-1 row-col-sm-2">
+
+                <div class="col">
+                    <input th:field="*{phoneNumber}" type="text" class="form-control">
+                    <p style="color: red" th:each="error:${#fields.errors('phoneNumber')}" th:text="${error}"></p>
+                </div>
+
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+
             </form>
+
         </div>
 
     </div>
@@ -47,32 +67,55 @@
     <div class="card-body">
 
         <div th:each="phoneNumber : ${client.phoneNumberList}" class="mb-3 row" th:object="${editedPhoneNumber}">
-            <form th:action="@{/auth/client/phone/update/{id}(id=*{id})}" method="POST">
-                <div class="col-md-11">
-                    <input th:if="${phoneNumber.id != editedPhoneNumber.id}" th:value="${phoneNumber.phoneNumber}" type="text" readonly class="form-control-plaintext">
-                    <input th:if="${phoneNumber.id == editedPhoneNumber.id}" th:field="${editedPhoneNumber.phoneNumber}" type="text" class="form-control">
-                    <p th:if="${phoneNumber.id == editedPhoneNumber.id}" style="color: red" th:each="error:${#fields.errors('phoneNumber')}" th:text="${error}"></p>
+            <form th:action="@{/auth/client/phone/update/{id}(id=*{id})}" method="POST"
+                  class="row row-cols-2">
+
+                <div class="col-9">
+                    <input th:if="${phoneNumber.id != editedPhoneNumber.id}" th:value="${phoneNumber.phoneNumber}" type="text"
+                           readonly
+                           class="form-control-plaintext form-control-sm">
+                    <input th:if="${phoneNumber.id == editedPhoneNumber.id}" th:field="${editedPhoneNumber.phoneNumber}" type="text"
+                           class="form-control form-control-sm">
+                    <p th:if="${phoneNumber.id == editedPhoneNumber.id}" th:each="error:${#fields.errors('phoneNumber')}" th:text="${error}"
+                       class="fields-error"></p>
+                </div>
+
+                <div class="col-3">
                     <button th:if="${phoneNumber.id == editedPhoneNumber.id}" class="btn btn-sm btn-success">&Eacute;diter</button>
                 </div>
+
             </form>
         </div>
 
-        <div class="card-footer">
 
-            <a class="btn btn-success" data-bs-toggle="collapse" href="#addPhoneNumber" role="button"
-               aria-controls="collapseExample">
-                Ajouter un numéro
-            </a>
 
-            <div class="collapse"  th:classappend="${addPhoneError == null ? '' : 'show'}" id="addPhoneNumber">
-                <form th:action="@{/auth/client/phone/add}" method="POST" th:object="${newPhoneNumber}">
+    </div>
+
+    <div class="card-footer">
+
+        <a class="btn btn-success disabled btn-sm" data-bs-toggle="collapse" href="#addPhoneNumber" role="button"
+           aria-controls="collapseExample">
+            Ajouter un numéro
+        </a>
+
+        <div class="collapse"  th:classappend="${addPhoneError == null ? '' : 'show'}" id="addPhoneNumber">
+
+            <form th:action="@{/auth/client/phone/add}" method="POST" th:object="${newPhoneNumber}"
+                  class="row row-cols-1 row-col-sm-2">
+
+                <div class="col">
                     <input th:field="*{phoneNumber}" type="text" class="form-control">
                     <p style="color: red" th:each="error:${#fields.errors('phoneNumber')}" th:text="${error}"></p>
+                </div>
+
+                <div class="col">
                     <button type="submit" class="btn btn-primary">Ajouter</button>
-                </form>
-            </div>
+                </div>
+
+            </form>
 
         </div>
+
     </div>
 
 </div>

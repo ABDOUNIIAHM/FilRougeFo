@@ -5,32 +5,32 @@
     <div class="card-body">
 
         <div class="mb-3 row">
-            <label class="col-md-4 col-form-label">Prénom</label>
-            <div class="col-md-8">
+            <label class="col-md-3 col-form-label">Prénom</label>
+            <div class="col-md-9">
                 <input th:value="*{firstName}" type="text" readonly
                        class="form-control-plaintext">
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-md-4 col-form-label">Nom</label>
-            <div class="col-md-8">
+            <label class="col-md-3 col-form-label">Nom</label>
+            <div class="col-md-9">
                 <input th:value="*{lastName}" type="text" readonly
                        class="form-control-plaintext">
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-md-4 col-form-label">Email</label>
-            <div class="col-md-8">
+            <label class="col-md-3 col-form-label">Email</label>
+            <div class="col-md-9">
                 <input th:value="*{email}" type="text" readonly
                        class="form-control-plaintext">
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-md-4 col-form-label">URL Avatar</label>
-            <div class="col-md-8">
+            <label class="col-md-3 col-form-label">URL Avatar</label>
+            <div class="col-md-9">
                 <input th:value="*{avatarUrl}" type="text" readonly
                        class="form-control-plaintext">
             </div>
@@ -53,32 +53,32 @@
         <form th:action="@{/auth/client/update}" method="POST">
 
         <div class="mb-3 row">
-            <label class="col-md-4 col-form-label">Prénom</label>
-            <div class="col-md-8">
+            <label class="col-md-3 col-form-label">Prénom</label>
+            <div class="col-md-9">
                 <input th:field="*{firstName}" type="text" class="form-control">
                 <p style="color: red" th:each="error:${#fields.errors('firstName')}" th:text="${error}"></p>
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-md-4 col-form-label">Nom</label>
-            <div class="col-md-8">
+            <label class="col-md-3 col-form-label">Nom</label>
+            <div class="col-md-9">
                 <input th:field="*{lastName}" type="text" class="form-control">
                 <p style="color: red" th:each="error:${#fields.errors('lastName')}" th:text="${error}"></p>
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-md-4 col-form-label">Email</label>
-            <div class="col-md-8">
+            <label class="col-md-3 col-form-label">Email</label>
+            <div class="col-md-9">
                 <input th:field="*{email}" type="text" class="form-control">
                 <p style="color: red" th:each="error:${#fields.errors('email')}" th:text="${error}"></p>
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-md-4 col-form-label">URL Avatar</label>
-            <div class="col-md-8">
+            <label class="col-md-3 col-form-label">URL Avatar</label>
+            <div class="col-md-9">
                 <input th:field="*{avatarUrl}" type="text" class="form-control">
                 <p style="color: red" th:each="error:${#fields.errors('avatarUrl')}" th:text="${error}"></p>
             </div>

@@ -113,3 +113,8 @@ body {
 #btnSuccess{
     background-color: #1c4f37;
 }
+
+.fields-error {
+    color: red;
+    font-size: 0.8em;
+}
