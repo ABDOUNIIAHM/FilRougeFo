@@ -113,3 +113,16 @@ body {
 #btnSuccess{
     background-color: #1c4f37;
 }
+
+.ul-cart {
+    list-style-type: none;
+    margin-left: 10px;
+}
+.sizeOfFont{
+    font-size: 25px;
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+.ajust-height{
+   height:fit-content;
+}
