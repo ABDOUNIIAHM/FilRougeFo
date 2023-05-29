@@ -91,7 +91,9 @@ public class OrderController {
         ProductDTO productDTO = productMapper.toDTO(product);
         double qty = Double.parseDouble(quantity);
 
-        if (orderService.addProductToOrder(id, qty, authenticatedClient.getClient()) == true) {
+        if (qty <= productDTO.getStock().doubleValue()) {
+            // La quantité est suffisante
+            orderService.addProductToOrder(id, qty, authenticatedClient.getClient());
             // La quantité est suffisante
             return "redirect:/products";
         } else {

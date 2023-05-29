@@ -22,6 +22,7 @@
 
     </div>
 
+<!--    <p class="text-white bg-danger" th:text="${error}"></p>-->
     <!-- Product cards -->
     <div class="col col-sm-8 col-md-10">
 
@@ -71,11 +72,13 @@
                       <div class="col p-1 m-1 text-wrap button rounded"
                            th:classappend="${product.seasonalMonths.![id].contains(month.id) ? 'text-bg-primary' : 'text-muted bg-light'}" th:text="${month.name}"></div>
                     </div>
+
                   </div>
                 </dd>
 
               </dl>
-
+              <div class="alert alert-danger " role="alert" th:text="${error}">
+              </div>
             </div>
 
 
