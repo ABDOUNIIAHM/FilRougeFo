@@ -1,0 +1,122 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ProductRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: ProductRepository (com.example.filrougefo.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$9Lqk1tpK</td>
+  </tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$9Lqk1tpK$auxiliary$12wmVrrr</td>
+  </tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$9Lqk1tpK$auxiliary$odWcldJf</td>
+  </tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$9Lqk1tpK$auxiliary$OT3YjxrS</td>
+  </tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$q9K0s8wi</td>
+  </tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$q9K0s8wi$auxiliary$sdwBVwk7</td>
+  </tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$q9K0s8wi$auxiliary$t0tG2Xhx</td>
+  </tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$q9K0s8wi$auxiliary$tHXm5eNL</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.repository;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.Month;
+&nbsp;import com.example.filrougefo.entity.Product;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.data.jpa.repository.Query;
+&nbsp;import org.springframework.data.repository.query.Param;
+&nbsp;import org.springframework.stereotype.Repository;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@Repository
+&nbsp;public interface ProductRepository extends JpaRepository&lt;Product,Integer&gt; {
+&nbsp;    Optional&lt;List&lt;Product&gt;&gt; findAllByNameContainingIgnoreCase(String name);
+&nbsp;    Optional&lt;List&lt;Product&gt;&gt; findAllByCategory_Id(int id);
+&nbsp;    List&lt;Product&gt; findAllBySeasonalMonthsContaining(Month month);
+&nbsp;
+&nbsp;    @Query(&quot;SELECT p FROM Product p WHERE LOWER(p.name) LIKE CONCAT(&#39;%&#39;, LOWER(:keyword), &#39;%&#39;) OR LOWER(p.description) LIKE CONCAT(&#39;%&#39;, LOWER(:keyword), &#39;%&#39;)&quot;)
+&nbsp;    List&lt;Product&gt; findByPartialNameOrDescriptionIgnoreCase(@Param(&quot;keyword&quot;) String keyword);
+&nbsp;
+&nbsp;    @Query(&quot;SELECT p FROM Product p WHERE LOWER(p.category.name) LIKE CONCAT(&#39;%&#39;, LOWER(:keyword), &#39;%&#39;)&quot;)
+&nbsp;    List&lt;Product&gt; findProductsByPartialCategoryNameIgnoreCase(@Param(&quot;keyword&quot;) String keyword);
+&nbsp;
+&nbsp;    @Query(&quot;SELECT DISTINCT p FROM Product p JOIN p.seasonalMonths m WHERE LOWER(m.name) LIKE CONCAT(&#39;%&#39;, LOWER(:keyword), &#39;%&#39;)&quot;)
+&nbsp;    List&lt;Product&gt; findProductsByPartialMonthName(@Param(&quot;keyword&quot;) String keyword);
+&nbsp;
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

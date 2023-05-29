@@ -1,0 +1,112 @@
+<div th:fragment="client-phone">
+
+    <div class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse" href="#phone-list" type="button">Numéros de téléphone</button>
+    </div>
+
+    <div class="accordion-collapse collapse" id="phone-list"
+         th:classappend="|${addPhoneError == null ? '' : 'show'} ${isEditPhone == null ? '' : 'show'}|">
+
+        <div th:insert="~{client/client-phone :: ${isEditPhone == null} ? 'client-phone-list' : 'client-phone-form-edit'}"></div>
+
+        <div class="accordion-body">
+
+            <a class="btn btn-outline-success btn-sm" data-bs-toggle="collapse" href="#addPhoneNumber" role="button"
+               aria-controls="collapseExample"
+            th:classappend="${isEditPhone == null} ? '' : 'disabled' ">
+                Ajouter un numéro
+            </a>
+
+            <div class="collapse"  th:classappend="${addPhoneError == null ? '' : 'show'}" id="addPhoneNumber">
+
+                <form th:action="@{/auth/client/phone/add}" method="POST" th:object="${newPhoneNumber}"
+                      class="row row-cols-2 my-1">
+
+                    <div class="col">
+                        <input th:field="*{phoneNumber}" type="text" class="form-control form-control-sm">
+                        <div class="fields-error">
+                            <p th:each="error:${#fields.errors('phoneNumber')}" th:text="${error}"></p>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus-square"></i>
+                            Ajouter
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+</div>
+
+<div class="accordion-body" th:fragment="client-phone-list">
+
+    <div th:each="phoneNumber : ${client.phoneNumberList}" th:object="${phoneNumber}" class="row">
+
+        <div class="row row-cols-2 mb-3">
+
+            <div class="col">
+                <input th:value="*{phoneNumber}" type="text" readonly
+                       class="form-control-plaintext form-control-sm">
+            </div>
+
+            <div class="col">
+
+                <a th:href="@{/auth/client/phone/update/{id}(id=*{id})}"
+                   class="btn btn-sm btn-primary">
+                    <i class="bi bi-pencil-square d-inline"></i>
+                    <span class="d-none d-sm-inline-block">&Eacute;diter</span>
+                </a>
+
+                <a th:href="@{/auth/client/phone/delete/{id}(id=*{id})}"
+                   class="btn btn-sm btn-danger">
+                    <i class="bi bi-trash3-fill"></i>
+                    <span class="d-none d-sm-inline-block">Supprimer</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="accordion-body" th:fragment="client-phone-form-edit">
+
+            <div th:each="phoneNumber : ${client.phoneNumberList}" class="mb-3 row" th:object="${editedPhoneNumber}">
+                <form th:action="@{/auth/client/phone/update/{id}(id=*{id})}" method="POST"
+                      class="row row-cols-2">
+
+                    <div class="col-9">
+                        <input th:if="${phoneNumber.id != editedPhoneNumber.id}" th:value="${phoneNumber.phoneNumber}" type="text"
+                               readonly
+                               class="form-control-plaintext form-control-sm">
+                        <input th:if="${phoneNumber.id == editedPhoneNumber.id}" th:field="${editedPhoneNumber.phoneNumber}" type="text"
+                               class="form-control form-control-sm">
+                        <div class="fields-error" th:if="${phoneNumber.id == editedPhoneNumber.id}">
+                            <p th:each="error:${#fields.errors('phoneNumber')}" th:text="${error}"></p>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <button th:if="${phoneNumber.id == editedPhoneNumber.id}" class="btn btn-sm btn-success">&Eacute;diter</button>
+                    </div>
+
+                </form>
+            </div>
+
+
+
+        </div>
+
+

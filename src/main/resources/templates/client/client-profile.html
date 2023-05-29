@@ -1,0 +1,99 @@
+<div class="card mb-3" th:object="${client}" th:fragment="client-profile">
+
+    <img class="card-img-top" th:src="*{avatarUrl}" alt="Avatar Client">
+
+    <div class="card-body">
+
+        <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">Prénom</label>
+            <div class="col-md-9">
+                <input th:value="*{firstName}" type="text" readonly
+                       class="form-control-plaintext">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">Nom</label>
+            <div class="col-md-9">
+                <input th:value="*{lastName}" type="text" readonly
+                       class="form-control-plaintext">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">Email</label>
+            <div class="col-md-9">
+                <input th:value="*{email}" type="text" readonly
+                       class="form-control-plaintext">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">URL Avatar</label>
+            <div class="col-md-9">
+                <input th:value="*{avatarUrl}" type="text" readonly
+                       class="form-control-plaintext">
+            </div>
+        </div>
+
+        <a th:href="@{/auth/client/update}" class="btn btn-outline-info">
+            Modifier mon profil
+        </a>
+        <a th:href="@{/auth/client/password}" class="btn btn-outline-warning">
+            Modifier mon mot de passe
+        </a>
+
+    </div>
+
+</div>
+
+<div class="card mb-3" th:object="${client}" th:fragment="client-profile-form">
+
+    <img class="card-img-top" th:src="*{avatarUrl}" alt="Avatar Client">
+
+    <div class="card-body">
+
+        <form th:action="@{/auth/client/update}" method="POST">
+
+        <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">Prénom</label>
+            <div class="col-md-9">
+                <input th:field="*{firstName}" type="text" class="form-control">
+                <p style="color: red" th:each="error:${#fields.errors('firstName')}" th:text="${error}"></p>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">Nom</label>
+            <div class="col-md-9">
+                <input th:field="*{lastName}" type="text" class="form-control">
+                <p style="color: red" th:each="error:${#fields.errors('lastName')}" th:text="${error}"></p>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">Email</label>
+            <div class="col-md-9">
+                <input th:field="*{email}" type="text" class="form-control">
+                <p style="color: red" th:each="error:${#fields.errors('email')}" th:text="${error}"></p>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">URL Avatar</label>
+            <div class="col-md-9">
+                <input th:field="*{avatarUrl}" type="text" class="form-control">
+                <p style="color: red" th:each="error:${#fields.errors('avatarUrl')}" th:text="${error}"></p>
+            </div>
+        </div>
+
+            <input type="hidden" th:field="${client.id}">
+
+            <button  class="btn btn-outline-info" type="submit">Modifier profil</button>
+        </form>
+
+    </div>
+
+
+
+</div>

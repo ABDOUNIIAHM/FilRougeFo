@@ -1,0 +1,59 @@
+<div th:fragment="client-addresses">
+
+    <div class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse" href="#addressList" type="button">Addresses</button>
+    </div>
+
+    <div class="accordion-collapse collapse" id="addressList">
+
+        <div class="accordion-body">
+
+            <table class="table table-responsive">
+
+            <thead>
+                <tr>
+                    <th th:text="'&numero;'"></th>
+                    <th>Titre</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr th:each="address : ${client.addressList}" th:object="${address}">
+                    <td th:text="${addressStat.index + 1}"></td>
+                    <td th:text="*{title}"></td>
+                    <td>
+
+                        <a th:href="@{/auth/client/address/{id}(id=${address.id})}"
+                           class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-square d-inline"></i>
+                            <span class="d-none d-sm-inline-block">&Eacute;diter</span>
+                        </a>
+
+                        <a th:href="@{/auth/client/address/delete/{id}(id=${address.id})}"
+                           class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash3-fill"></i>
+                            <span class="d-none d-sm-inline-block">Supprimer</span>
+                        </a>
+
+                    </td>
+                    </form>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+        <div class="accordion-body">
+            <a th:href="@{/auth/client/address/add}"
+               class="btn btn-outline-success btn-sm">Ajouter adresse</a>
+        </div>
+
+    </div>
+
+</div>
+
+</div>

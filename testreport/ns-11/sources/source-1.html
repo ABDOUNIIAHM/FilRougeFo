@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AddressDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.web.client</a>
+</div>
+
+<h1>Coverage Summary for Class: AddressDto (com.example.filrougefo.web.client)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AddressDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.web.client;
+&nbsp;
+&nbsp;import jakarta.validation.constraints.NotEmpty;
+&nbsp;import jakarta.validation.constraints.NotNull;
+&nbsp;import jakarta.validation.constraints.Pattern;
+&nbsp;import jakarta.validation.constraints.Size;
+&nbsp;import lombok.*;
+&nbsp;
+<b class="fc">&nbsp;@NoArgsConstructor @AllArgsConstructor</b>
+<b class="fc">&nbsp;@Getter @Setter @EqualsAndHashCode</b>
+<b class="fc">&nbsp;@ToString</b>
+&nbsp;public class AddressDto {
+<b class="fc">&nbsp;    private long id;</b>
+&nbsp;
+&nbsp;    // &quot;Résidence principale&quot; par ex
+&nbsp;    @NotNull(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @NotEmpty(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @Size(max = 50, message = &quot;50 caractères maximum.&quot;)
+&nbsp;    @Pattern(regexp = &quot;^[\\w \\p{L}}-]+$&quot;, message = &quot;Entrée non valide.&quot;)
+<b class="fc">&nbsp;    private String title;</b>
+&nbsp;
+&nbsp;    // &quot;3bis, &quot;1345ter&quot;, &quot;3&quot;
+&nbsp;    @NotNull(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @NotEmpty(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @Size(max = 10, message = &quot;10 caractères maximum.&quot;)
+&nbsp;    @Pattern(regexp = &quot;\\d+(?:\\w+)?&quot;, message = &quot;Entrée non valide, alphabet latin uniquement.&quot;)
+<b class="fc">&nbsp;    private String number;</b>
+&nbsp;
+&nbsp;    // &quot;rue&quot; &quot;avenue&quot; &quot;boulevard&quot;
+&nbsp;    @NotNull(message = &quot;Ne doit pas être vide&quot;)
+&nbsp;    @NotEmpty(message = &quot;Ne doit pas être vide&quot;)
+&nbsp;    @Size(max = 20, message = &quot;20 caractères maximum.&quot;)
+&nbsp;    @Pattern(regexp = &quot;[\\w\\p{L}-]+$&quot;, message = &quot;Entrée non valide. Attendu du type: rue, boulevard etc.&quot;)
+<b class="fc">&nbsp;    private String roadPrefix;</b>
+&nbsp;    @NotNull(message = &quot;Ne doit pas être vide&quot;)
+&nbsp;    @NotEmpty(message = &quot;Ne doit pas être vide&quot;)
+&nbsp;    @Size(max = 50, message = &quot;50 caractères maximum.&quot;)
+&nbsp;    @Pattern(regexp = &quot;[\\w\\p{L}- ]+$&quot;, message = &quot;Entrée non valide, alphabet Latins uniquement.&quot;)
+<b class="fc">&nbsp;    private String roadName;</b>
+&nbsp;
+&nbsp;    @Size(max = 50, message = &quot;50 caractères maximum.&quot;)
+&nbsp;    @Pattern(regexp = &quot;[\\w\\p{L}- ]*$&quot;, message = &quot;Entrée non valide, alphabet Latins uniquement.&quot;)
+<b class="fc">&nbsp;    private String complement;</b>
+&nbsp;    @NotNull(message = &quot;Ne doit pas être vide&quot;)
+&nbsp;    @NotEmpty(message = &quot;Ne doit pas être vide&quot;)
+&nbsp;    @Pattern(regexp = &quot;\\d{5}&quot;, message = &quot;Code postal invalide.&quot;)
+<b class="fc">&nbsp;    private String zipCode;</b>
+&nbsp;    @NotNull(message = &quot;Ne doit pas être vide&quot;)
+&nbsp;    @NotEmpty(message = &quot;Ne doit pas être vide&quot;)
+&nbsp;    @Size(max = 50, message = &quot;50 caractères maximum.&quot;)
+&nbsp;    @Pattern(regexp = &quot;[\\w\\p{L}- ]+$&quot;, message = &quot;Entrée non valide, alphabet Latins uniquement.&quot;)
+<b class="fc">&nbsp;    private String city;</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

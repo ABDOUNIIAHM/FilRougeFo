@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <div th:replace="~{fragments/headFragment :: head}"></div>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid p-3">
+
+      <div class="card m-2" th:object="${pendingOrderDto}">
+
+        <div class="card-header text-center">
+          <h2>Panier</h2>
+        </div>
+
+        <!-- If cart is empty -->
+        <th:block th:if="${#lists.isEmpty(pendingOrderDto.orderLines)}">
+
+          <div class="card-body text-center">
+            <p>Votre panier est vide</p>
+          </div>
+
+          <div class="card-footer">
+            <form th:action="@{/products}" method="get" class="text-center">
+              <button type="submit" class="btn btn-outline-success">Accueil</button>
+            </form>
+          </div>
+
+        </th:block>
+
+        <!-- If cart is not empty -->
+        <th:block th:if="${not #lists.isEmpty(pendingOrderDto.orderLines)}">
+
+          <div class="card-body">
+            <table class="table m-2 table-responsive table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Produit</th>
+                  <th>Quantité</th>
+                  <th>Prix</th>
+                  <th></th> <!--Button-->
+                </tr>
+              </thead>
+              <tbody>
+              <tr th:each="orderLine : *{orderLines}">
+
+                <td th:text="${orderLineStat.index + 1}"></td>
+                <td>
+                  <span th:text="${orderLine.product.name}"></span>
+                </td>
+                <td>
+                  <span id="quantity" th:text="${orderLine.quantity} % 1 == 0 ? ${#numbers.formatDecimal(orderLine.quantity, 1, 0)} : ${#numbers.formatDecimal(orderLine.quantity, 1, 3)}"></span>
+                  <span th:text="'&nbsp;' + ${orderLine.product.unit}"></span>
+                </td>
+
+                <td th:text="${#numbers.formatDecimal(orderLine.computeTotal(), 1, 2)} + '&nbsp;&euro;'"></td>
+                <td>
+                  <form th:action="@{/auth/cart/delete/{id}(id=${orderLine.id})}" method="post">
+                        <button type="submit" name="detail" th:value="${orderLine.id}" class="btn btn-danger btn-sm">
+                          <i class="bi bi-trash3-fill"></i>
+                          Supprimer
+                        </button>
+                      </form>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          <div class="p-2 mx-auto w-75" th:if="${outOfStockProducts}">
+              <div class="d-flex my-2 align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="32" height="32" style="overflow:visible;enable-background:new 0 0 32 32"><circle cx="16" cy="16" r="16" style="fill:#d72828"/><path d="M14.5 25h3v-3h-3v3zm0-19v13h3V6h-3z" style="fill:#e6e6e6"/></svg>
+                <p class="sizeOfFont">Produits avec stock insuffisant :</p>
+              </div>
+              <ul class="ul-cart">
+                <li  th:each="product : ${outOfStockProducts}">
+                  <span class="bg-danger text-white px-4 py-1" th:text="${product}"></span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="card-footer d-flex justify-content-evenly">
+
+            <form th:action="@{/auth/payment}" method="get">
+              <p>
+
+                <button type="submit" id="validerCommandeBtn" th:name="idOrder" th:value="*{id}" class="btn btn-success">Valider la commande
+                  <span class="badge" th:text="${#numbers.formatDecimal(pendingOrderDto.computeTotal(), 1, 2)} + '&nbsp;&euro;'"></span></button>
+              </p>
+            </form>
+
+            <a th:href="@{/products}"
+               class="btn btn-primary ajust-height">
+              Ajouter un produit
+
+            </a>
+
+          </div>
+        </th:block>
+      </div>
+
+  </div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>

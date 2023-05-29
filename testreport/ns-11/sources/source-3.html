@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ClientDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.web.client</a>
+</div>
+
+<h1>Coverage Summary for Class: ClientDto (com.example.filrougefo.web.client)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ClientDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.web.client;
+&nbsp;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.Order;
+&nbsp;
+&nbsp;import com.example.filrougefo.web.client.validation.MatchingPassword;
+&nbsp;import com.example.filrougefo.web.client.validation.ValidEmail;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import jakarta.validation.constraints.NotEmpty;
+&nbsp;import jakarta.validation.constraints.NotNull;
+&nbsp;import jakarta.validation.constraints.Pattern;
+&nbsp;import jakarta.validation.constraints.Size;
+&nbsp;import lombok.*;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="fc">&nbsp;@NoArgsConstructor @AllArgsConstructor</b>
+<b class="fc">&nbsp;@Getter @Setter @EqualsAndHashCode @ToString</b>
+&nbsp;@MatchingPassword
+&nbsp;public class ClientDto {
+<b class="fc">&nbsp;    private long id;</b>
+&nbsp;    @NotNull(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @NotEmpty(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @Size(max = 50, message = &quot;50 caractères maximum.&quot;)
+&nbsp;    @Pattern(regexp = &quot;^[\\w \\p{L}}-]+$&quot;, message = &quot;Entrée non valide, alphabet latin uniquement.&quot;)
+<b class="fc">&nbsp;    private String firstName;</b>
+&nbsp;
+&nbsp;    @NotNull(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @NotEmpty(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @Size(max = 50, message = &quot;50 caractères maximum.&quot;)
+&nbsp;    @Pattern(regexp = &quot;^[\\w \\p{L}}-]+$&quot;, message = &quot;Entrée non valide, alphabet latin uniquement.&quot;)
+<b class="fc">&nbsp;    private String lastName;</b>
+&nbsp;
+&nbsp;    @ValidEmail
+<b class="fc">&nbsp;    private String email;</b>
+&nbsp;
+&nbsp;    @NotNull(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @NotEmpty(message = &quot;Ne doit pas être vide.&quot;)
+&nbsp;    @Size(max = 50, message = &quot;50 caractères maximum.&quot;)
+&nbsp;    @Pattern(regexp = &quot;^[\\w\\p{L}0-9!@#$%^&amp;*()_\\-]+$&quot;, message = &quot;Entrée non valide.&quot;)
+<b class="fc">&nbsp;    private String password;</b>
+<b class="fc">&nbsp;    private String matchingPassword;</b>
+<b class="fc">&nbsp;    private String avatarUrl;</b>
+<b class="fc">&nbsp;    private List&lt;Order&gt; orderList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    @Valid</b>
+<b class="fc">&nbsp;    private List&lt;AddressDto&gt; addressList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    @Valid</b>
+<b class="fc">&nbsp;    private List&lt;PhoneNumberDto&gt; phoneNumberList = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+body {
+    padding-bottom: 70px;
+}
+
+.cross-alert{
+    position: absolute;
+    top:1px;
+    right: 9px;
+    font-size: 40px;
+}
+#my-element{
+   display: none;
+    position: relative;
+}
+
+.bg-footer{
+    background-color:RGBA(94,117,144,0.57);
+}
+
+.footer-position{
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.bg-footer-copyright{
+    background-color: rgba(159, 159, 159);
+    height: 50px;
+}
+
+.flex-footer{
+    display: flex;
+    align-items: center;
+}
+
+.container-card{
+    max-width: 1400px;
+    margin: auto;
+}
+
+.grid-card {
+    display: flex;
+    justify-content: space-around;
+}
+
+@media (max-width: 798px) {
+    .grid-card {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .grid-card {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+    }
+}
+.product-img-container {
+    width:100%;
+    height:100%;
+    position:relative;
+}
+
+.product-img-container img {
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.login-img{
+    height: 100%;
+}
+
+.login-img-div{
+    width: 50%;
+    height: 99%;
+}
+.login-champ{
+    justify-content:space-around;
+    height:100%;
+}
+.login-champ-use{
+    margin-bottom: 30px;
+}
+.login-champ-pwd{
+    margin-top: 30px;
+}
+.bg-light-custome{
+    background-color: rgba(199, 199, 199, 0.19);
+}
+.no-scoll{
+    overflow: hidden;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+#btnSuccess{
+    background-color: #1c4f37;
+}
+
+
+.ul-cart {
+    list-style-type: none;
+    margin-left: 10px;
+}
+
+.sizeOfFont{
+    font-size: 25px;
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+
+.ajust-height{
+   height:fit-content;
+}
+
+.fields-error {
+    color: red;
+    font-size: 0.8em;
+}
+
+.fields-error p {
+    margin: 0;
+    padding: 0;
+}
+
+.card-with-css{
+    width: auto;
+    margin-inline: 4em;
+    height: fit-content;
+}
+
+.img-navBar{
+    height: 30px;
+    margin-right: 20px;
+}
