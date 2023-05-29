@@ -28,7 +28,7 @@ public class Product {
     @JoinColumn(name = "idCategory")
     private Category category;
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(name = "product_months",
+    @JoinTable(name = "Product_Months",
             joinColumns = @JoinColumn(name = "idProduct"),
             inverseJoinColumns = @JoinColumn(name = "idMonth"))
     private List<Month> seasonalMonths = new ArrayList<>();
