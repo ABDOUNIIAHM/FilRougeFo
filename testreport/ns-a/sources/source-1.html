@@ -1,0 +1,320 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > OrderService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.service.order</a>
+</div>
+
+<h1>Coverage Summary for Class: OrderService (com.example.filrougefo.service.order)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrderService</td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (6/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16%
+  </span>
+  <span class="absValue">
+    (8/50)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$1MxG2sgk</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$2td3b10I</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$3646bcoJ</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$bOVZGQZT</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$HmZw7jjr</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$jC7EGm6T</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$lFahzDPj</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$LzL4dhWh</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$nOiulMtz</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$pva43rA0</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$azKlZzZV$auxiliary$SYXd3jXR</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$5eaKnuZV</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$6V6OLq1y</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$9I7zjMtk</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$B3ch9RAM</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$cTNfs7LW</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$DzcIWKVY</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$HkAnd1GO</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$mS9bjvGp</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$NQV30dzX</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$sGjiDAc8</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$TYHO7u5F$auxiliary$UT6ih9kR</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (6/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16%
+  </span>
+  <span class="absValue">
+    (8/50)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.service.order;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.*;
+&nbsp;import com.example.filrougefo.exception.OrderNotFoundException;
+&nbsp;import com.example.filrougefo.repository.ClientRepository;
+&nbsp;import com.example.filrougefo.repository.OrderLineRepository;
+&nbsp;import com.example.filrougefo.repository.OrderRepository;
+&nbsp;import com.example.filrougefo.repository.OrderStatusRepository;
+&nbsp;import com.example.filrougefo.service.orderline.OrderLineService;
+&nbsp;import com.example.filrougefo.service.product.IntProductService;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.math.BigDecimal;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;import java.util.stream.Stream;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class OrderService implements IntOrderService{
+&nbsp;    private final OrderRepository orderRepository;
+&nbsp;    private final ClientRepository clientRepository;
+&nbsp;    private final OrderStatusRepository orderStatusRepository;
+&nbsp;    private final OrderLineRepository orderLineRepository;
+&nbsp;    private final OrderLineService orderLineService;
+&nbsp;    private IntProductService productService;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Order&gt; findAllOrdersByClientId(long id) {
+<b class="fc">&nbsp;        return orderRepository.findAllByClientId(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Order&gt; findAllOrdersByStatus_Id(long id) {
+<b class="fc">&nbsp;        return orderRepository.findAllByStatus_Id(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Order&gt; findAllOrdersByStatus_Name(String name) {
+<b class="fc">&nbsp;        return orderRepository.findAllByStatus_Name(name);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Order&gt; findAllByOrdersBeforeChosenDate(LocalDate date) {
+<b class="fc">&nbsp;        return orderRepository.findAllByDateIsLessThanEqual(date);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Order findOrderById(long id){
+<b class="fc">&nbsp;        return orderRepository</b>
+<b class="fc">&nbsp;                .findById(id)</b>
+<b class="fc">&nbsp;                .orElseThrow(()-&gt; new OrderNotFoundException(&quot;No such Order found for id:&quot;+id));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean addProductToOrder(int productId, double quantity, Client client) {
+&nbsp;
+<b class="nc">&nbsp;        Product p = productService.findById(productId);</b>
+&nbsp;
+<b class="nc">&nbsp;        Order pendingOrder = hasPendingOrder(client);</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;OrderLine&gt; orderLines = pendingOrder.getOrderLines()</b>
+<b class="nc">&nbsp;                .stream()</b>
+<b class="nc">&nbsp;                .filter(ol -&gt; ol.getProduct().getId() == productId)</b>
+<b class="nc">&nbsp;                .toList();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (orderLines.size() == 1) {</b>
+&nbsp;
+<b class="nc">&nbsp;            OrderLine orderLine = orderLines.get(0);</b>
+<b class="nc">&nbsp;            Product product = orderLine.getProduct();</b>
+&nbsp;
+<b class="nc">&nbsp;            if (orderLine.getQuantity().add(BigDecimal.valueOf(quantity)).doubleValue() &gt; product.getStock().doubleValue()){</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            orderLine.setQuantity(orderLine.getQuantity().add(BigDecimal.valueOf(quantity)));</b>
+<b class="nc">&nbsp;            pendingOrder.getOrderLines().stream().filter(ol -&gt; ol.getId() == orderLine.getId()).findFirst().map(ol -&gt; orderLine).get();</b>
+<b class="nc">&nbsp;            orderRepository.save(pendingOrder);</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        OrderLine orderLine = new OrderLine();</b>
+<b class="nc">&nbsp;        orderLine.setOrder(pendingOrder);</b>
+<b class="nc">&nbsp;        orderLine.setProduct(p);</b>
+<b class="nc">&nbsp;        orderLine.setQuantity(BigDecimal.valueOf(quantity));</b>
+&nbsp;
+<b class="nc">&nbsp;        pendingOrder.getOrderLines().add(orderLine);</b>
+<b class="nc">&nbsp;        orderRepository.save(pendingOrder);</b>
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Order hasPendingOrder(Client client) {
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Order&gt; orders = orderRepository.findAllByStatus_NameAndAndClient_Id(&quot;PENDING&quot;,client.getId());</b>
+&nbsp;
+<b class="nc">&nbsp;        if(orders.size()==1){</b>
+<b class="nc">&nbsp;            return orders.get(0);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        Order order = new Order();</b>
+<b class="nc">&nbsp;        order.setClient(client);</b>
+<b class="nc">&nbsp;        return orderRepository.save(order);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Order&gt; getNonPendingOrders(Client client) {
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Order&gt; allByClientId = orderRepository.findAllByClientId(client.getId());</b>
+&nbsp;
+<b class="nc">&nbsp;        return allByClientId</b>
+<b class="nc">&nbsp;                .stream()</b>
+<b class="nc">&nbsp;                .filter(x-&gt; x.getStatus().getId() != 1)</b>
+<b class="nc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean validateOrder(long id) {
+&nbsp;
+<b class="nc">&nbsp;        Optional&lt;Order&gt; toValidate = orderRepository.findById(id);</b>
+&nbsp;
+<b class="nc">&nbsp;        if(toValidate.isEmpty()){</b>
+<b class="nc">&nbsp;            throw new OrderNotFoundException(&quot;No such order for id:&quot;+id);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        OrderStatus os = orderStatusRepository.findById(2L).get();</b>
+<b class="nc">&nbsp;        Order order = toValidate.get();</b>
+<b class="nc">&nbsp;        order.setStatus(os);</b>
+<b class="nc">&nbsp;        order.setDate(LocalDate.now());</b>
+&nbsp;
+<b class="nc">&nbsp;        orderRepository.save(order);</b>
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

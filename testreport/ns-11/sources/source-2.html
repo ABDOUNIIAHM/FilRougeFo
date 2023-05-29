@@ -1,0 +1,192 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ClientController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.web.client</a>
+</div>
+
+<h1>Coverage Summary for Class: ClientController (com.example.filrougefo.web.client)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ClientController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    77,8%
+  </span>
+  <span class="absValue">
+    (21/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.web.client;
+&nbsp;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.Address;
+&nbsp;import com.example.filrougefo.entity.Client;
+&nbsp;import com.example.filrougefo.entity.PhoneNumber;
+&nbsp;import com.example.filrougefo.exception.ClientAlreadyExistException;
+&nbsp;import com.example.filrougefo.service.client.IntClientService;
+&nbsp;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;
+&nbsp;import org.springframework.security.crypto.password.PasswordEncoder;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.ui.Model;
+&nbsp;import org.springframework.validation.BindingResult;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.ModelAttribute;
+&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;@Controller
+<b class="fc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class ClientController {
+&nbsp;    private IntClientService clientService;
+&nbsp;    private ClientMapper clientMapper;
+&nbsp;    private AddressMapper addressMapper;
+&nbsp;    private PasswordEncoder passwordEncoder;
+&nbsp;    private PhoneNumberMapper phoneNumberMapper;
+&nbsp;
+&nbsp;    @GetMapping(&quot;client/register&quot;)
+&nbsp;    public String getRegisterForm(Model model) {
+&nbsp;
+<b class="fc">&nbsp;        ClientDto clientDto = new ClientDto();</b>
+<b class="fc">&nbsp;        clientDto.getAddressList().add(new AddressDto());</b>
+<b class="fc">&nbsp;        clientDto.getPhoneNumberList().add(new PhoneNumberDto());</b>
+&nbsp;
+<b class="fc">&nbsp;        model.addAttribute(&quot;clientDto&quot;,clientDto);</b>
+<b class="fc">&nbsp;        return &quot;signup-form&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;client/register&quot;)
+&nbsp;    public String addNewClient(@ModelAttribute(&quot;clientDto&quot;) @Valid ClientDto clientDto,
+&nbsp;                               BindingResult bindingResult,
+&nbsp;                               Model model) {
+&nbsp;
+<b class="fc">&nbsp;        if (bindingResult.hasErrors()) {</b>
+<b class="fc">&nbsp;            return &quot;signup-form&quot;;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            Client client = getClientFromClientDto(clientDto);</b>
+<b class="fc">&nbsp;            clientService.isValidEmail(clientDto.getEmail());</b>
+<b class="fc">&nbsp;            client.setPassword(passwordEncoder.encode(client.getPassword()));</b>
+<b class="fc">&nbsp;            clientService.createClient(client);</b>
+<b class="fc">&nbsp;            return &quot;success-signup&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        } catch (ClientAlreadyExistException ex){</b>
+<b class="nc">&nbsp;            return handleClientRegistrationError(ex, clientDto, model);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private String handleClientRegistrationError(ClientAlreadyExistException ex, ClientDto clientDto, Model model) {
+<b class="nc">&nbsp;        String error = ex.getMessage();</b>
+<b class="nc">&nbsp;        model.addAttribute(&quot;exception&quot;, error);</b>
+<b class="nc">&nbsp;        model.addAttribute(&quot;clientDto&quot;, clientDto);</b>
+<b class="nc">&nbsp;        return &quot;signup-form&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private Client getClientFromClientDto(ClientDto clientDto){
+&nbsp;
+<b class="fc">&nbsp;        List&lt;AddressDto&gt; add = clientDto.getAddressList();</b>
+<b class="fc">&nbsp;        List&lt;PhoneNumberDto&gt; phones = clientDto.getPhoneNumberList();</b>
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Address&gt; addressList = add.stream().map(x -&gt; addressMapper.fromDTO(x)).collect(Collectors.toList());</b>
+<b class="fc">&nbsp;        List&lt;PhoneNumber&gt; phoneList = phones.stream().map(x -&gt; phoneNumberMapper.fromDTO(x)).collect(Collectors.toList());</b>
+&nbsp;
+<b class="fc">&nbsp;        Client client = clientMapper.fromDTO(clientDto);</b>
+&nbsp;
+<b class="fc">&nbsp;        client.getAddressList().add(addressList.get(0));</b>
+&nbsp;
+<b class="fc">&nbsp;        client.getPhoneNumberList().add(phoneList.get(0));</b>
+&nbsp;
+<b class="fc">&nbsp;        return client;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

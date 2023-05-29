@@ -1,0 +1,274 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ProductController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.web.product</a>
+</div>
+
+<h1>Coverage Summary for Class: ProductController (com.example.filrougefo.web.product)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProductController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63,6%
+  </span>
+  <span class="absValue">
+    (7/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    64,2%
+  </span>
+  <span class="absValue">
+    (43/67)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.web.product;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.*;
+&nbsp;import com.example.filrougefo.exception.CategoryNotFoundException;
+&nbsp;import com.example.filrougefo.exception.MonthNotFoundException;
+&nbsp;import com.example.filrougefo.service.category.IntCategoryService;
+&nbsp;import com.example.filrougefo.service.month.IntMonthService;
+&nbsp;import com.example.filrougefo.exception.ProductNotFoundException;
+&nbsp;import com.example.filrougefo.service.product.IntProductService;
+&nbsp;import com.example.filrougefo.web.category.CategoryDto;
+&nbsp;import com.example.filrougefo.web.category.CategoryMapper;
+&nbsp;
+&nbsp;import jakarta.servlet.http.HttpServletRequest;
+&nbsp;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.ui.Model;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;import org.springframework.web.servlet.ModelAndView;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;@Controller
+&nbsp;@RequestMapping(&quot;/products&quot;)
+<b class="fc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class ProductController {
+&nbsp;    private IntProductService productService;
+&nbsp;    private ProductMapper productMapper;
+&nbsp;    private IntMonthService monthService;
+&nbsp;    private IntCategoryService categoryService;
+&nbsp;    private CategoryMapper categoryMapper;
+&nbsp;    private MonthMapper monthMapper;
+&nbsp;
+&nbsp;    @GetMapping
+&nbsp;    public String listProduct(Model model) {
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Product&gt; productList = productService.findAll();</b>
+&nbsp;
+<b class="fc">&nbsp;        populateModelWithLists(model);</b>
+<b class="fc">&nbsp;        List&lt;ProductDTO&gt; productDTOsList = productList</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .map(productMapper::toDTO)</b>
+<b class="fc">&nbsp;                .toList();</b>
+&nbsp;
+<b class="fc">&nbsp;        model.addAttribute(&quot;productList&quot;, productDTOsList);</b>
+<b class="fc">&nbsp;    return &quot;product/product-list&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/details/{id}&quot;)
+&nbsp;    public String detailProduct(Model model, @PathVariable int id) {
+&nbsp;
+<b class="fc">&nbsp;        Product product = productService.findById(id);</b>
+<b class="fc">&nbsp;        ProductDTO productDTO = productMapper.toDTO(product);</b>
+&nbsp;
+<b class="fc">&nbsp;        populateModelWithLists(model);</b>
+&nbsp;
+<b class="fc">&nbsp;        model.addAttribute(&quot;product&quot;, productDTO);</b>
+&nbsp;
+<b class="fc">&nbsp;        return &quot;product/product-detail&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/month/{id}&quot;)
+&nbsp;    public String listProductPerMonth(@PathVariable int id, Model model) {
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Product&gt; productList = productService.findAllProductPerMonth(id);</b>
+&nbsp;
+<b class="fc">&nbsp;        List&lt;ProductDTO&gt; productDTOsList = productList</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .map(productMapper::toDTO)</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;
+<b class="fc">&nbsp;        populateModelWithLists(model);</b>
+&nbsp;
+<b class="fc">&nbsp;        model.addAttribute(&quot;productList&quot;, productDTOsList);</b>
+&nbsp;
+<b class="fc">&nbsp;        return &quot;product/product-list&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/categories/{id}&quot;)
+&nbsp;    public String getCategoryProducts(@PathVariable int id, Model model) {
+&nbsp;
+<b class="fc">&nbsp;        populateModelWithLists(model);</b>
+&nbsp;
+<b class="fc">&nbsp;        model.addAttribute(&quot;productList&quot;,mapCategoryProductsToDto(id));</b>
+<b class="fc">&nbsp;        return &quot;product/product-list&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping
+&nbsp;    public String searchProduct(@RequestParam(&quot;keyword&quot;) String keyword, Model model) {
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Product&gt; productList = productService.searchProductsGlobal(keyword);</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;ProductDTO&gt; productDTOsList = productList</b>
+<b class="nc">&nbsp;                .stream()</b>
+<b class="nc">&nbsp;                .map(productMapper::toDTO)</b>
+<b class="nc">&nbsp;                .toList();</b>
+&nbsp;
+<b class="nc">&nbsp;        populateModelWithLists(model);</b>
+<b class="nc">&nbsp;        model.addAttribute(&quot;productList&quot;, productDTOsList);</b>
+<b class="nc">&nbsp;        model.addAttribute(&quot;keyword&quot;, keyword);</b>
+&nbsp;
+<b class="nc">&nbsp;        return &quot;product/product-list&quot;;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    // Populate the model with all months and all categories
+&nbsp;    private void populateModelWithLists(Model model) {
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Category&gt; categoryList = categoryService.findAll();</b>
+<b class="fc">&nbsp;        List&lt;Month&gt; monthList = monthService.findAll();</b>
+&nbsp;
+<b class="fc">&nbsp;        List&lt;MonthDTO&gt; monthDTOList = monthList</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .map(monthMapper::toDTO)</b>
+<b class="fc">&nbsp;                .toList();</b>
+&nbsp;
+<b class="fc">&nbsp;        List&lt;CategoryDto&gt; categoryDtoList = categoryList</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .map(categoryMapper::toDTO)</b>
+<b class="fc">&nbsp;                .toList();</b>
+&nbsp;
+<b class="fc">&nbsp;        model.addAttribute(&quot;categoryList&quot;, categoryDtoList);</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;monthList&quot;, monthDTOList);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;CategoryDto&gt; mapCategoryListToDto() {
+<b class="nc">&nbsp;        List&lt;Category&gt; categoryList = categoryService.findAll();</b>
+<b class="nc">&nbsp;        return categoryList</b>
+<b class="nc">&nbsp;                .stream()</b>
+<b class="nc">&nbsp;                .map(c -&gt; categoryMapper.toDTO(c))</b>
+<b class="nc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;ProductDTO&gt; mapCategoryProductsToDto(int id) {
+<b class="fc">&nbsp;        return categoryService</b>
+<b class="fc">&nbsp;                .findById(id)</b>
+<b class="fc">&nbsp;                .getProducts()</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .map(p -&gt; productMapper.toDTO(p))</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ExceptionHandler(value = {ProductNotFoundException.class, MonthNotFoundException.class})
+&nbsp;    public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException ex) {
+&nbsp;
+&nbsp;        //logger.error(&quot;Request: &quot; + req.getRequestURL() + &quot; raised &quot; + ex);
+<b class="nc">&nbsp;        ModelAndView mav = new ModelAndView();</b>
+<b class="nc">&nbsp;        mav.setViewName(&quot;error&quot;);</b>
+<b class="nc">&nbsp;        mav.addObject(&quot;exception&quot;, ex);</b>
+<b class="nc">&nbsp;        mav.addObject(&quot;url&quot;, req.getRequestURL());</b>
+<b class="nc">&nbsp;        return mav;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ExceptionHandler(value = {CategoryNotFoundException.class})
+&nbsp;    public ModelAndView handleError(HttpServletRequest req, CategoryNotFoundException ex) {
+&nbsp;
+&nbsp;        //logger.error(&quot;Request: &quot; + req.getRequestURL() + &quot; raised &quot; + ex);
+<b class="nc">&nbsp;        ModelAndView mav = new ModelAndView();</b>
+<b class="nc">&nbsp;        mav.setViewName(&quot;error&quot;);</b>
+<b class="nc">&nbsp;        mav.addObject(&quot;exception&quot;, ex);</b>
+<b class="nc">&nbsp;        mav.addObject(&quot;url&quot;, req.getRequestURL());</b>
+<b class="nc">&nbsp;        return mav;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

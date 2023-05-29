@@ -1,0 +1,293 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > OrderController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.web.order</a>
+</div>
+
+<h1>Coverage Summary for Class: OrderController (com.example.filrougefo.web.order)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrderController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    81,6%
+  </span>
+  <span class="absValue">
+    (62/76)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.web.order;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.Month;
+&nbsp;import com.example.filrougefo.entity.Order;
+&nbsp;import com.example.filrougefo.entity.OrderLine;
+&nbsp;import com.example.filrougefo.entity.Product;
+&nbsp;import com.example.filrougefo.security.ClientAuthDetail;
+&nbsp;import com.example.filrougefo.service.address.IntAddressService;
+&nbsp;import com.example.filrougefo.service.month.IntMonthService;
+&nbsp;import com.example.filrougefo.service.order.IntOrderService;
+&nbsp;import com.example.filrougefo.service.orderline.IntOrderLineService;
+&nbsp;import com.example.filrougefo.service.product.IntProductService;
+&nbsp;import com.example.filrougefo.web.client.AddressDto;
+&nbsp;import com.example.filrougefo.web.client.AddressMapper;
+&nbsp;import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
+&nbsp;import com.example.filrougefo.web.product.MonthDTO;
+&nbsp;import com.example.filrougefo.web.product.MonthMapper;
+&nbsp;import com.example.filrougefo.web.product.ProductDTO;
+&nbsp;import com.example.filrougefo.web.product.ProductMapper;
+&nbsp;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.ui.Model;
+&nbsp;import org.springframework.validation.BindingResult;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;@Controller
+&nbsp;@RequestMapping(&quot;/auth&quot;)
+<b class="fc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class OrderController {
+&nbsp;    private final IntProductService productService;
+&nbsp;    private final IntOrderService orderService;
+&nbsp;    private ProductMapper productMapper;
+&nbsp;    private final OrderMapper orderMapper;
+&nbsp;    private ClientAuthDetail authenticatedClient;
+&nbsp;    private final OrderLineMapper orderLineMapper;
+&nbsp;    private final IntOrderLineService orderLineService;
+&nbsp;    private IntMonthService monthService;
+&nbsp;    private MonthMapper monthMapper;
+&nbsp;    private IntAddressService addressService;
+&nbsp;    private AddressMapper addressMapper;
+&nbsp;
+&nbsp;
+&nbsp;    private boolean handleOutOfStockProducts(Order pendingOrder, Model model) {
+<b class="fc">&nbsp;        List&lt;Product&gt; outOfStock = productService.checkIfAvailableStock(pendingOrder);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (outOfStock.size() &gt; 0) {</b>
+<b class="nc">&nbsp;            List&lt;String&gt; outOfStockProducts = outOfStock.stream()</b>
+<b class="nc">&nbsp;                    .map(p -&gt; p.getName() + &quot; (Stock restant : &quot; + p.getStock() + &quot; &quot; + p.getUnit() + &quot;)&quot;)</b>
+<b class="nc">&nbsp;                    .toList();</b>
+&nbsp;
+<b class="nc">&nbsp;            OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);</b>
+<b class="nc">&nbsp;            model.addAttribute(&quot;pendingOrderDto&quot;, pendingOrderDto);</b>
+<b class="nc">&nbsp;            model.addAttribute(&quot;outOfStockProducts&quot;, outOfStockProducts);</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/orders/{id}&quot;)
+&nbsp;    public String getOrderDetails(@PathVariable int id, Model model) {
+&nbsp;
+<b class="fc">&nbsp;        List&lt;OrderLineDto&gt; orderLines =</b>
+<b class="fc">&nbsp;                getDtosFromListOrderLine(orderLineService.findAllOrderLinesByOrderId(id));</b>
+&nbsp;
+<b class="fc">&nbsp;        model.addAttribute(&quot;orderLines&quot;, orderLines);</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;order&quot;,orderMapper.toDTO(orderService.findOrderById(id)));</b>
+&nbsp;
+<b class="fc">&nbsp;        return &quot;order/order-detail&quot;;</b>
+&nbsp;    }
+&nbsp;    @GetMapping(&quot;/cart&quot;)
+&nbsp;    public String getMyCart(Model model){
+&nbsp;
+<b class="fc">&nbsp;        Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());</b>
+<b class="fc">&nbsp;        OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;pendingOrderDto&quot;, pendingOrderDto);</b>
+<b class="fc">&nbsp;        return &quot;order/cart&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;/add-to-cart/{id}&quot;)
+&nbsp;    public String addProductToCart(@RequestParam(&quot;quantity&quot;) String quantity, Model model, @PathVariable int id) {
+&nbsp;
+<b class="fc">&nbsp;        Product product = productService.findById(id);</b>
+<b class="fc">&nbsp;        ProductDTO productDTO = productMapper.toDTO(product);</b>
+<b class="fc">&nbsp;        double qty = Double.parseDouble(quantity);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (qty &lt;= productDTO.getStock().doubleValue()) {</b>
+&nbsp;            // La quantité est suffisante
+<b class="fc">&nbsp;            orderService.addProductToOrder(id, qty, authenticatedClient.getClient());</b>
+&nbsp;            // La quantité est suffisante
+<b class="fc">&nbsp;            return &quot;redirect:/products&quot;;</b>
+&nbsp;        } else {
+&nbsp;            // La quantité est insuffisante, renvoyez un message d&#39;erreur
+<b class="fc">&nbsp;            String error = &quot;La quantité demandée est supérieure au stock disponible.&quot;;</b>
+<b class="fc">&nbsp;            List&lt;Month&gt; monthList = monthService.findAll();</b>
+&nbsp;
+<b class="fc">&nbsp;            List&lt;MonthDTO&gt; monthDTOList = monthList</b>
+<b class="fc">&nbsp;                    .stream()</b>
+<b class="fc">&nbsp;                    .map(monthMapper::toDTO)</b>
+<b class="fc">&nbsp;                    .toList();</b>
+<b class="fc">&nbsp;            model.addAttribute(&quot;monthList&quot;, monthDTOList);</b>
+<b class="fc">&nbsp;            model.addAttribute(&quot;product&quot;,productDTO);</b>
+<b class="fc">&nbsp;            model.addAttribute(&quot;error&quot;, error);</b>
+<b class="fc">&nbsp;            return &quot;product/product-detail&quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    @PostMapping(&quot;/cart/delete/{idOrderLine}&quot;)
+&nbsp;    public String deleteOrderLine(@PathVariable long idOrderLine){
+&nbsp;
+<b class="fc">&nbsp;        if(orderLineService.deleteOrderLine(idOrderLine)==true){</b>
+<b class="fc">&nbsp;            return &quot;redirect:/auth/cart&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;error&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/payment&quot;)
+&nbsp;    public String getPaymentForm(Model model, @RequestParam(&quot;idOrder&quot;) long idOrder){
+&nbsp;
+<b class="fc">&nbsp;        Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());</b>
+<b class="fc">&nbsp;        boolean isOutOfStock = handleOutOfStockProducts(pendingOrder, model);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (isOutOfStock) {</b>
+<b class="nc">&nbsp;            return &quot;order/cart&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        CardPaymentDto paymentDto = new CardPaymentDto();</b>
+<b class="fc">&nbsp;        paymentDto.setId(idOrder);</b>
+<b class="fc">&nbsp;        List&lt;AddressDto&gt; addressList = addressService.findAddressesByClient(authenticatedClient.getClient())</b>
+<b class="fc">&nbsp;                        .stream()</b>
+<b class="fc">&nbsp;                        .map(addressMapper::toDTO)</b>
+<b class="fc">&nbsp;                        .toList();</b>
+&nbsp;
+<b class="fc">&nbsp;        model.addAttribute(&quot;paymentDto&quot;, paymentDto);</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;addressList&quot;, addressList);</b>
+&nbsp;
+<b class="fc">&nbsp;        return &quot;payment&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;/payment/{id}&quot;)
+&nbsp;    public String confirmPayment(@ModelAttribute(&quot;paymentDto&quot;) @Valid CardPaymentDto paymentDto, BindingResult bindingResult, @PathVariable long id, Model model){
+&nbsp;
+<b class="fc">&nbsp;        if(bindingResult.hasErrors()){</b>
+<b class="fc">&nbsp;            List&lt;AddressDto&gt; addressList = addressService.findAddressesByClient(authenticatedClient.getClient())</b>
+<b class="fc">&nbsp;                    .stream()</b>
+<b class="fc">&nbsp;                    .map(addressMapper::toDTO)</b>
+<b class="fc">&nbsp;                    .toList();</b>
+&nbsp;
+<b class="fc">&nbsp;            model.addAttribute(&quot;paymentDto&quot;, paymentDto);</b>
+<b class="fc">&nbsp;            model.addAttribute(&quot;addressList&quot;, addressList);</b>
+&nbsp;
+<b class="fc">&nbsp;            return &quot;payment&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());</b>
+<b class="fc">&nbsp;        boolean isOutOfStock = handleOutOfStockProducts(pendingOrder, model);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (isOutOfStock) {</b>
+<b class="nc">&nbsp;            return &quot;order/cart&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        productService.updateProductStock(pendingOrder);</b>
+<b class="fc">&nbsp;        orderService.validateOrder(id);</b>
+&nbsp;
+<b class="fc">&nbsp;        return &quot;success-order&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;OrderDto&gt; getDtosFromListOrder(List&lt;Order&gt; orders){
+<b class="nc">&nbsp;        List&lt;OrderDto&gt; dtos = orders</b>
+<b class="nc">&nbsp;                .stream()</b>
+<b class="nc">&nbsp;                .map(x -&gt; orderMapper.toDTO(x))</b>
+<b class="nc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;
+<b class="nc">&nbsp;        return dtos;</b>
+&nbsp;    }
+&nbsp;    private List&lt;OrderLineDto&gt; getDtosFromListOrderLine(List&lt;OrderLine&gt; orderLines){
+&nbsp;
+<b class="fc">&nbsp;        return orderLines</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .map(orderLineMapper::toDTO)</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > OrderLineRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: OrderLineRepository (com.example.filrougefo.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">OrderLineRepository$MockitoMock$6sLEKR6I</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineRepository$MockitoMock$6sLEKR6I$auxiliary$3b5SPIxd</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineRepository$MockitoMock$6sLEKR6I$auxiliary$cueArvwS</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineRepository$MockitoMock$6sLEKR6I$auxiliary$s1OLMUVR</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineRepository$MockitoMock$eLLZ6BDJ</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineRepository$MockitoMock$eLLZ6BDJ$auxiliary$5DbmCGVp</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineRepository$MockitoMock$eLLZ6BDJ$auxiliary$81F572Os</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineRepository$MockitoMock$eLLZ6BDJ$auxiliary$WYnMUu81</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.repository;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.OrderLine;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.stereotype.Repository;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@Repository
+&nbsp;public interface OrderLineRepository extends JpaRepository&lt;OrderLine,Long&gt; {
+&nbsp;    Optional&lt;List&lt;OrderLine&gt;&gt; findAllByOrder_Id(long id);
+&nbsp;    Optional&lt;OrderLine&gt; findAllByOrder_IdAndProduct_Id (long idOrder, long idProduct);
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PhoneNumberService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.service.phonenumber</a>
+</div>
+
+<h1>Coverage Summary for Class: PhoneNumberService (com.example.filrougefo.service.phonenumber)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PhoneNumberService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (1/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9,1%
+  </span>
+  <span class="absValue">
+    (1/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.service.phonenumber;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.Client;
+&nbsp;import com.example.filrougefo.entity.PhoneNumber;
+&nbsp;import com.example.filrougefo.exception.PhoneNumberNotFoundException;
+&nbsp;import com.example.filrougefo.repository.PhoneNumberRepository;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class PhoneNumberService implements IntPhoneNumberService {
+&nbsp;    private  PhoneNumberRepository phoneNumberRepository;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public PhoneNumber findById(long id) {
+<b class="nc">&nbsp;        return phoneNumberRepository</b>
+<b class="nc">&nbsp;                .findById(id)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new PhoneNumberNotFoundException(&quot;No PhoneNumber found for id=&quot;+id));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;PhoneNumber&gt; findPhoneNumberByClient(Client client){
+<b class="nc">&nbsp;        return phoneNumberRepository.findPhoneNumberByClient(client);</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public void updatePhoneNumber(long phoneNumberId, String value) {
+&nbsp;        // Récupérer le numéro de téléphone à mettre à jour
+<b class="nc">&nbsp;        PhoneNumber phoneNumber = phoneNumberRepository.findById(phoneNumberId)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Numéro de téléphone introuvable&quot;));</b>
+&nbsp;
+&nbsp;        // Mettre à jour la valeur du numéro de téléphone
+<b class="nc">&nbsp;        phoneNumber.setPhoneNumber(value);</b>
+&nbsp;
+&nbsp;        // Enregistrer les modifications
+<b class="nc">&nbsp;        phoneNumberRepository.save(phoneNumber);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deletePhoneNumber(long idPhoneNumber) {
+<b class="nc">&nbsp;        phoneNumberRepository.deleteById(idPhoneNumber);</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public void add(PhoneNumber phoneNumber) {
+<b class="nc">&nbsp;        phoneNumberRepository.save(phoneNumber);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

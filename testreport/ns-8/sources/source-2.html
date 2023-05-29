@@ -1,0 +1,105 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > IntClientService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.service.client</a>
+</div>
+
+<h1>Coverage Summary for Class: IntClientService (com.example.filrougefo.service.client)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">IntClientService$MockitoMock$27IYGPYI</td>
+  </tr>
+  <tr>
+    <td class="name">IntClientService$MockitoMock$27IYGPYI$auxiliary$kB760ynJ</td>
+  </tr>
+  <tr>
+    <td class="name">IntClientService$MockitoMock$27IYGPYI$auxiliary$NNtl7D0z</td>
+  </tr>
+  <tr>
+    <td class="name">IntClientService$MockitoMock$xRCzS4D0</td>
+  </tr>
+  <tr>
+    <td class="name">IntClientService$MockitoMock$xRCzS4D0$auxiliary$sCNMJE5h</td>
+  </tr>
+  <tr>
+    <td class="name">IntClientService$MockitoMock$xRCzS4D0$auxiliary$VK3YMV16</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.service.client;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.Client;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+&nbsp;public interface IntClientService {
+&nbsp;    Client findById(long id);
+&nbsp;    List&lt;Client&gt; findAll();
+&nbsp;    boolean isValidEmail(String email);
+&nbsp;    boolean isValidUpdatedEmail(String email, long id);
+&nbsp;    Client createClient(Client client);
+&nbsp;    void updateClient(Client client);
+&nbsp;    void updateClientInformation(long clientId, String email, String firstName, String lastName, String avatarUrl);
+&nbsp;    Client getClientById(long clientId);
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

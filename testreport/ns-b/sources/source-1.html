@@ -1,0 +1,210 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > OrderLineService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.service.orderline</a>
+</div>
+
+<h1>Coverage Summary for Class: OrderLineService (com.example.filrougefo.service.orderline)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrderLineService</td>
+<td class="coverageStat">
+  <span class="percent">
+    85,7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    57,1%
+  </span>
+  <span class="absValue">
+    (12/21)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$45inL3jc</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$45inL3jc$auxiliary$ED8PQIpw</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$45inL3jc$auxiliary$JCO9Wi9B</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$45inL3jc$auxiliary$Kgoi8UTV</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$45inL3jc$auxiliary$rHuLNouz</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$45inL3jc$auxiliary$vORJrwyX</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$45inL3jc$auxiliary$VUxAZLkQ</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$SlkL2CA5</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$SlkL2CA5$auxiliary$aRErthx0</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$SlkL2CA5$auxiliary$lGdTymUL</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$SlkL2CA5$auxiliary$mSipjKSZ</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$SlkL2CA5$auxiliary$qQaO2rYW</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$SlkL2CA5$auxiliary$VssuTyNG</td>
+  </tr>
+  <tr>
+    <td class="name">OrderLineService$MockitoMock$SlkL2CA5$auxiliary$VTV76t0T</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    85,7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    57,1%
+  </span>
+  <span class="absValue">
+    (12/21)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.service.orderline;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.OrderLine;
+&nbsp;import com.example.filrougefo.exception.OrderLineControllerException;
+&nbsp;import com.example.filrougefo.repository.OrderLineRepository;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class OrderLineService implements IntOrderLineService {
+&nbsp;    private final OrderLineRepository orderLineRepository;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public OrderLine findById(long id) {
+<b class="fc">&nbsp;        return orderLineRepository</b>
+<b class="fc">&nbsp;                .findById(id)</b>
+<b class="fc">&nbsp;                .orElseThrow(()</b>
+<b class="fc">&nbsp;                        -&gt;new OrderLineControllerException(&quot;No such order line found for id:&quot;+id));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;OrderLine&gt; findAllOrderLinesByOrderId(long idOrder) {
+<b class="fc">&nbsp;        return orderLineRepository</b>
+<b class="fc">&nbsp;                .findAllByOrder_Id(idOrder)</b>
+<b class="fc">&nbsp;                .orElseThrow(()-&gt; new OrderLineControllerException(&quot;No order line found for order_id:&quot;+idOrder));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public OrderLine findOrderLineByOrderIdAndProductId(long idOrder, long idProduct) {
+<b class="fc">&nbsp;        return orderLineRepository</b>
+<b class="fc">&nbsp;                .findAllByOrder_IdAndProduct_Id(idOrder,idProduct)</b>
+<b class="fc">&nbsp;                .orElseThrow(()-&gt;</b>
+<b class="fc">&nbsp;                        new OrderLineControllerException(&quot;No order line found for order_id:&quot;+idOrder+&quot; and product_id:&quot;+idProduct));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean deleteOrderLine(long id) {
+&nbsp;
+<b class="nc">&nbsp;        Optional&lt;OrderLine&gt; toDelete = orderLineRepository.findById(id);</b>
+&nbsp;
+<b class="nc">&nbsp;        if(toDelete.isPresent()){</b>
+<b class="nc">&nbsp;            OrderLine orderLine = toDelete.get();</b>
+<b class="nc">&nbsp;            orderLineRepository.deleteById(id);</b>
+<b class="nc">&nbsp;            Optional&lt;OrderLine&gt; byId = orderLineRepository.findById(id);</b>
+&nbsp;
+<b class="nc">&nbsp;            if(orderLineRepository.findById(id).isEmpty()){</b>
+<b class="nc">&nbsp;                return true;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        throw new OrderLineControllerException(&quot;No such OrderLine found for id:&quot;+id);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>
