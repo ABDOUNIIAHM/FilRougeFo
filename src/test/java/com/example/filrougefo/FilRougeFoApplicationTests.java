@@ -10,5 +10,4 @@ class FilRougeFoApplicationTests {
     public void contextLoads() {
     }
 
-
 }
