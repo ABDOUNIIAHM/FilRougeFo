@@ -127,8 +127,8 @@ class ProductControllerTest {
     @Test
     void ShouldReturnAllProducts() throws Exception {
         //given
-        Product p1 = new Product(); p1.setId(1);
-        Product p2 = new Product(); p2.setId(2);
+        Product p1 = new Product(); p1.setId(1);p1.setVat(BigDecimal.ONE);p1.setPricePerUnit(BigDecimal.ONE);
+        Product p2 = new Product(); p2.setId(2);p2.setVat(BigDecimal.ONE);p2.setPricePerUnit(BigDecimal.ONE);
         List<Product> products = List.of(p1,p2);
 
         Category c1 = new Category(); c1.setId(1); c1.getProducts().add(p1); c1.getProducts().add(p2);  c1.setName("category1");
@@ -165,7 +165,7 @@ class ProductControllerTest {
     @Test
     void ShouldReturnProductDetails() throws Exception {
         //given
-        Product p1 = new Product(); p1.setId(1); p1.setName(""); p1.setCategory(new Category()); p1.setVat(BigDecimal.ONE);
+        Product p1 = new Product(); p1.setId(1); p1.setName(""); p1.setCategory(new Category()); p1.setVat(BigDecimal.ONE);p1.setPricePerUnit(BigDecimal.ONE);
 
         Month month = new Month(); month.setName("month");
         List<Month> monthList = List.of(month);
@@ -194,7 +194,7 @@ class ProductControllerTest {
     @Test
     void ShouldReturnProductOfGivenMonth() throws Exception {
         //given
-        Product p1 = new Product(); p1.setId(1); p1.setName(""); p1.setCategory(new Category()); p1.setVat(BigDecimal.ONE);
+        Product p1 = new Product(); p1.setId(1); p1.setName(""); p1.setCategory(new Category()); p1.setVat(BigDecimal.ONE);p1.setPricePerUnit(BigDecimal.ONE);
         List<Product> products = List.of(p1);
 
         Month month = new Month(); month.setName("month"); month.setProducts(products);
