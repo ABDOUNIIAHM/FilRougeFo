@@ -4,14 +4,11 @@ import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.exception.MonthNotFoundException;
-import com.example.filrougefo.exception.OrderNotFoundException;
 import com.example.filrougefo.exception.ProductNotFoundException;
 import com.example.filrougefo.repository.ProductRepository;
 import com.example.filrougefo.service.month.MonthService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
-import com.example.filrougefo.web.product.ProductDTO;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -53,10 +50,10 @@ public class ProductService implements IntProductService {
     }
 
     @Override
-    public List<Product> findAllProductPerMonth(String monthName) {
+    public List<Product> findAllProductPerMonth(int id) {
         Month month = monthService
-                .findByName(monthName)
-                .orElseThrow(() -> new MonthNotFoundException("No such Month found for name:" + monthName));
+                .findById(id)
+                .orElseThrow(() -> new MonthNotFoundException("No such Month found for id=" + id));
 
         return productRepository.findAllBySeasonalMonthsContaining(month);
 
