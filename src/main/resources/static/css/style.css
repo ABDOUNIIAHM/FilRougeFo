@@ -133,5 +133,10 @@ body {
 .fields-error {
     color: red;
     font-size: 0.8em;
+}
 
+.card-with-css{
+    width: auto;
+    margin-inline: 4em;
+    height: fit-content;
 }
