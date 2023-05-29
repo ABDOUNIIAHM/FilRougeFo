@@ -61,25 +61,25 @@ public class ClientEditController {
     @GetMapping("/password")
     public String editPasswordForm(Model model){
 
-        ClientPasswordDto clientPasswordDto = new ClientPasswordDto();
-        model.addAttribute("clientPasswordDto", clientPasswordDto);
+        EditPasswordDto editPasswordDto = new EditPasswordDto();
+        editPasswordDto.setPassword(authenticatedClient.getPassword());
+        model.addAttribute("editPasswordDto", editPasswordDto);
         return "client/edit-password";
     }
     @PostMapping("/password")
-    public String editPassword(Model model,
-                               @ModelAttribute("clientPasswordDto") @Valid ClientPasswordDto clientPasswordDto,
-                               BindingResult bindingResult,
-                               ClientAuthDetail authenticatedClient){
+    public String editPassword(@ModelAttribute("editPasswordDto") @Valid EditPasswordDto editPasswordDto,
+                               BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
             return "client/edit-password";
         }
 
-        String newPassword = clientPasswordDto.getNewPassword();
+        String newPassword = editPasswordDto.getNewPassword();
         Client authClient = authenticatedClient.getClient();
         authClient.setPassword(passwordEncoder.encode(newPassword));
         clientService.updateClient(authClient);
-        return "redirect:/auth/client/detail";
+
+        return "redirect:/login";
     }
 
     @PostMapping("/update")

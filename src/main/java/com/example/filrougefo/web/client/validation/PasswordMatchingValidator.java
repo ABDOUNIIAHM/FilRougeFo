@@ -2,6 +2,7 @@ package com.example.filrougefo.web.client.validation;
 
 import com.example.filrougefo.web.client.ClientDto;
 import com.example.filrougefo.web.client.edit.ClientPasswordDto;
+import com.example.filrougefo.web.client.edit.EditPasswordDto;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -25,6 +26,10 @@ public class PasswordMatchingValidator implements ConstraintValidator<MatchingPa
         if(o instanceof ClientPasswordDto){
             ClientPasswordDto client = (ClientPasswordDto) o;
             return client.getMatchingPassword().equals(client.getPassword());
+        }
+        if(o instanceof EditPasswordDto){
+            EditPasswordDto pass = (EditPasswordDto) o;
+            return pass.getMatchingPassword().equals(pass.getPassword());
         }
         return false;
 
