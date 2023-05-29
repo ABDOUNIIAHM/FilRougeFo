@@ -93,12 +93,14 @@ public class OrderController {
 
     @PostMapping("/add-to-cart/{id}")
     public String addProductToCart(@RequestParam("quantity") String quantity, Model model, @PathVariable int id) {
+
         Product product = productService.findById(id);
         ProductDTO productDTO = productMapper.toDTO(product);
         double qty = Double.parseDouble(quantity);
+
         if (orderService.addProductToOrder(id, qty, authenticatedClient.getClient()) == true) {
             // La quantité est suffisante
-            return "redirect:/products/details/" + id;
+            return "redirect:/products";
         } else {
             // La quantité est insuffisante, renvoyez un message d'erreur
             String error = "La quantité demandée est supérieure au stock disponible.";
