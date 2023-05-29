@@ -79,14 +79,15 @@
 
             <form th:action="@{/auth/payment}" method="get">
               <p>
-                Total : <span th:text="${#numbers.formatDecimal(pendingOrderDto.computeTotal(), 1, 2)} + '&nbsp;&euro;'"></span>
-                <button type="submit" id="validerCommandeBtn" th:name="idOrder" th:value="*{id}" class="btn btn-success">Valider la commande</button>
+
+                <button type="submit" id="validerCommandeBtn" th:name="idOrder" th:value="*{id}" class="btn btn-success">Valider la commande </br> <span th:text="${#numbers.formatDecimal(pendingOrderDto.computeTotal(), 1, 2)} + '&nbsp;&euro;'"></span></button>
               </p>
             </form>
 
             <a th:href="@{/products}"
                class="btn btn-primary ajust-height">
               Ajouter un produit
+
             </a>
 
           </div>
