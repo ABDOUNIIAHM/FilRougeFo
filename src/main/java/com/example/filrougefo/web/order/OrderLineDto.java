@@ -22,8 +22,9 @@ public class OrderLineDto {
         if (this.discount == null) {
             this.setDiscount(BigDecimal.valueOf(0));
         }
-        // price * (1 - discount) * qty
-        return this.product.getPricePerUnit().multiply((BigDecimal.valueOf(1).subtract(discount))).multiply(this.quantity);
+        // price * (1 + vat) * (1 - discount) * qty
+        BigDecimal price = this.product.getPricePerUnit().multiply(this.getProduct().getVat().add(BigDecimal.valueOf(1)));
+        return price.multiply((BigDecimal.valueOf(1).subtract(discount))).multiply(this.quantity);
 
     }
 

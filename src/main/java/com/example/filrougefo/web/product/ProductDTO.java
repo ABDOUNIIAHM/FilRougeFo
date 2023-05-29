@@ -25,5 +25,8 @@ public class ProductDTO {
     private BigDecimal stock;
     private Category category;
     private List<MonthDTO> seasonalMonths = new ArrayList<>();
+    public BigDecimal computePriceWithTaxes() {
+        return pricePerUnit.multiply(vat.add(BigDecimal.valueOf(1)));
+    }
 
 }

@@ -57,7 +57,7 @@
                 <dt class="col-md-3">Prix</dt>
                 <dd class="col-md-9">
                   <span th:utext="${'&euro;'+'&nbsp;'}"></span>
-                  <span th:text="${product.pricePerUnit}"></span> / <span th:text="${product.unit}"></span>
+                  <span th:text="${#numbers.formatDecimal(product.computePriceWithTaxes(), 1, 2)}"></span> / <span th:text="${product.unit}"></span>
                 </dd>
 
                 <dt class="col-md-3">Description</dt>

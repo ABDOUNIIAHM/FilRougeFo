@@ -167,7 +167,7 @@
 
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <label class="form-label">Complément&ast;</label>
+                    <label class="form-label">Complément</label>
                     <input type="text" th:field="*{addressList[0].complement}" placeholder="Bât 4 Appt 12, ..." class="form-control">
                     <div class="fields-error">
                       <p th:each="error:${#fields.errors('addressList[0].complement')}" th:text="${error}"></p>
