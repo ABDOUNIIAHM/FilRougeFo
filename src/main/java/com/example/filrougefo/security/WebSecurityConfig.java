@@ -38,9 +38,6 @@ public class WebSecurityConfig {
             return (ClientAuthDetail) authentication.getPrincipal();
         } else {
             return null;
-            // Handle the case where the principal object is not of type ClientAuthDetail
-            // You can return null or throw an exception depending on your requirements
-            //throw new IllegalStateException("Authenticated client details are not available or are of an incompatible type.");
         }
     }
     private static final String[] WHITELIST_RESSOURCES = {"/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico"};
@@ -67,7 +64,7 @@ public class WebSecurityConfig {
                             .usernameParameter("email")
                             .passwordParameter("password")
 
-                            .defaultSuccessUrl("/auth/cart", true);
+                            .defaultSuccessUrl("/products", true);
                 })
                 .logout(logout -> {
                     logout

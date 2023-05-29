@@ -18,59 +18,8 @@
             <!-- Filters -->
             <div id="sidebar" class="col col-sm-4 col-md-2 bg-light rounded">
 
-                <div class="py-3">
+                <div th:replace="~{product/fragment/sidebar :: products-sidebar}"></div>
 
-                    <h6>Filtres</h6>
-
-                    <div class="py-1">
-                        <a th:href="@{/products}" class="btn d-block btn-outline-primary">
-                            Réinitialiser
-                        </a>
-                    </div>
-
-
-
-                    <!-- Categories -->
-                    <div class="py-1">
-
-                        <a href="#categories" class="btn d-block btn-outline-secondary" role="button"
-                           data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">
-                            Categories <i class="bi bi-chevron-down"></i>
-                        </a>
-
-                        <ul th:each="category : ${categoryList}"
-                            class="list-group list-group-flush collapse" id="categories">
-                            <li class="list-group-item list-group-item-action">
-                                <!--                                th:classappend="${active}">-->
-                                <a th:href="@{/products/categories/{id}(id=${category.id})}"
-                                   th:text="${category.name}"></a>
-                                <span th:text="666" class="badge text-bg-secondary badge-pill"></span>
-                            </li>
-                        </ul>
-
-                    </div>
-
-                    <!-- Mois -->
-                    <div class="py-1">
-
-                        <a href="#months" class="btn d-block btn-outline-secondary" role="button"
-                           data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">
-                            Mois <i class="bi bi-chevron-down"></i>
-                        </a>
-
-                        <ul th:each="month : ${monthList}"
-                        class="list-group list-group-flush collapse" id="months">
-                        <li class="list-group-item list-group-item-action">
-                            <!--                                th:classappend="${active}">-->
-                            <a th:href="@{/products/month/{monthName}(monthName=${month.name})}"
-                               th:text="${month.name}"></a>
-                            <span th:text="666" class="badge text-bg-secondary badge-pill"></span>
-                        </li>
-                    </ul>
-
-                    </div>
-
-                </div>
             </div>
 
             <!-- Product cards -->

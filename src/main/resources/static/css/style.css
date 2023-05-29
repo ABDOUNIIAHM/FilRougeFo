@@ -110,6 +110,39 @@ body {
     font-size: 12px;
     margin-top: 5px;
 }
+
 #btnSuccess{
     background-color: #1c4f37;
+}
+
+
+.ul-cart {
+    list-style-type: none;
+    margin-left: 10px;
+}
+
+.sizeOfFont{
+    font-size: 25px;
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+
+.ajust-height{
+   height:fit-content;
+}
+
+.fields-error {
+    color: red;
+    font-size: 0.8em;
+}
+
+.fields-error p {
+    margin: 0;
+    padding: 0;
+}
+
+.card-with-css{
+    width: auto;
+    margin-inline: 4em;
+    height: fit-content;
 }

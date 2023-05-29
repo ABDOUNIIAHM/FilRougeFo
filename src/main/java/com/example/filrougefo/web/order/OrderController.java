@@ -39,6 +39,26 @@ public class OrderController {
     private final IntOrderLineService orderLineService;
     private IntMonthService monthService;
     private MonthMapper monthMapper;
+
+
+
+    private boolean handleOutOfStockProducts(Order pendingOrder, Model model) {
+        List<Product> outOfStock = productService.checkIfAvailableStock(pendingOrder);
+
+        if (outOfStock.size() > 0) {
+            List<String> outOfStockProducts = outOfStock.stream()
+                    .map(p -> p.getName() + " (Stock restant : " + p.getStock() + " " + p.getUnit() + ")")
+                    .toList();
+
+            OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);
+            model.addAttribute("pendingOrderDto", pendingOrderDto);
+            model.addAttribute("outOfStockProducts", outOfStockProducts);
+            return true;
+        }
+
+        return false;
+    }
+
     @GetMapping("/orders")
     public String getAllOrders(Model model) {
 
@@ -49,6 +69,7 @@ public class OrderController {
 
         return "order/order-history";
     }
+
 
     @GetMapping("/orders/{id}")
     public String getOrderDetails(@PathVariable int id, Model model) {
@@ -72,12 +93,14 @@ public class OrderController {
 
     @PostMapping("/add-to-cart/{id}")
     public String addProductToCart(@RequestParam("quantity") String quantity, Model model, @PathVariable int id) {
+
         Product product = productService.findById(id);
         ProductDTO productDTO = productMapper.toDTO(product);
         double qty = Double.parseDouble(quantity);
+
         if (orderService.addProductToOrder(id, qty, authenticatedClient.getClient()) == true) {
             // La quantité est suffisante
-            return "redirect:/products/details/" + id;
+            return "redirect:/products";
         } else {
             // La quantité est insuffisante, renvoyez un message d'erreur
             String error = "La quantité demandée est supérieure au stock disponible.";
@@ -104,6 +127,12 @@ public class OrderController {
 
     @GetMapping("/payment")
     public String getPaymentForm(Model model, @RequestParam("idOrder") long idOrder){
+        Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
+        boolean isOutOfStock = handleOutOfStockProducts(pendingOrder, model);
+
+        if (isOutOfStock) {
+            return "order/cart";
+        }
         CardPaymentDto paymentDto = new CardPaymentDto();
         paymentDto.setId(idOrder);
         model.addAttribute("paymentDto", paymentDto);
@@ -119,18 +148,9 @@ public class OrderController {
         }
 
         Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
-        List<Product> outOfStock = productService.checkIfAvailableStock(pendingOrder);
+        boolean isOutOfStock = handleOutOfStockProducts(pendingOrder, model);
 
-        if(outOfStock.size()>0){
-
-            List<String> outOfStockProducts = outOfStock
-                            .stream()
-                            .map(p -> p.getName() + " (Stock restant : " + p.getStock() + " " + p.getUnit() + ")")
-                            .toList();
-
-            OrderDto pendingOrderDto = orderMapper.toDTO(pendingOrder);
-            model.addAttribute("pendingOrderDto", pendingOrderDto);
-            model.addAttribute("outOfStockProducts",outOfStockProducts);
+        if (isOutOfStock) {
             return "order/cart";
         }
 

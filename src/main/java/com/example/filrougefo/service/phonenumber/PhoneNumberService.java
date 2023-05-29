@@ -40,6 +40,11 @@ public class PhoneNumberService implements IntPhoneNumberService {
         phoneNumberRepository.save(phoneNumber);
     }
 
+    @Override
+    public void deletePhoneNumber(long idPhoneNumber) {
+        phoneNumberRepository.deleteById(idPhoneNumber);
+    }
+
     public void add(PhoneNumber phoneNumber) {
         phoneNumberRepository.save(phoneNumber);
     }

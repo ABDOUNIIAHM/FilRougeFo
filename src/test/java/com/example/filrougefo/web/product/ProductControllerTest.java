@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.contains;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @Import({ProductConfig.class, WebSecurityConfig.class})
@@ -130,7 +131,7 @@ class ProductControllerTest {
         Category c2 = new Category(); c2.setId(2);  c2.setName("category2");
         List<Category> categories = List.of(c1,c2);
 
-        Month month = new Month();
+        Month month = new Month(); month.setName("month"); month.setProducts(products);
         List<Month> monthList = List.of(month);
         Order order = new Order(); order.getOrderLines().add(new OrderLine());
 
@@ -160,9 +161,9 @@ class ProductControllerTest {
     @Test
     void ShouldReturnProductDetails() throws Exception {
         //given
-        Product p1 = new Product(); p1.setId(1);p1.setName("");p1.setCategory(new Category());p1.setVat(BigDecimal.ONE);
+        Product p1 = new Product(); p1.setId(1); p1.setName(""); p1.setCategory(new Category()); p1.setVat(BigDecimal.ONE);
 
-        Month month = new Month();
+        Month month = new Month(); month.setName("month");
         List<Month> monthList = List.of(month);
         Order order = new Order(); order.getOrderLines().add(new OrderLine());
 
@@ -189,10 +190,10 @@ class ProductControllerTest {
     @Test
     void ShouldReturnProductOfGivenMonth() throws Exception {
         //given
-        Product p1 = new Product(); p1.setId(1);p1.setName("");p1.setCategory(new Category());p1.setVat(BigDecimal.ONE);
+        Product p1 = new Product(); p1.setId(1); p1.setName(""); p1.setCategory(new Category()); p1.setVat(BigDecimal.ONE);
         List<Product> products = List.of(p1);
 
-        Month month = new Month();
+        Month month = new Month(); month.setName("month"); month.setProducts(products);
         List<Month> monthList = List.of(month);
         Order order = new Order(); order.getOrderLines().add(new OrderLine());
 
@@ -203,7 +204,7 @@ class ProductControllerTest {
 
         //when
         when(categoryService.findAll()).thenReturn(categories);
-        when(productService.findAllProductPerMonth(any(String.class))).thenReturn(products);
+        when(productService.findAllProductPerMonth(anyInt())).thenReturn(products);
         when(monthService.findAll()).thenReturn(monthList);
         when(clientAuthDetail.getClient()).thenReturn(new Client());
         when(orderService.hasPendingOrder(any(Client.class))).thenReturn(order);
@@ -216,9 +217,9 @@ class ProductControllerTest {
 
         List<CategoryDto> expected1 = mapCategoryListToDto();
 
-        List<ProductDTO> expected2 = products.stream().map(p->productMapper.toDTO(p)).toList();
+        List<ProductDTO> expected2 = products.stream().map(p -> productMapper.toDTO(p)).toList();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/products/month/March"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/month/3"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("product/product-list"))
                 .andExpect(MockMvcResultMatchers.model().attribute("categoryList",contains(expected1.toArray())))

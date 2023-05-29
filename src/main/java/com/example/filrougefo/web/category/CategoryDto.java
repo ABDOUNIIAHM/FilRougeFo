@@ -11,4 +11,5 @@ public class CategoryDto {
     private int id;
     private String name;
     private List<Product> productList;
+    private int countProduct;
 }

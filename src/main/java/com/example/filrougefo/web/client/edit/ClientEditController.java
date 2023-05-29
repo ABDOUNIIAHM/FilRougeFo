@@ -16,6 +16,7 @@ import com.example.filrougefo.web.order.OrderMapper;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.parameters.P;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,11 +30,13 @@ public class ClientEditController {
     private ClientAuthDetail authenticatedClient;
     private IntClientService clientService;
     private ClientProfileMapper clientProfileMapper;
+    private ClientPasswordMapper clientPasswordMapper;
     private AddressService addressService;
     private AddressMapper addressMapper;
     private PhoneNumberService phoneNumberService;
     private PhoneNumberMapper phoneNumberMapper;
     private OrderLineService orderLineService;
+    private PasswordEncoder passwordEncoder;
     private OrderService orderService;
     private OrderMapper orderMapper;
 
@@ -54,6 +57,42 @@ public class ClientEditController {
         model.addAttribute("isEditProfile", true);
 
         return "client/client-layout";
+    }
+
+    @GetMapping("/phone/delete/{id}")
+    public String deleteClientPhone(@PathVariable("id") long phoneId) {
+        phoneNumberService.deletePhoneNumber(phoneId);
+        return "redirect:/auth/client/detail";
+    }
+
+    @GetMapping("/address/delete/{id}")
+    public String deleteClientAddress(@PathVariable("id") long addressId) {
+        addressService.deleteAddress(addressId);
+        return "redirect:/auth/client/detail";
+    }
+
+    @GetMapping("/password")
+    public String editPasswordForm(Model model){
+
+        EditPasswordDto editPasswordDto = new EditPasswordDto();
+        editPasswordDto.setPassword(authenticatedClient.getPassword());
+        model.addAttribute("editPasswordDto", editPasswordDto);
+        return "client/edit-password";
+    }
+    @PostMapping("/password")
+    public String editPassword(@ModelAttribute("editPasswordDto") @Valid EditPasswordDto editPasswordDto,
+                               BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "client/edit-password";
+        }
+
+        String newPassword = editPasswordDto.getNewPassword();
+        Client authClient = authenticatedClient.getClient();
+        authClient.setPassword(passwordEncoder.encode(newPassword));
+        clientService.updateClient(authClient);
+
+        return "redirect:/login";
     }
 
     @PostMapping("/update")
@@ -119,6 +158,7 @@ public class ClientEditController {
         model.addAttribute("isEditPhone", true);
         model.addAttribute("editedPhoneNumber", phoneNumberMapper.toDTO(phoneNumberToUpdate));
         model.addAttribute("id", id);
+        model.addAttribute("newPhoneNumber", new PhoneNumberDto());
 
         return "client/client-layout";
     }
@@ -131,7 +171,7 @@ public class ClientEditController {
             model.addAttribute("client", getClientProfileDTO());
             model.addAttribute("isEditPhone", true);
             model.addAttribute("editedPhoneNumber", editedPhoneNumber);
-            model.addAttribute("id", editedPhoneNumber.getId());
+            model.addAttribute("newPhoneNumber", new PhoneNumberDto());
 
             return "client/client-layout";
         }
@@ -167,6 +207,7 @@ public class ClientEditController {
     public String addressForm(Model model) {
 
         model.addAttribute("address", new AddressDto());
+        model.addAttribute("isNewAddress", true);
 
         return "client/address-form";
     }
