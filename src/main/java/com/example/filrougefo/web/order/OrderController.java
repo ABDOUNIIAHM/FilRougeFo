@@ -5,10 +5,13 @@ import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.security.ClientAuthDetail;
+import com.example.filrougefo.service.address.AddressService;
 import com.example.filrougefo.service.month.IntMonthService;
 import com.example.filrougefo.service.order.IntOrderService;
 import com.example.filrougefo.service.orderline.IntOrderLineService;
 import com.example.filrougefo.service.product.IntProductService;
+import com.example.filrougefo.web.client.AddressDto;
+import com.example.filrougefo.web.client.AddressMapper;
 import com.example.filrougefo.web.order.paymentDto.CardPaymentDto;
 import com.example.filrougefo.web.product.MonthDTO;
 import com.example.filrougefo.web.product.MonthMapper;
@@ -39,6 +42,8 @@ public class OrderController {
     private final IntOrderLineService orderLineService;
     private IntMonthService monthService;
     private MonthMapper monthMapper;
+    private AddressService addressService;
+    private AddressMapper addressMapper;
 
 
 
@@ -127,15 +132,24 @@ public class OrderController {
 
     @GetMapping("/payment")
     public String getPaymentForm(Model model, @RequestParam("idOrder") long idOrder){
+
         Order pendingOrder = orderService.hasPendingOrder(authenticatedClient.getClient());
         boolean isOutOfStock = handleOutOfStockProducts(pendingOrder, model);
 
         if (isOutOfStock) {
             return "order/cart";
         }
+
         CardPaymentDto paymentDto = new CardPaymentDto();
         paymentDto.setId(idOrder);
+        List<AddressDto> addressList = addressService.findAddressesByClient(authenticatedClient.getClient())
+                        .stream()
+                        .map(addressMapper::toDTO)
+                        .toList();
+
         model.addAttribute("paymentDto", paymentDto);
+        model.addAttribute("addressList", addressList);
+
         return "payment";
     }
 
@@ -143,7 +157,14 @@ public class OrderController {
     public String confirmPayment(@ModelAttribute("paymentDto") @Valid CardPaymentDto paymentDto, BindingResult bindingResult, @PathVariable long id, Model model){
 
         if(bindingResult.hasErrors()){
+            List<AddressDto> addressList = addressService.findAddressesByClient(authenticatedClient.getClient())
+                    .stream()
+                    .map(addressMapper::toDTO)
+                    .toList();
+
             model.addAttribute("paymentDto", paymentDto);
+            model.addAttribute("addressList", addressList);
+
             return "payment";
         }
 
@@ -156,6 +177,7 @@ public class OrderController {
 
         productService.updateProductStock(pendingOrder);
         orderService.validateOrder(id);
+
         return "success-order";
     }
 
