@@ -17,7 +17,6 @@ public class LogoutController {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-
         // Redirection vers la page de connexion
         return "redirect:/login";
     }

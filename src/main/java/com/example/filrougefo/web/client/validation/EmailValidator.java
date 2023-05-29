@@ -1,7 +1,5 @@
 package com.example.filrougefo.web.client.validation;
 
-
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

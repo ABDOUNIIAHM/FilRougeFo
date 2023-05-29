@@ -39,11 +39,6 @@ public class OrderLineService implements IntOrderLineService {
     }
 
     @Override
-    public OrderLine save(OrderLine orderLine) {
-        return orderLineRepository.save(orderLine);
-    }
-
-    @Override
     public boolean deleteOrderLine(long id) {
 
         Optional<OrderLine> toDelete = orderLineRepository.findById(id);

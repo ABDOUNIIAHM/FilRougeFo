@@ -6,8 +6,11 @@ import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.PhoneNumber;
 import com.example.filrougefo.exception.ClientAlreadyExistException;
 import com.example.filrougefo.service.client.IntClientService;
+
 import jakarta.validation.Valid;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

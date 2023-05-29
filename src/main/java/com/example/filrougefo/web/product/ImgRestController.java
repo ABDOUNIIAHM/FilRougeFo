@@ -1,9 +1,10 @@
 package com.example.filrougefo.web.product;
 
 import com.example.filrougefo.entity.Product;
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 
+import lombok.AllArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 

@@ -9,8 +9,11 @@ import com.example.filrougefo.web.client.ClientController;
 import com.example.filrougefo.web.client.edit.ClientEditController;
 import com.example.filrougefo.web.order.OrderController;
 import com.example.filrougefo.web.product.ProductController;
+
 import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;

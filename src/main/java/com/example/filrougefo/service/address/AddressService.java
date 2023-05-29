@@ -3,7 +3,6 @@ package com.example.filrougefo.service.address;
 import com.example.filrougefo.entity.Address;
 import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.exception.AddressNotFoundException;
-import com.example.filrougefo.exception.PhoneNumberNotFoundException;
 import com.example.filrougefo.repository.AddressRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

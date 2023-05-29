@@ -1,4 +1,5 @@
 package com.example.filrougefo.service.order;
+
 import com.example.filrougefo.entity.*;
 import com.example.filrougefo.exception.OrderNotFoundException;
 import com.example.filrougefo.repository.ClientRepository;
@@ -90,11 +91,6 @@ public class OrderService implements IntOrderService{
         pendingOrder.getOrderLines().add(orderLine);
         orderRepository.save(pendingOrder);
         return true;
-    }
-
-    @Override
-    public List<Order> findAllOrders(Client client) {
-        return orderRepository.findAllByClientId(client.getId());
     }
 
     @Override

@@ -7,7 +7,6 @@ import java.util.List;
 
 @Service
 public interface IntMonthService {
-
     List<Month> findAll();
 
 }

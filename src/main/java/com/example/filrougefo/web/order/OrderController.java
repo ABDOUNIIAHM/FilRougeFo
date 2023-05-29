@@ -5,7 +5,6 @@ import com.example.filrougefo.entity.Order;
 import com.example.filrougefo.entity.OrderLine;
 import com.example.filrougefo.entity.Product;
 import com.example.filrougefo.security.ClientAuthDetail;
-import com.example.filrougefo.service.address.AddressService;
 import com.example.filrougefo.service.address.IntAddressService;
 import com.example.filrougefo.service.month.IntMonthService;
 import com.example.filrougefo.service.order.IntOrderService;
@@ -18,15 +17,16 @@ import com.example.filrougefo.web.product.MonthDTO;
 import com.example.filrougefo.web.product.MonthMapper;
 import com.example.filrougefo.web.product.ProductDTO;
 import com.example.filrougefo.web.product.ProductMapper;
+
 import jakarta.validation.Valid;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

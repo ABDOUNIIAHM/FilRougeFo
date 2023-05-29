@@ -2,14 +2,12 @@ package com.example.filrougefo.service.phonenumber;
 
 import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.entity.PhoneNumber;
-import com.example.filrougefo.exception.ClientNotFoundException;
 import com.example.filrougefo.exception.PhoneNumberNotFoundException;
 import com.example.filrougefo.repository.PhoneNumberRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

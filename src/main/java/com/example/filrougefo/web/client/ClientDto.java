@@ -1,8 +1,8 @@
 package com.example.filrougefo.web.client;
 
-import com.example.filrougefo.entity.Address;
+
 import com.example.filrougefo.entity.Order;
-import com.example.filrougefo.entity.PhoneNumber;
+
 import com.example.filrougefo.web.client.validation.MatchingPassword;
 import com.example.filrougefo.web.client.validation.ValidEmail;
 import jakarta.validation.Valid;
@@ -10,11 +10,10 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @EqualsAndHashCode @ToString
 @MatchingPassword
