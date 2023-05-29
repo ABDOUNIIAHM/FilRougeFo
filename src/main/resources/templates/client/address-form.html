@@ -10,77 +10,86 @@
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
+<br>
 
-<div class="container-fluid p-3 mb-5">
+<div class="card card-with-css">
+    <div class="card-header">
+        <h4>Modifier l'adresse</h4>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid p-3 ">
 
+            <form th:action="@{/auth/client/address}" method="POST" th:object="${address}">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Titre</label>
+                            <input type="text" th:field="*{title}" placeholder="Titre"  class="form-control">
+                        </div>
+                    </div>
 
-    <form th:action="@{/auth/client/address}" method="POST" th:object="${address}">
-        <div class="row">
-        <div class="col-md-4">
-            <div class="mb-3">
-                <label class="form-label"></label>
-                <input type="text" th:field="*{title}" placeholder="Titre"  class="form-control">
-            </div>
-        </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Numéro</label>
+                            <input type="text" th:field="*{number}" placeholder="numéro"  class="form-control">
+                            <p style="color: red" th:each="error:${#fields.errors('number')}" th:text="${error}"></p>
 
-        <div class="col-md-4">
-            <div class="mb-3">
-                <label class="form-label"></label>
-                <input type="text" th:field="*{number}" placeholder="numéro"  class="form-control">
-                <p style="color: red" th:each="error:${#fields.errors('number')}" th:text="${error}"></p>
+                        </div>
+                    </div>
 
-            </div>
-        </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Type</label>
+                            <input type="text" th:field="*{roadPrefix}" placeholder="type" class="form-control">
+                            <p style="color: red" th:each="error:${#fields.errors('roadPrefix')}" th:text="${error}"></p>
 
-        <div class="col-md-4">
-            <div class="mb-3">
-                <label class="form-label"></label>
-                <input type="text" th:field="*{roadPrefix}" placeholder="type" class="form-control">
-                <p style="color: red" th:each="error:${#fields.errors('roadPrefix')}" th:text="${error}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Nom</label>
+                            <input type="text" th:field="*{roadName}" placeholder="Nom" class="form-control">
+                            <p style="color: red" th:each="error:${#fields.errors('roadName')}" th:text="${error}"></p>
 
-            </div>
-        </div>
+                        </div>
+                    </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <div class="mb-3">
-                <label class="form-label"></label>
-                <input type="text" th:field="*{roadName}" placeholder="Nom" class="form-control">
-<!--                <p style="color: red" th:each="error:${#fields.errors('roadName')}" th:text="${error}"></p>-->
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Complément</label>
+                            <input type="text" th:field="*{complement}" placeholder="Complement" class="form-control">
+                        </div>
+                    </div>
 
-            </div>
-        </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Code Postal</label>
+                            <input type="text" th:field="*{zipCode}" placeholder="Code postal" class="form-control">
+                            <p style="color: red" th:each="error:${#fields.errors('zipCode')}" th:text="${error}"></p>
+                        </div>
+                    </div>
 
-        <div class="col-md-3">
-            <div class="mb-3">
-                <label class="form-label"></label>
-                <input type="text" th:field="*{complement}" placeholder="Complement" class="form-control">
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="mb-3">
-                <label class="form-label"></label>
-                <input type="text" th:field="*{zipCode}" placeholder="Code postal" class="form-control">
-<!--                <p style="color: red" th:each="error:${#fields.errors('zipCode')}" th:text="${error}"></p>-->
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="mb-3">
-                <label class="form-label"></label>
-                <input type="text" th:field="*{city}" th:value="*{city}" placeholder="Commune"  class="form-control">
-<!--                <p style="color: red" th:each="error:${#fields.errors('city')}" th:text="${error}"></p>-->
-            </div>
-        </div>
-
-        <input hidden type="text" th:field="*{id}">
-
-        <button type="submit" class="btn btn-success">Editer</button>
-        </form>
-
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Ville</label>
+                            <input type="text" th:field="*{city}" th:value="*{city}" placeholder="Commune"  class="form-control">
+                            <p style="color: red" th:each="error:${#fields.errors('city')}" th:text="${error}"></p>
+                        </div>
+                    </div>
+                </div>
+                <input hidden type="text" th:field="*{id}">
+<div class="d-flex justify-content-around mt-3">
+    <button type="submit" class="btn btn-success w-25 d-flex justify-content-around ">Editer</button>
 </div>
 
+
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
 <div th:replace="~{fragments/footer :: footer}"></div>
