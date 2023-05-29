@@ -1,0 +1,103 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > IntAddressService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.service.address</a>
+</div>
+
+<h1>Coverage Summary for Class: IntAddressService (com.example.filrougefo.service.address)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">IntAddressService$MockitoMock$HDSc6fFG</td>
+  </tr>
+  <tr>
+    <td class="name">IntAddressService$MockitoMock$HDSc6fFG$auxiliary$1B5Q1gVC</td>
+  </tr>
+  <tr>
+    <td class="name">IntAddressService$MockitoMock$HDSc6fFG$auxiliary$MoxfsJRr</td>
+  </tr>
+  <tr>
+    <td class="name">IntAddressService$MockitoMock$yj2y1u9I</td>
+  </tr>
+  <tr>
+    <td class="name">IntAddressService$MockitoMock$yj2y1u9I$auxiliary$je7QDLSY</td>
+  </tr>
+  <tr>
+    <td class="name">IntAddressService$MockitoMock$yj2y1u9I$auxiliary$lSUApAwE</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.service.address;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.Address;
+&nbsp;import com.example.filrougefo.entity.Client;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+&nbsp;public interface IntAddressService {
+&nbsp;
+&nbsp;    Address findById(long id);
+&nbsp;    List&lt;Address&gt; findAddressesByClient(Client client);
+&nbsp;
+&nbsp;    void updateAddress(long addressId, String title, String roadPrefix, String roadName, String city, String number, String complement, String zipCode);
+&nbsp;
+&nbsp;    void deleteAddress(long addressId);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

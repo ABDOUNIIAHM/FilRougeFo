@@ -1,0 +1,110 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > IntOrderService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.service.order</a>
+</div>
+
+<h1>Coverage Summary for Class: IntOrderService (com.example.filrougefo.service.order)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">IntOrderService$MockitoMock$Pd5DFiH7</td>
+  </tr>
+  <tr>
+    <td class="name">IntOrderService$MockitoMock$Pd5DFiH7$auxiliary$a8WkhhIQ</td>
+  </tr>
+  <tr>
+    <td class="name">IntOrderService$MockitoMock$Pd5DFiH7$auxiliary$FRzVtRiJ</td>
+  </tr>
+  <tr>
+    <td class="name">IntOrderService$MockitoMock$U6Fspn0t</td>
+  </tr>
+  <tr>
+    <td class="name">IntOrderService$MockitoMock$U6Fspn0t$auxiliary$EQvka1jy</td>
+  </tr>
+  <tr>
+    <td class="name">IntOrderService$MockitoMock$U6Fspn0t$auxiliary$Z56EkCsY</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.service.order;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.Client;
+&nbsp;import com.example.filrougefo.entity.Order;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+&nbsp;public interface IntOrderService {
+&nbsp;    List&lt;Order&gt; findAllOrdersByClientId(long id);
+&nbsp;    List&lt;Order&gt; findAllOrdersByStatus_Id(long id);
+&nbsp;    List&lt;Order&gt; findAllOrdersByStatus_Name(String name);
+&nbsp;    List&lt;Order&gt; findAllByOrdersBeforeChosenDate(LocalDate date);
+&nbsp;    Order findOrderById(long id);
+&nbsp;    boolean addProductToOrder(int productId, double quantity, Client client);
+&nbsp;
+&nbsp;    Order hasPendingOrder(Client client);
+&nbsp;    List&lt;Order&gt; getNonPendingOrders(Client client);
+&nbsp;    boolean validateOrder(long orderId);
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>

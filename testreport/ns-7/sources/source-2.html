@@ -1,0 +1,101 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > IntCategoryService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.filrougefo.service.category</a>
+</div>
+
+<h1>Coverage Summary for Class: IntCategoryService (com.example.filrougefo.service.category)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">IntCategoryService$MockitoMock$nOcRmoIy</td>
+  </tr>
+  <tr>
+    <td class="name">IntCategoryService$MockitoMock$nOcRmoIy$auxiliary$3yuHd75t</td>
+  </tr>
+  <tr>
+    <td class="name">IntCategoryService$MockitoMock$nOcRmoIy$auxiliary$B50TOaGX</td>
+  </tr>
+  <tr>
+    <td class="name">IntCategoryService$MockitoMock$QDao3yCC</td>
+  </tr>
+  <tr>
+    <td class="name">IntCategoryService$MockitoMock$QDao3yCC$auxiliary$UQDSofuw</td>
+  </tr>
+  <tr>
+    <td class="name">IntCategoryService$MockitoMock$QDao3yCC$auxiliary$YIbGihyO</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.filrougefo.service.category;
+&nbsp;
+&nbsp;import com.example.filrougefo.entity.Category;
+&nbsp;import com.example.filrougefo.entity.Product;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;
+&nbsp;@Service
+&nbsp;public interface IntCategoryService {
+&nbsp;    List&lt;Category&gt; findAll();
+&nbsp;    Category findById(int id);
+&nbsp;    List&lt;Category&gt; findBySearchedName(String name);
+&nbsp;    List&lt;Category&gt; findAllCategoriesExceptProductCategory(Product product);
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-30 00:31</div>
+</div>
+</body>
+</html>
