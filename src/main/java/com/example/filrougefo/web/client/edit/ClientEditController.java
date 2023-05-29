@@ -16,6 +16,7 @@ import com.example.filrougefo.web.order.OrderMapper;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.parameters.P;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,11 +30,13 @@ public class ClientEditController {
     private ClientAuthDetail authenticatedClient;
     private IntClientService clientService;
     private ClientProfileMapper clientProfileMapper;
+    private ClientPasswordMapper clientPasswordMapper;
     private AddressService addressService;
     private AddressMapper addressMapper;
     private PhoneNumberService phoneNumberService;
     private PhoneNumberMapper phoneNumberMapper;
     private OrderLineService orderLineService;
+    private PasswordEncoder passwordEncoder;
     private OrderService orderService;
     private OrderMapper orderMapper;
 
@@ -54,6 +57,29 @@ public class ClientEditController {
         model.addAttribute("isEditProfile", true);
 
         return "client/client-layout";
+    }
+    @GetMapping("/password")
+    public String editPasswordForm(Model model){
+
+        EditPasswordDto editPasswordDto = new EditPasswordDto();
+        editPasswordDto.setPassword(authenticatedClient.getPassword());
+        model.addAttribute("editPasswordDto", editPasswordDto);
+        return "client/edit-password";
+    }
+    @PostMapping("/password")
+    public String editPassword(@ModelAttribute("editPasswordDto") @Valid EditPasswordDto editPasswordDto,
+                               BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "client/edit-password";
+        }
+
+        String newPassword = editPasswordDto.getNewPassword();
+        Client authClient = authenticatedClient.getClient();
+        authClient.setPassword(passwordEncoder.encode(newPassword));
+        clientService.updateClient(authClient);
+
+        return "redirect:/login";
     }
 
     @PostMapping("/update")
