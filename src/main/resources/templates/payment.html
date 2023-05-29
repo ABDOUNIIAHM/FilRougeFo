@@ -22,7 +22,7 @@
       <form th:action="@{/auth/payment/{id}(id=*{id})}"  method="post">
 
         <div class="mb-3">
-          <label for="payment-method" class="form-label">Paiement Method:</label>
+          <label for="payment-method" class="form-label">Méthodes de paiement:</label>
           <select id="payment-method" class="form-control">
             <option value="credit-card">Carte de crédit</option>
             <option value="paypal">PayPal</option>
@@ -42,7 +42,7 @@
             </div>
             <div class="mb-3">
               <label for="expiration-date" class="form-label">Date d'expiration</label>
-              <input type="month" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate" required>
+              <input type="date" th:field="*{expirationDate}" th:value="*{expirationDate}" class="form-control" id="expiration-date" name="expirationDate" required>
               <p style="color: red" th:each="error:${#fields.errors('expirationDate')}" th:text="${error}"></p>
             </div>
             <div class="mb-3">
@@ -73,7 +73,16 @@
           </div>
         </div>
 
-        <button type="submit" name="id" th:value="*{id}" class="btn btn-primary">Confirmer</button>
+        <div class="mb-3">
+          <label for="cvv" class="form-label">S&eacute;lectionner une adresse de livraison :</label>
+          <div th:each="address : ${addressList}">
+            <input type="radio" class="btn-check" name="address-selection" th:id="@{|#radio-id-${addressStat.count}|}" autocomplete="off">
+            <label th:text="${address.title}"
+                    class="btn btn-outline-primary" name="address-selection" th:for="@{|#radio-id-${addressStat.count}|}"></label>
+          </div>
+        </div>
+
+        <button type="submit" name="id" th:value="*{id}" class="btn btn-success">Payer et valider la commande</button>
       </form>
 
     </div>
