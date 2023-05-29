@@ -1,5 +1,7 @@
 package com.example.filrougefo.web.order;
 
+import com.example.filrougefo.web.client.AddressMapper;
+import com.example.filrougefo.web.client.AddressMapperImpl;
 import com.example.filrougefo.web.product.MonthMapper;
 import com.example.filrougefo.web.product.MonthMapperImpl;
 import com.example.filrougefo.web.product.ProductMapper;
@@ -20,6 +22,10 @@ public class OrderConfig {
     @Bean
     ProductMapper productMapper(){
         return new ProductMapperImpl();
+    }
+    @Bean
+    AddressMapper addressMapper(){
+        return new AddressMapperImpl();
     }
 
     @Bean

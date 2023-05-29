@@ -1,4 +1,5 @@
 package com.example.filrougefo.service.client;
+
 import com.example.filrougefo.entity.Client;
 import com.example.filrougefo.repository.ClientRepository;
 import org.junit.jupiter.api.Test;
