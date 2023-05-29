@@ -58,6 +58,21 @@ public class ClientEditController {
 
         return "client/client-layout";
     }
+
+    @GetMapping("/phone/delete/{id}")
+    public String deleteClientPhone(@PathVariable("id") long phoneId){
+
+        phoneNumberService.deletePhoneNumber(phoneId);
+        return "redirect:/auth/client/detail";
+    }
+
+    @GetMapping("/address/delete/{id}")
+    public String deleteClientAddress(@PathVariable("id") long addressId){
+
+        addressService.deleteAddress(addressId);
+        return "redirect:/auth/client/detail";
+    }
+
     @GetMapping("/password")
     public String editPasswordForm(Model model){
 

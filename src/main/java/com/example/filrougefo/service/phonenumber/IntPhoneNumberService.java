@@ -12,4 +12,6 @@ public interface IntPhoneNumberService {
     PhoneNumber findById(long id);
     List<PhoneNumber> findPhoneNumberByClient(Client client);
     void updatePhoneNumber(long phoneNumberId, String phoneNumber);
+
+    void deletePhoneNumber(long idPhoneNumber);
 }
